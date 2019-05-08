@@ -1,0 +1,34 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "saving": "Saving..."
+  },
+  "headerBar": {
+    "appName": "LifeCapsule",
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "menu": {
+      "login": "Login",
+      "register": "Register"
+    }
+  },
+  "user": {
+    "loginNameHolder": "Phone / Email",
+    "password": "Password",
+    "btLogin": "Login",
+    "btRegister": "Register",
+    "msgRegisterSuccess": "Register success",
+    "msgRegisterFail": "Register failed"
+  },
+  "note": {
+    "title": "Title",
+    "titleHolder": "Please input title",
+    "detail": "Detail",
+    "btSave": "Save"
+  },
+  "syserr": {
+    "10001": "Unknown error",
+    "10002": "Username or password error",
+    "10009": "This email has been registered by others"
+  }
+}

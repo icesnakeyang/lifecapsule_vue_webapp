@@ -1,0 +1,49 @@
+.gogo_content {
+  margin: 10px 10px 0;
+  /*minHeight: 500px;*/
+}
+
+.gogo_title {
+  font-size: 20px;
+  color: aliceblue;
+}
+
+.gogo_menuItem {
+  font-size: 32px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.gogo_menuItem_icon {
+  font-size: 32px;
+  padding-right: 10px;
+  padding-left: 10px;
+  /*margin: 0px;*/
+}
+
+.gogo_menuItem_text {
+  font-size: 16px;
+}
+
+.gogo_button {
+  width: 100%;
+}
+
+.gogo_spin {
+  animation: ani-demo-spin 1s linear infinite;
+}
+
+.gogo_row {
+  /*background: #8f959a;*/
+  margin-bottom: 10px;
+  height: 40px;
+  padding-top: 7px;
+  padding-left: 10px;
+}
+
+.gogo_list_icon {
+  /*color: ;*/
+  font-size: 24px;
+}
+
+
