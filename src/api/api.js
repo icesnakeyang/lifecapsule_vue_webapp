@@ -85,6 +85,14 @@ export const apiListNoteByCategory = params => {
   })
 }
 
+export const apiGetRecipientByRecipientId = params => {
+  return axios.post(`${host}/recipient/getRecipientByRecipientId`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
 export const apiCreateRecipientPerson = params => {
   return axios.post(`${host}/recipient/createRecipientPerson`, params, {
     headers: {
@@ -101,8 +109,16 @@ export const apiListRecipientByNoteId = params => {
   })
 }
 
-export const apiListRecipientPerson = params => {
-  return axios.post(`${host}/recipient/listRecipientPerson`, params, {
+export const listRecipientPersonByRecipientId = params => {
+  return axios.post(`${host}/recipient/listRecipientPersonByRecipientId`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetPersonByPersonId = params => {
+  return axios.post(`${host}/recipient/getPersonByPersonId`, params, {
     headers: {
       token: store.state.gogo_token
     }

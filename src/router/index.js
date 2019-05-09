@@ -23,6 +23,7 @@ import categoryEdit from '@/components/pages/category/categoryEdit'
 import recipientList from '@/components/pages/recipient/recipientList'
 import recipient from '@/components/pages/recipient/recipient'
 import addPerson from '@/components/pages/recipient/addPerson'
+import editPerson from '@/components/pages/recipient/editPerson'
 
 Vue.use(Router)
 
@@ -127,6 +128,14 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: addPerson
+          }
+        },
+        {
+          path: 'editPerson',
+          name: 'editPerson',
+          components: {
+            header: baseHeader,
+            content: editPerson
           }
         }
       ]

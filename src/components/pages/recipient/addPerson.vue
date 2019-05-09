@@ -52,24 +52,35 @@
           placeholder: 'remark',
           theme: 'snow'
         },
+        recipientId: null
       }
     },
     methods: {
       onSave() {
         apiCreateRecipientPerson({
+          recipientId: this.$store.state.recipient_id,
           noteId: this.$store.state.note_id,
-          recipientName: this.name,
+          personName: this.name,
           email: this.email,
           phone: this.phone,
           address: this.address,
           remark: this.remark
         }).then((response) => {
           console.log(response)
+          if (response.data.code === 0) {
+            this.$router.push({
+              name: 'recipient',
+              params: {
+                recipientId: response.data.data.recipient.recipientId
+              }
+            })
+          }
         })
-      }
+      },
     },
     mounted() {
       console.log(this.$store.state.note_id)
+      console.log(this.$store.state.recipient_id)
     }
   }
 </script>

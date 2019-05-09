@@ -1,20 +1,21 @@
 <template>
   <div>
-    <recipient v-for="(item, index) in recipientList"
+    <RecipientRow v-for="(item, index) in recipientList"
                :key="index"
-               :recipient="item"></recipient>
+               :recipient="item">
+    </RecipientRow>
     <Button class="gogo_button" @click="onAdd">Add</Button>
   </div>
 </template>
 
 <script>
   import {apiListRecipientByNoteId} from "@/api/api";
-  import Recipient from './recipient'
+  import RecipientRow from './recipientRow'
 
   export default {
     name: "recipientList",
     components: {
-      Recipient
+      RecipientRow
     },
     data() {
       return {

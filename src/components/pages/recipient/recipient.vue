@@ -25,16 +25,17 @@
     <Tabs>
       <TabPane label="接收人" icon="md-contacts">
         <Alert>指定接收人，条件触发时，系统会自动把笔记发送给此人。</Alert>
-        <person-row v-for="(item, index) in recipient.personList"
+        <person-row v-for="(item, index) in personList"
                     :key="index"
                     :person="item"></person-row>
-        <Button type="primary" class="gogo_button" @click="onAdd">Add recipient</Button>
+        <Button type="primary" class="gogo_button" @click="onAddPerson">Add recipient</Button>
       </TabPane>
     </Tabs>
   </div>
 </template>
 
 <script>
+  import {listRecipientPersonByRecipientId} from "@/api/api";
   import PersonRow from './personRow'
 
   export default {
@@ -42,18 +43,37 @@
     components: {
       PersonRow
     },
-    props: {
-      recipient: {}
+    data() {
+      return {
+        personList: []
+      }
     },
     methods: {
-      onAdd() {
+      loadAllData() {
+        if (this.$store.state.recipient_id) {
+          //如果有触发器，就查询规则和接收人
+          listRecipientPersonByRecipientId({
+            recipientId: this.$store.state.recipient_id
+          }).then((response) => {
+            console.log(response)
+            if (response.data.code === 0) {
+              this.personList = response.data.data.personList
+              console.log(this.personList)
+            }
+          })
+        }
+      },
+      onAddPerson() {
         this.$router.push({
           name: 'addPerson'
         })
       }
     },
     mounted() {
-      console.log(this.recipient)
+      if (this.$route.params.recipientId) {
+        this.$store.dispatch('saveRecipientId', this.$route.params.recipientId)
+      }
+      this.loadAllData()
     }
   }
 </script>
