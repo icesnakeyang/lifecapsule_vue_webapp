@@ -93,8 +93,8 @@ export const apiGetRecipientByRecipientId = params => {
   })
 }
 
-export const apiCreateRecipientPerson = params => {
-  return axios.post(`${host}/recipient/createRecipientPerson`, params, {
+export const apiCreateRecipient = params => {
+  return axios.post(`${host}/trigger/createRecipient`, params, {
     headers: {
       token: store.state.gogo_token
     }

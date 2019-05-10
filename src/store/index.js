@@ -9,8 +9,8 @@ export default new Vuex.Store({
     note_id: '' || localStorage.note_id,
     category_id: '' || localStorage.category_id,
     category_name: '' || localStorage.category_name,
-    recipient_id: '' || localStorage.recipient_id,
-    person_id: '' || localStorage.person_id
+    trigger_id: '' || localStorage.trigger_id,
+    recipient_id: '' || localStorage.recipient_id
   },
   actions: {
     saveToken(ctx, token) {
@@ -22,11 +22,11 @@ export default new Vuex.Store({
     saveCategory(ctx, category) {
       ctx.commit('saveCategory', category)
     },
+    saveTriggerId(ctx, triggerId) {
+      ctx.commit('saveTriggerId', triggerId)
+    },
     saveRecipientId(ctx, recipientId) {
       ctx.commit('saveRecipientId', recipientId)
-    },
-    savePersonId(ctx, personId) {
-      ctx.commit('savePersonId', personId)
     }
   },
   mutations: {
@@ -44,13 +44,13 @@ export default new Vuex.Store({
       state.category_name = category.categoryName
       localStorage.category_name = category.categoryName
     },
+    saveTriggerId(state, triggerId) {
+      state.trigger_id = triggerId
+      localStorage.trigger_id = triggerId
+    },
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId
       localStorage.recipient_id = recipientId
-    },
-    savePersonId(state, personId) {
-      state.person_id = personId
-      localStorage.person_id = personId
     }
   }
 })

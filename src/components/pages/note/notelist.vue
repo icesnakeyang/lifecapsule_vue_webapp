@@ -13,7 +13,6 @@
       </div>
     </BackTop>
     <ul>
-
       <div v-if="loading">
         <Spin>
           <Icon type="ios-loading" class="gogo_spin"></Icon>

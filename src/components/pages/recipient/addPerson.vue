@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import {apiCreateRecipientPerson} from "@/api/api";
+  import {apiCreateRecipient} from "../../../api/api";
   import {quillEditor} from 'vue-quill-editor'
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
@@ -57,10 +57,10 @@
     },
     methods: {
       onSave() {
-        apiCreateRecipientPerson({
-          recipientId: this.$store.state.recipient_id,
+        apiCreateRecipient({
+          triggerId: this.$store.state.trigger_id,
           noteId: this.$store.state.note_id,
-          personName: this.name,
+          name: this.name,
           email: this.email,
           phone: this.phone,
           address: this.address,
@@ -80,7 +80,7 @@
     },
     mounted() {
       console.log(this.$store.state.note_id)
-      console.log(this.$store.state.recipient_id)
+      console.log(this.$store.state.trigger_id)
     }
   }
 </script>

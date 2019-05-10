@@ -1,9 +1,9 @@
 <template>
   <div>
     <Form>
-      <FormItem prop="user">
+      <FormItem>
         <Input type="text"
-               v-model="phone"
+               v-model="loginname"
                :placeholder="$t('user.loginNameHolder')">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
         </Input>
@@ -35,6 +35,7 @@
     name: "login",
     data() {
       return {
+        loginname: '',
         phone: '',
         email: '',
         login_password: '',
@@ -50,7 +51,8 @@
       },
       onLogin() {
         const params = {
-          phone: this.phone,
+          phone: this.loginname,
+          email:this.loginname,
           password: this.login_password
         }
         this.submitting = true

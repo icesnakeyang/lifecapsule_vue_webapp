@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header :style="{position: 'fixed', width: '100%', 'z-index':1, padding:'0px'}">
+<!--    <Header :style="{position: 'fixed', width: '100%', 'z-index':1, padding:'0px'}">-->
       <Menu mode="horizontal" theme="dark" active-name="2" @on-select="onMenuItem">
         <!--<div class="layout-logo">asdf</div>-->
         <!--<div class="layout-logo">asdfa</div>-->
@@ -16,7 +16,7 @@
           </MenuItem>
         </div>
       </Menu>
-    </Header>
+<!--    </Header>-->
   </div>
 </template>
 
