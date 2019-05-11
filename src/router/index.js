@@ -2,29 +2,58 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/index'
 
-import baseLayout from '@/components/layout/baseLayout'
-import baseHeader from '@/components/layout/baseHeader'
-import baseFooter from '@/components/layout/baseFooter'
-import loginHeader from '@/components/layout/loginHeader'
-import registerHeader from '@/components/layout/registerHeader'
-import editNoteHeader from '@/components/layout/editNoteHeader'
-import triggerHeader from '@/components/layout/triggerHeader'
+/**
+ * base layout
+ */
+import baseHeader from '@/pages/layout/baseHeader'
+import baseLayout from '@/pages/layout/baseLayout'
+import baseFooter from '@/pages/layout/baseFooter'
 
-import girlList from '@/components/girls/girlList'
-import register from '@/components/user/register/register'
-import login from '@/components/user/login/login'
-import notelist from '@/components/pages/note/notelist'
-import newNote from '@/components/pages/note/newNote'
-import editNote from '@/components/pages/note/editNote'
-import categoryList from '@/components/pages/category/categoryList'
-import categoryHeader from '@/components/layout/categoryHeader'
-import createCategory from '@/components/pages/category/createCategory'
-import categoryEdit from '@/components/pages/category/categoryEdit'
+/**
+ * register
+ */
+import registerHeader from '@/pages/user/register/registerHeader'
+import register from '@/pages/user/register/register'
 
-import triggerList from '@/components/pages/trigger/triggerList'
-import recipient from '@/components/pages/recipient/recipient'
-import addPerson from '@/components/pages/recipient/addPerson'
-import editPerson from '@/components/pages/recipient/editPerson'
+/**
+ * login
+ */
+import loginHeader from '@/pages/user/login/loginHeader'
+import login from '@/pages/user/login/login'
+
+/**
+ * category
+ */
+import categoryList from '@/pages/category/list/categoryList'
+import categoryHeader from '@/pages/category/list/categoryHeader'
+import createCategory from '@/pages/category/new/createCategory'
+import categoryEdit from '@/pages/category/edit/categoryEdit'
+
+/**
+ * note
+ */
+import noteList from '@/pages/note/list/notelist'
+import editNoteHeader from '@/pages/note/edit/editNoteHeader'
+import newNote from '@/pages/note/new/newNote'
+import editNote from '@/pages/note/edit/editNote'
+
+/**
+ * trigger
+ */
+import triggerList from '@/pages/trigger/list/triggerList'
+
+
+import triggerListHeader from '@/pages/trigger/triggerList/triggerListHeader'
+
+
+
+
+
+
+
+import recipient from '@/pages/recipient/list/recipient'
+import addPerson from '@/pages/recipient/new/addPerson'
+import editPerson from '@/pages/recipient/edit/editPerson'
 
 Vue.use(Router)
 
@@ -51,19 +80,11 @@ const router = new Router({
           }
         },
         {
-          path: 'girlList',
-          name: 'girlList',
+          path: 'noteList',
+          name: 'noteList',
           components: {
             header: baseHeader,
-            content: girlList
-          }
-        },
-        {
-          path: 'notelist',
-          name: 'notelist',
-          components: {
-            header: baseHeader,
-            content: notelist,
+            content: noteList,
             footer: baseFooter
           }
         },
@@ -111,7 +132,7 @@ const router = new Router({
           path: 'triggerList',
           name: 'triggerList',
           components: {
-            header: triggerHeader,
+            header: triggerListHeader,
             content: triggerList
           }
         },
@@ -155,6 +176,11 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (store.state.gogo_token) {
+    if(to.fullPath==='/'){
+      next({
+        name:'noteList'
+      })
+    }
     next()
     return
   }

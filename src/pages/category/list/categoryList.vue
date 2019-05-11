@@ -17,7 +17,7 @@
 
 <script>
   import {apiListCategory} from "@/api/api";
-  import CategoryCell from './categoryListCell'
+  import CategoryCell from './categoryListRow'
 
   export default {
     name: "categoryList",
@@ -38,7 +38,6 @@
           this.loading = false
           if (response.data.code === 0) {
             this.categoryList = response.data.data.categoryList
-
           } else {
 
           }

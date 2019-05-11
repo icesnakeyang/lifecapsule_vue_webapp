@@ -11,8 +11,8 @@
           {{$t("headerBar.appName")}}
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
-          <MenuItem name="menuLogin" class="gogo_menuItem_text">
-            {{$t('headerBar.menu.login')}}
+          <MenuItem name="menuRegister" class="gogo_menuItem_text">
+            {{$t('headerBar.menu.register')}}
           </MenuItem>
         </div>
       </Menu>
@@ -22,13 +22,13 @@
 
 <script>
   export default {
-    name: "registerHeader",
+    name: "loginHeader",
     methods: {
       onMenuItem(name) {
         console.log(name)
-        if (name === 'menuLogin') {
+        if (name === 'menuRegister') {
           this.$router.push({
-            name: 'login'
+            name: 'register'
           })
         }
         if (name === 'menuTitle') {
@@ -48,6 +48,6 @@
 </script>
 
 <style scoped>
-  @import "../../assets/gogoStyle.css";
+  @import "../../../assets/gogoStyle.css";
 
 </style>

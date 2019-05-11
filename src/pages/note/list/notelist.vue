@@ -47,7 +47,7 @@
          * 如果没有就按时间倒序读取用户最近的笔记
          */
         this.loading = true
-        if (this.$store.state.categoryId) {
+        if (this.$store.state.category_id) {
           //有分类，查询该分类下的笔记
           apiListNoteByCategory({
             pageSize: 10,
