@@ -19,6 +19,7 @@
     },
     methods:{
       onClick(){
+        console.log(this.recipient)
         this.$router.push({
           name:'editRecipient',
           params:{

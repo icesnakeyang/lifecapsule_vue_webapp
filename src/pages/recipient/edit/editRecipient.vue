@@ -2,14 +2,14 @@
   <div>
     <Form>
       <FormItem>
-        <Input v-model="person.personName"></Input>
+        <Input v-model="recipient.name"></Input>
       </FormItem>
       <FormItem>
         <Tabs :animated="false">
           <TabPane label="email">
             <Row>
               <Col span="22">
-                <Input v-model="person.personName"></Input>
+                <Input v-model="recipient.personName"></Input>
               </Col>
               <Col span="2">
                 <span @click="onEmailDel" style="float: right">
@@ -25,14 +25,14 @@
       <FormItem>
         <Tabs :animated="false">
           <TabPane label="phone">
-            <Input v-model="person.personName"></Input>
+            <Input v-model="recipient.personName"></Input>
           </TabPane>
         </Tabs>
       </FormItem>
       <FormItem>
         <Tabs :animated="false">
           <TabPane label="address">
-            <Input v-model="person.personName"></Input>
+            <Input v-model="recipient.personName"></Input>
           </TabPane>
         </Tabs>
       </FormItem>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import {apiGetPersonByPersonId} from "@/api/api";
+  import {apiGetRecipientByRecipientId} from "../../../api/api";
 
   export default {
     name: "editRecipient",
@@ -52,11 +52,11 @@
     },
     methods: {
       loadAllData() {
-        apiGetPersonByPersonId({
+        apiGetRecipientByRecipientId({
           recipientId: this.$store.state.recipient_id
         }).then((response) => {
           console.log(response)
-          this.person = response.data.data.person
+          this.recipient = response.data.data.recipient
         })
       },
       onEmailDel() {

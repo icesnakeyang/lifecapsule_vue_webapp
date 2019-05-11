@@ -86,7 +86,7 @@ export const apiListNoteByCategory = params => {
 }
 
 export const apiGetRecipientByRecipientId = params => {
-  return axios.post(`${host}/recipient/getRecipientByRecipientId`, params, {
+  return axios.post(`${host}/trigger/getRecipientByRecipientId`, params, {
     headers: {
       token: store.state.gogo_token
     }
