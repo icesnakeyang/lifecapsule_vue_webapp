@@ -8,6 +8,7 @@ import baseFooter from '@/components/layout/baseFooter'
 import loginHeader from '@/components/layout/loginHeader'
 import registerHeader from '@/components/layout/registerHeader'
 import editNoteHeader from '@/components/layout/editNoteHeader'
+import triggerHeader from '@/components/layout/triggerHeader'
 
 import girlList from '@/components/girls/girlList'
 import register from '@/components/user/register/register'
@@ -20,7 +21,7 @@ import categoryHeader from '@/components/layout/categoryHeader'
 import createCategory from '@/components/pages/category/createCategory'
 import categoryEdit from '@/components/pages/category/categoryEdit'
 
-import recipientList from '@/components/pages/recipient/recipientList'
+import triggerList from '@/components/pages/trigger/triggerList'
 import recipient from '@/components/pages/recipient/recipient'
 import addPerson from '@/components/pages/recipient/addPerson'
 import editPerson from '@/components/pages/recipient/editPerson'
@@ -107,11 +108,11 @@ const router = new Router({
           }
         },
         {
-          path: 'recipientList',
-          name: 'recipientList',
+          path: 'triggerList',
+          name: 'triggerList',
           components: {
-            header: baseHeader,
-            content: recipientList
+            header: triggerHeader,
+            content: triggerList
           }
         },
         {

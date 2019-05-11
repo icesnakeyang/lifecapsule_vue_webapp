@@ -35,31 +35,32 @@
 </template>
 
 <script>
-  import {listRecipientPersonByRecipientId} from "@/api/api";
-  import PersonRow from './personRow'
-
   export default {
-    name: "recipient",
-    components: {
-      PersonRow
-    },
-    data() {
-      return {
-        personList: []
-      }
-    },
+    name: "triggerDetail",
     methods: {
-
-    },
-    mounted() {
-      if (this.$route.params.recipientId) {
-        this.$store.dispatch('saveRecipientId', this.$route.params.recipientId)
+      loadAllData() {
+        if (this.$store.state.recipient_id) {
+          //如果有触发器，就查询规则和接收人
+          listRecipientPersonByRecipientId({
+            recipientId: this.$store.state.recipient_id
+          }).then((response) => {
+            console.log(response)
+            if (response.data.code === 0) {
+              this.personList = response.data.data.personList
+              console.log(this.personList)
+            }
+          })
+        }
+      },
+      onAddPerson() {
+        this.$router.push({
+          name: 'addPerson'
+        })
       }
-      this.loadAllData()
     }
   }
 </script>
 
 <style scoped>
-  @import "../../../assets/gogoStyle.css";
+
 </style>

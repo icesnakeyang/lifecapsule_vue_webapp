@@ -5,8 +5,8 @@
         <Icon type="ios-arrow-back"></Icon>
       </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
-        <MenuItem name="menuRecipient" class="gogo_menuItem">
-          <Icon type="ios-locate-outline" />
+        <MenuItem name="menuTrigger" class="gogo_menuItem">
+          <Icon type="md-add"></Icon>
         </MenuItem>
       </div>
     </Menu>
@@ -15,15 +15,15 @@
 
 <script>
   export default {
-    name: "editNoteHeader",
+    name: "triggerHeader",
     methods: {
       onMenuItem(name) {
         if (name === 'menuBack') {
           this.$router.back()
         }
-        if (name === 'menuRecipient') {
+        if (name === 'menuTrigger') {
           this.$router.push({
-            name: 'triggerList'
+            name: 'trigger'
           })
         }
       }

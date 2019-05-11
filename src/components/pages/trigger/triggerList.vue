@@ -1,35 +1,32 @@
 <template>
   <div>
-    <RecipientRow v-for="(item, index) in recipientList"
-               :key="index"
-               :recipient="item">
+    <RecipientRow v-for="(item, index) in triggerList"
+                  :key="index"
+                  :trigger="item">
     </RecipientRow>
     <Button class="gogo_button" @click="onAdd">Add</Button>
   </div>
 </template>
 
 <script>
-  import {apiListRecipientByNoteId} from "@/api/api";
-  import RecipientRow from './recipientRow'
+  import {apiListTriggerByNoteId} from "../../../api/api";
 
   export default {
-    name: "recipientList",
-    components: {
-      RecipientRow
-    },
+    name: "triggerList",
     data() {
       return {
-        recipientList: []
+        triggerList: []
       }
     },
     methods: {
       loadAllData() {
-        apiListRecipientByNoteId({
+        apiListTriggerByNoteId({
           noteId: this.$store.state.note_id
         }).then((response) => {
-          console.log(response.data.data.recipientList)
-          this.recipientList = response.data.data.recipientList
-          console.log(this.recipientList)
+          console.log(response)
+          if (response.data.code === 0) {
+            this.triggerList = response.data.data.triggerList
+          }
         })
       },
       onAdd() {
@@ -42,6 +39,7 @@
       console.log(this.$store.state.note_id)
       this.loadAllData()
     }
+
   }
 </script>
 
