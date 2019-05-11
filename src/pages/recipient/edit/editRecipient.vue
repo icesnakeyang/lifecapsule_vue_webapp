@@ -7,17 +7,12 @@
       <FormItem>
         <Tabs :animated="false">
           <TabPane label="email">
-            <Row>
-              <Col span="22">
-                <Input v-model="recipient.personName"></Input>
-              </Col>
-              <Col span="2">
-                <span @click="onEmailDel" style="float: right">
-                  <Icon color="red" size="24" type="md-close"/>
-                </span>
-              </Col>
-            </Row>
-            <Button type="primary">add</Button>
+                        <email-list :ak18="ok18"></email-list>
+                        <email-list :emailList="recipient.name"></email-list>
+<!--            <email-row v-for="(item, index) in recipient.emailList"-->
+<!--                       :key="index"-->
+<!--                       :email="item"></email-row>-->
+            <Button type="primary" @click="handleRender">add</Button>
           </TabPane>
         </Tabs>
 
@@ -37,17 +32,30 @@
         </Tabs>
       </FormItem>
     </Form>
+
+    <p>
+      Name: {{ value }}
+    </p>
+
   </div>
 </template>
 
 <script>
   import {apiGetRecipientByRecipientId} from "../../../api/api";
+  import emailList from '../../../components/email/emailList'
+  import emailRow from '../../../components/email/emailRow'
 
   export default {
     name: "editRecipient",
+    components: {
+      emailList,
+      emailRow
+    },
     data() {
       return {
-        recipient: {}
+        recipient: {},
+        emailList: [],
+        ok18:{}
       }
     },
     methods: {
@@ -57,11 +65,30 @@
         }).then((response) => {
           console.log(response)
           this.recipient = response.data.data.recipient
+          console.log(this.recipient.emailList)
+          this.ok18="okokok18"
         })
       },
-      onEmailDel() {
-        console.log('delete email')
+
+      handleRender() {
+        this.$Modal.confirm({
+          render: (h) => {
+            return h('Input', {
+              props: {
+                value: this.value,
+                autofocus: true,
+                placeholder: 'Please enter your name...'
+              },
+              on: {
+                input: (val) => {
+                  this.value = val;
+                }
+              }
+            })
+          }
+        })
       }
+
     },
     mounted() {
       console.log(this.$store.state.recipient_id)
