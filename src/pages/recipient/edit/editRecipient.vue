@@ -44,16 +44,16 @@
   import {apiGetPersonByPersonId} from "@/api/api";
 
   export default {
-    name: "editPerson",
+    name: "editRecipient",
     data() {
       return {
-        person: {}
+        recipient: {}
       }
     },
     methods: {
       loadAllData() {
         apiGetPersonByPersonId({
-          personId: this.$store.state.person_id
+          recipientId: this.$store.state.recipient_id
         }).then((response) => {
           console.log(response)
           this.person = response.data.data.person
@@ -65,9 +65,9 @@
     },
     mounted() {
       console.log(this.$store.state.recipient_id)
-      console.log(this.$route.params.personId)
-      if (this.$route.params.personId) {
-        this.$store.dispatch('savePersonId', this.$route.params.personId)
+      console.log(this.$route.params.recipientId)
+      if (this.$route.params.recipientId) {
+        this.$store.dispatch('saveRecipientId', this.$route.params.recipientId)
       }
       this.loadAllData()
     }

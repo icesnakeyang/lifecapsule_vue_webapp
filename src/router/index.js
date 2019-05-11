@@ -41,19 +41,15 @@ import editNote from '@/pages/note/edit/editNote'
  * trigger
  */
 import triggerList from '@/pages/trigger/list/triggerList'
+import triggerListHeader from '@/pages/trigger/list/triggerListHeader'
+import newTrigger from '@/pages/trigger/new/newTrigger'
+import editTrigger from '@/pages/trigger/edit/editTrigger'
 
-
-import triggerListHeader from '@/pages/trigger/triggerList/triggerListHeader'
-
-
-
-
-
-
-
-import recipient from '@/pages/recipient/list/recipient'
-import addPerson from '@/pages/recipient/new/addPerson'
-import editPerson from '@/pages/recipient/edit/editPerson'
+/**
+ * recipient
+ */
+import addRecipient from '@/pages/recipient/new/addRecipient'
+import editRecipient from '@/pages/recipient/edit/editRecipient'
 
 Vue.use(Router)
 
@@ -137,27 +133,35 @@ const router = new Router({
           }
         },
         {
-          path: 'recipient',
-          name: 'recipient',
+          path: 'newTrigger',
+          name: 'newTrigger',
           components: {
-            header: baseHeader,
-            content: recipient
+            header: triggerListHeader,
+            content: newTrigger
           }
         },
         {
-          path: 'addPerson',
-          name: 'addPerson',
+          path: 'editTrigger',
+          name: 'editTrigger',
           components: {
-            header: baseHeader,
-            content: addPerson
+            header: triggerListHeader,
+            content: editTrigger
           }
         },
         {
-          path: 'editPerson',
-          name: 'editPerson',
+          path: 'addRecipient',
+          name: 'addRecipient',
           components: {
             header: baseHeader,
-            content: editPerson
+            content: addRecipient
+          }
+        },
+        {
+          path: 'editRecipient',
+          name: 'editRecipient',
+          components: {
+            header: baseHeader,
+            content: editRecipient
           }
         }
       ]
@@ -176,9 +180,9 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (store.state.gogo_token) {
-    if(to.fullPath==='/'){
+    if (to.fullPath === '/') {
       next({
-        name:'noteList'
+        name: 'noteList'
       })
     }
     next()

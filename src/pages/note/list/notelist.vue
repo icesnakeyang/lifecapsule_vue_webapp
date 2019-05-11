@@ -48,6 +48,8 @@
          */
         this.loading = true
         if (this.$store.state.category_id) {
+          console.log('有category')
+          console.log(this.$store.state.category_id)
           //有分类，查询该分类下的笔记
           apiListNoteByCategory({
             pageSize: 10,
@@ -69,6 +71,7 @@
           })
         } else {
           //没有分类，按时间倒序读取笔记
+          console.log('没有category')
           apiListNote({
             pageSize: 10,
             pageIndex: 1

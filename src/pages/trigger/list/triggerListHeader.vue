@@ -5,7 +5,7 @@
         <Icon type="ios-arrow-back"></Icon>
       </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
-        <MenuItem name="menuTrigger" class="gogo_menuItem">
+        <MenuItem name="menuAddTrigger" class="gogo_menuItem">
           <Icon type="md-add"></Icon>
         </MenuItem>
       </div>
@@ -21,9 +21,9 @@
         if (name === 'menuBack') {
           this.$router.back()
         }
-        if (name === 'menuTrigger') {
+        if (name === 'menuAddTrigger') {
           this.$router.push({
-            name: 'trigger'
+            name: 'newTrigger'
           })
         }
       }

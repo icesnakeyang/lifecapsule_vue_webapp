@@ -32,7 +32,7 @@
         console.log(this.$store.state.category_id)
         console.log(this.$store.state.category_name)
         this.$router.push({
-          name: 'notelist'
+          name: 'noteList'
         })
       },
 

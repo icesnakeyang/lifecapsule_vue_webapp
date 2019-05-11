@@ -33,7 +33,7 @@
   import {imageResize} from 'quill-image-resize-module'
 
   export default {
-    name: "addPerson",
+    name: "addRecipient",
     components: {
       quillEditor
     },
@@ -60,7 +60,7 @@
         apiCreateRecipient({
           triggerId: this.$store.state.trigger_id,
           noteId: this.$store.state.note_id,
-          name: this.name,
+          recipientName: this.name,
           email: this.email,
           phone: this.phone,
           address: this.address,
@@ -69,18 +69,15 @@
           console.log(response)
           if (response.data.code === 0) {
             this.$router.push({
-              name: 'recipient',
-              params: {
-                recipientId: response.data.data.recipient.recipientId
-              }
+              name: 'editTrigger'
             })
           }
         })
       },
     },
     mounted() {
-      console.log(this.$store.state.note_id)
-      console.log(this.$store.state.trigger_id)
+      console.log('noteId:' + this.$store.state.note_id)
+      console.log('triggerId:' + this.$store.state.trigger_id)
     }
   }
 </script>

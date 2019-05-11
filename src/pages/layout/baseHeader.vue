@@ -26,8 +26,11 @@
     name: "baseHeader",
     computed: {
       categoryName() {
-        console.log(this.$store.state)
-        return this.$store.state.category_name
+        if(this.$store.state.category_name) {
+          return this.$store.state.category_name
+        }else{
+          return this.$t('headerBar.appName')
+        }
       }
     },
     methods: {
