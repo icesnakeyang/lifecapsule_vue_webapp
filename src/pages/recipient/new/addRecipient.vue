@@ -69,7 +69,10 @@
           console.log(response)
           if (response.data.code === 0) {
             this.$router.push({
-              name: 'editTrigger'
+              name: 'editTrigger',
+              params:{
+                triggerId:response.data.data.trigger.triggerId
+              }
             })
           }
         })
