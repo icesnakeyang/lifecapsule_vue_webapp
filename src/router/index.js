@@ -51,6 +51,11 @@ import editTrigger from '@/pages/trigger/edit/editTrigger'
 import addRecipient from '@/pages/recipient/new/addRecipient'
 import editRecipient from '@/pages/recipient/edit/editRecipient'
 
+/**
+ * condition
+ */
+import conditionNew from '@/pages/condition/new/conditionNew'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -162,6 +167,14 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: editRecipient
+          }
+        },
+        {
+          path: 'conditionNew',
+          name: 'conditionNew',
+          components: {
+            header: baseHeader,
+            content: conditionNew
           }
         }
       ]

@@ -19,15 +19,15 @@
             <Icon class="gogo_list_icon" type="md-close"/>
           </Col>
         </Row>
-        <Button type="error" class="gogo_button">Add recipient</Button>
+        <Button type="error" class="gogo_button" @click="onAddCondition">Add condition</Button>
       </TabPane>
     </Tabs>
     <Tabs>
       <TabPane label="接收人" icon="md-contacts">
         <Alert>指定接收人，条件触发时，系统会自动把笔记发送给此人。</Alert>
         <recipient-row v-for="(item, index) in recipientList"
-                    :key="index"
-                    :recipient="item"></recipient-row>
+                       :key="index"
+                       :recipient="item"></recipient-row>
         <Button type="primary" class="gogo_button" @click="onAddRecipient">Add recipient</Button>
       </TabPane>
     </Tabs>
@@ -63,12 +63,23 @@
         this.$router.push({
           name: 'addRecipient'
         })
+      },
+      onAddCondition() {
+        this.$router.push({
+          name: 'conditionNew'
+        })
       }
     },
     mounted() {
+      console.log('old trigger id: ' + this.$store.state.trigger_id)
+      console.log('param trigger id: ' + this.$route.params.triggerId)
+
       if (this.$route.params.triggerId) {
         this.$store.dispatch('saveTriggerId', this.$route.params.triggerId)
       }
+
+      console.log('now trigger id: ' + this.$store.state.trigger_id)
+
       this.loadAllData()
     }
   }

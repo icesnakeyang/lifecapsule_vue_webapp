@@ -12,9 +12,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "iview": "^3.4.0",
-    "quill-image-resize-module": "^3.0.0",
     "moment": "^2.24.0",
+    "quill-image-resize-module": "^3.0.0",
     "vue": "^2.5.2",
+    "vue-date-pick": "^1.1.0",
     "vue-i18n": "^8.10.0",
     "vue-quill-editor": "^2.0.6",
     "vue-router": "^3.0.1",
