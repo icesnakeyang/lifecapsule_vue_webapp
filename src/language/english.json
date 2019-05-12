@@ -20,6 +20,9 @@
     "msgRegisterSuccess": "Register success",
     "msgRegisterFail": "Register failed"
   },
+  "email": {
+    "emailHolder": "Please input email"
+  },
   "note": {
     "title": "Title",
     "titleHolder": "Please input title",

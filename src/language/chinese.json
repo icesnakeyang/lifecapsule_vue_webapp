@@ -20,6 +20,9 @@
     "msgRegisterSuccess":"注册成功",
     "msgRegisterFail":"注册失败"
   },
+  "email": {
+    "emailHolder": "请输入Email地址"
+  },
   "note":{
     "title":"标题",
     "titleHolder":"请输入标题",
