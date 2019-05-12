@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import {apiAddEmail} from "../../api/api";
   import emailRow from './emailRow'
 
   export default {
@@ -41,6 +42,15 @@
         //新增一个email
         console.log(this.email)
         console.log(this.$store.state.recipient_id)
+        apiAddEmail({
+          recipientId: this.$store.state.recipient_id,
+          email: this.email
+        }).then((response) => {
+          console.log(response)
+          if (response.data.code === 0) {
+            this.$router.back()
+          }
+        })
       },
       onCancel() {
 

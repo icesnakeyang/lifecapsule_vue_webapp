@@ -125,6 +125,14 @@ export const listRecipientPersonByRecipientId = params => {
   })
 }
 
+export const apiAddEmail = params => {
+  return axios.post(`${host}/trigger/addEmail`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
 export const apiGetPersonByPersonId = params => {
   return axios.post(`${host}/recipient/getPersonByPersonId`, params, {
     headers: {

@@ -2,7 +2,7 @@
   <div>
     <Row class="gogo_row">
       <Col span="22">
-        <Input v-model="email"></Input>
+        <Input v-model="email.email"></Input>
       </Col>
       <Col span="2">
         <span @click="onEmailDel" style="float: right">
@@ -22,11 +22,12 @@
     methods: {
       onEmailDel() {
         console.log('delete email')
+        console.log(this.email)
       },
 
     },
     mounted() {
-      console.log(this.email)
+      console.log(this.email.email)
     }
   }
 </script>

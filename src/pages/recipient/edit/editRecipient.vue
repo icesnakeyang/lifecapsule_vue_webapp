@@ -2,7 +2,7 @@
   <div>
     <Form>
       <FormItem>
-        <Input v-model="recipient.name"></Input>
+        <Input v-model="recipient.recipientName"></Input>
       </FormItem>
       <FormItem>
         <Tabs :animated="false">

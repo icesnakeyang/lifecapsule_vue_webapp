@@ -25,6 +25,9 @@ export default new Vuex.Store({
     saveTriggerId(ctx, triggerId) {
       ctx.commit('saveTriggerId', triggerId)
     },
+    clearTriggerId(ctx) {
+      ctx.commit('clearTriggerId')
+    },
     saveRecipientId(ctx, recipientId) {
       ctx.commit('saveRecipientId', recipientId)
     }
@@ -47,6 +50,10 @@ export default new Vuex.Store({
     saveTriggerId(state, triggerId) {
       state.trigger_id = triggerId
       localStorage.trigger_id = triggerId
+    },
+    clearTriggerId(state) {
+      state.trigger_id = null
+      localStorage.trigger_id = null
     },
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId
