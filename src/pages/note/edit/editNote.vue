@@ -60,6 +60,7 @@
         const params = {
           noteId: this.$store.state.note_id,
         }
+        console.log(params)
         apiGetNote(params).then((response) => {
           console.log(response)
           if (response.data.code === 0) {

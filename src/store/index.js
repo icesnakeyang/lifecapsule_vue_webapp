@@ -10,7 +10,8 @@ export default new Vuex.Store({
     category_id: '' || localStorage.category_id,
     category_name: '' || localStorage.category_name,
     trigger_id: '' || localStorage.trigger_id,
-    recipient_id: '' || localStorage.recipient_id
+    recipient_id: '' || localStorage.recipient_id,
+    condition_id: '' || localStorage.condition_id
   },
   actions: {
     saveToken(ctx, token) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     saveRecipientId(ctx, recipientId) {
       ctx.commit('saveRecipientId', recipientId)
+    },
+    saveConditionId(ctx, conditionId) {
+      ctx.commit('saveConditionId', conditionId)
     }
   },
   mutations: {
@@ -58,6 +62,10 @@ export default new Vuex.Store({
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId
       localStorage.recipient_id = recipientId
+    },
+    saveConditionId(state, conditionId) {
+      state.condition_id = conditionId
+      localStorage.condition_id = conditionId
     }
   }
 })

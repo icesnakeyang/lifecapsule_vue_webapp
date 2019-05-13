@@ -55,6 +55,7 @@ import editRecipient from '@/pages/recipient/edit/editRecipient'
  * condition
  */
 import conditionNew from '@/pages/condition/new/conditionNew'
+import conditionEdit from '@/pages/condition/edit/conditionEdit'
 
 Vue.use(Router)
 
@@ -175,6 +176,14 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: conditionNew
+          }
+        },
+        {
+          path:'conditionEdit',
+          name:'conditionEdit',
+          components:{
+            header:baseHeader,
+            content:conditionEdit
           }
         }
       ]

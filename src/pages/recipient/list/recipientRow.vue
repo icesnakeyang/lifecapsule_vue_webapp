@@ -2,7 +2,9 @@
   <div>
     <Row class="gogo_row">
       <Col :xs="22" :sm="22" :md="22" :lg="22">
-        <Button type="primary" @click="onClick">{{recipient.recipientName}}</Button>
+        <Button type="primary" @click="onClick"
+                size="small"
+        >{{recipient.recipientName}}</Button>
       </Col>
       <Col :xs="2" :sm="2" :md="2" :lg="2">
         <Icon class="gogo_list_icon" type="md-close"/>
