@@ -148,3 +148,19 @@ export const apiGetConditionByConditionId = params => {
     }
   })
 }
+
+export const apiCreateGogoKey = params => {
+  return axios.post(`${host}/gogoKey/createGogoKey`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiListGogoKey = params => {
+  return axios.post(`${host}/gogoKey/listGogoKey`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}

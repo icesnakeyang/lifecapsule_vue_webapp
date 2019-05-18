@@ -7,8 +7,8 @@
       <FormItem label="触发类型">
         <Select v-model="conditionKey" style="width:100%">
           <Option v-for="(item,index) in conditions"
-                  :value="item.key"
-                  :key="index">{{ item.key }}
+                  :value="item.gogoKeyId"
+                  :key="index">{{ item.name }}
           </Option>
         </Select>
       </FormItem>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import {apiListGogoKey} from "../../../api/api";
   import {apiAddCondition} from "../../../api/api";
   import DatePick from 'vue-date-pick';
   import 'vue-date-pick/dist/vueDatePick.css';
@@ -42,15 +43,24 @@
         conditionName: '',
         conditionKey: '',
         conditionValueDate: '',
-        conditions: [
-          {
-            key: '时间'
-          }
-        ],
+        conditions: [],
         remark: ''
       }
     },
     methods: {
+      loadAllData() {
+        apiListGogoKey({}).then((response) => {
+          console.log(response)
+          if (response.data.code === 0) {
+            this.conditions = response.data.data.gogoKeyList
+          }
+        })
+      },
+
+      onKey() {
+        console.log(1)
+      },
+
       addCondition() {
         console.log(this.conditionName)
         console.log(this.conditionKey)
@@ -73,6 +83,7 @@
     },
     mounted() {
       console.log('trigger id：' + this.$store.state.trigger_id)
+      this.loadAllData()
     }
   }
 </script>

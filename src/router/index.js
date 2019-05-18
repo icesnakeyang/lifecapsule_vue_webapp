@@ -57,6 +57,12 @@ import editRecipient from '@/pages/recipient/edit/editRecipient'
 import conditionNew from '@/pages/condition/new/conditionNew'
 import conditionEdit from '@/pages/condition/edit/conditionEdit'
 
+/**
+ * gogoKey
+ */
+import gogoKeyNew from '@/pages/gogoKey/new/gogoKeyNew'
+import gogoKeyList from '@/pages/gogoKey/list/gogoKeyList'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -184,6 +190,22 @@ const router = new Router({
           components:{
             header:baseHeader,
             content:conditionEdit
+          }
+        },
+        {
+          path:'gogoKeyNew',
+          name:'gogoKeyNew',
+          components:{
+            header:baseHeader,
+            content:gogoKeyNew
+          }
+        },
+        {
+          path:'gogoKeyList',
+          name:'gogoKeyList',
+          components:{
+            header:baseHeader,
+            content:gogoKeyList
           }
         }
       ]
