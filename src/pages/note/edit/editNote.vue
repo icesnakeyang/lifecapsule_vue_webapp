@@ -33,6 +33,7 @@
   import 'quill/dist/quill.bubble.css'
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
+  import {Decrypt, Encrypt} from "../../../plugins/crypto";
 
 
   export default {
@@ -65,6 +66,8 @@
           console.log(response)
           if (response.data.code === 0) {
             this.note = response.data.data.note
+            console.log(this.note.detail)
+            this.note.detail=Decrypt(this.note.detail)
           }
         })
       },
@@ -74,7 +77,7 @@
         apiEditNote({
           noteId: this.note.noteId,
           title: this.note.title,
-          detail: this.note.detail,
+          detail: Encrypt(this.note.detail),
           token: this.$store.state.gogo_token
         }).then((response) => {
           console.log(response)

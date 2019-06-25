@@ -22,6 +22,7 @@
   import 'quill/dist/quill.bubble.css'
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
+  import {Decrypt, Encrypt} from "../../../plugins/crypto";
 
   export default {
     name: "newNote",
@@ -47,9 +48,10 @@
       onSave() {
         console.log(this.title)
         console.log(this.noteContent)
+
         apiAddNote({
           title: this.title,
-          detail: this.noteContent,
+          detail: Encrypt(this.noteContent),
           categoryId: this.$store.state.category_id
         }).then((response) => {
           console.log(response)
