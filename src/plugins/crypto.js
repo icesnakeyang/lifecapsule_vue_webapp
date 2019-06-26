@@ -1,11 +1,13 @@
 import CryptoJS from 'crypto-js'
 
-const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
-const IV = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
+// const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
+// const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
+// const KEY = CryptoJS.enc.Base64.parse("icesnakeyang")
+// const IV = CryptoJS.enc.Base64.parse("icesnakeyang")
 
 export function Encrypt(word, keyStr, ivStr) {
-  let key = KEY
-  let iv = IV
+  let key
+  let iv
 
   if (keyStr) {
     key = CryptoJS.enc.Utf8.parse(keyStr)

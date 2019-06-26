@@ -164,3 +164,7 @@ export const apiListGogoKey = params => {
     }
   })
 }
+
+export const apigetKey = params => {
+  return axios.get(`${host}/user/getKey`)
+}

@@ -34,6 +34,7 @@
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
   import {Decrypt, Encrypt} from "../../../plugins/crypto";
+  import {apigetKey} from "../../../api/api";
 
 
   export default {
@@ -73,27 +74,43 @@
       },
 
       onSave() {
-        this.saving = true
-        apiEditNote({
-          noteId: this.note.noteId,
-          title: this.note.title,
-          detail: Encrypt(this.note.detail),
-          token: this.$store.state.gogo_token
-        }).then((response) => {
-          console.log(response)
-          if (response.data.code === 0) {
-            this.$Message.info('Save successful')
-            // this.$router.push({
-            //   name: 'notelist'
-            // })
-            this.saving = false
-          } else {
-            this.$Message.error('Save failed')
-            this.saving = false
+        console.log('take key')
+        /**
+         * 先获取key
+         * @type {boolean}
+         */
+        apigetKey().then((response)=>{
+          if(response.data.code===0) {
+            console.log(response)
+            const keyAES = response.data.data.encoded
+            console.log('key:'+keyAES)
+
+            console.log('save')
+            this.saving = true
+            apiEditNote({
+              noteId: this.note.noteId,
+              title: this.note.title,
+              detail: Encrypt(this.note.detail, keyAES, keyAES),
+              token: this.$store.state.gogo_token,
+              encryptKey:keyAES
+            }).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                this.$Message.info('Save successful')
+                // this.$router.push({
+                //   name: 'notelist'
+                // })
+                this.saving = false
+              } else {
+                this.$Message.error('Save failed')
+                this.saving = false
+              }
+            }).catch((error) => {
+              console.log(error)
+              this.saving = false
+            })
+
           }
-        }).catch((error) => {
-          console.log(error)
-          this.saving = false
         })
       }
     },
