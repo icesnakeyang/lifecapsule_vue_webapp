@@ -23,6 +23,7 @@
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
   import {Decrypt, Encrypt} from "../../../plugins/crypto";
+  import {apigetKey} from "../../../api/api";
 
   export default {
     name: "newNote",
@@ -49,22 +50,33 @@
         console.log(this.title)
         console.log(this.noteContent)
 
-        apiAddNote({
-          title: this.title,
-          detail: Encrypt(this.noteContent),
-          categoryId: this.$store.state.category_id
-        }).then((response) => {
-          console.log(response)
+        apigetKey().then((response) => {
           if (response.data.code === 0) {
-            this.$Message.info('Save successful')
-            this.$router.push({
-              name: 'notelist'
+            console.log(response)
+            const keyAES = response.data.data.encoded
+            console.log('key:' + keyAES)
+
+            console.log('save')
+            this.saving = true
+            apiAddNote({
+              title: this.title,
+              detail: Encrypt(this.noteContent, keyAES, keyAES),
+              categoryId: this.$store.state.category_id,
+              encryptKey:keyAES
+            }).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                this.$Message.info('Save successful')
+                this.$router.push({
+                  name: 'notelist'
+                })
+              } else {
+                this.$Message.error('Save failed')
+              }
+            }).catch((error) => {
+              console.log(error)
             })
-          } else {
-            this.$Message.error('Save failed')
           }
-        }).catch((error) => {
-          console.log(error)
         })
       }
     }

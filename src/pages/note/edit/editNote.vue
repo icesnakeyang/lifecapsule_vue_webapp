@@ -68,7 +68,7 @@
           if (response.data.code === 0) {
             this.note = response.data.data.note
             console.log(this.note.detail)
-            this.note.detail=Decrypt(this.note.detail)
+            this.note.detail=Decrypt(this.note.detail, this.note.userEncodeKey, this.note.userEncodeKey)
           }
         })
       },

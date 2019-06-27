@@ -1,13 +1,13 @@
 import CryptoJS from 'crypto-js'
 
-// const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
+const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
 // const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
 // const KEY = CryptoJS.enc.Base64.parse("icesnakeyang")
 // const IV = CryptoJS.enc.Base64.parse("icesnakeyang")
 
 export function Encrypt(word, keyStr, ivStr) {
-  let key
-  let iv
+  let key=KEY
+  let iv=KEY
 
   if (keyStr) {
     key = CryptoJS.enc.Utf8.parse(keyStr)
@@ -34,8 +34,12 @@ export function Decrypt(cipherText, keyStr, ivStr) {
   let cipherTextHexStr=CryptoJS.enc.Hex.parse(cipherText)
   let cipherTextBase64Str=CryptoJS.enc.Base64.stringify(cipherTextHexStr)
 
-  let key = KEY
-  let iv = IV
+  let key=KEY
+  let iv=KEY
+  if (keyStr) {
+    key = CryptoJS.enc.Utf8.parse(keyStr)
+    iv = CryptoJS.enc.Utf8.parse(ivStr)
+  }
 
   console.log('key:'+key)
   console.log('iv:'+iv)
