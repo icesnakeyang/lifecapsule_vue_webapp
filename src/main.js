@@ -5,6 +5,9 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import VueI18n from 'vue-i18n'
 import store from './store/index'
+import JsEncrypt from 'jsencrypt'
+
+Vue.prototype.$jsEncrypt = JsEncrypt
 
 Vue.config.productionTip = false
 Vue.use(iView)

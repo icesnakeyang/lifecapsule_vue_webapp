@@ -165,6 +165,6 @@ export const apiListGogoKey = params => {
   })
 }
 
-export const apigetKey = params => {
-  return axios.get(`${host}/user/getKey`)
+export const apiRequestRSAPublicKey = params => {
+  return axios.get(`${host}/security/requestRSAPublicKey`)
 }
