@@ -35,7 +35,6 @@
   import {imageResize} from 'quill-image-resize-module'
   import {Decrypt, Encrypt, GenerateKey, RSAencrypt} from "../../../plugins/crypto";
   import {apiRequestRSAPublicKey} from "../../../api/api";
-  // import {sha256} from "js-sha256";
 
   import CryptoJS from 'crypto-js'
 
