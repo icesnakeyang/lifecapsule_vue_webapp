@@ -37,7 +37,6 @@
   import {apiRequestRSAPublicKey} from "../../../api/api";
   // import {sha256} from "js-sha256";
 
-  import sha256, {Hash, HMAC} from "fast-sha256";
   import CryptoJS from 'crypto-js'
 
   export default {
@@ -96,11 +95,10 @@
           console.log(response)
           if (response.data.code === 0) {
             console.log('save note')
-            req.data = RSAencrypt(params, response.data.publicKey)
-            req.keyToken = response.data.keyToken
+            req.data = RSAencrypt(params, response.data.data.publicKey)
+            req.keyToken = response.data.data.keyToken
             console.log(req)
 
-            return
             this.saving = true
             apiEditNote(req).then((response) => {
               console.log(response)

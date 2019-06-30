@@ -63,17 +63,21 @@ export function GenerateKey() {
 }
 
 //加密方法
-export function RSAencrypt(content, publicKey){
+export function RSAencrypt(content, publicKey) {
   //实例化jsEncrypt对象
   let jse = new JSEncrypt();
   //设置公钥
+  console.log(publicKey)
   jse.setPublicKey(publicKey);
   // console.log('加密：'+jse.encrypt(pas))
-  return jse.encrypt(content);
+
+  const result = jse.encrypt(content);
+  console.log(result)
+  return result
 }
 
 //解密方法
-export function RSAdecrypt(content, privateKey){
+export function RSAdecrypt(content, privateKey) {
   let jse = new JSEncrypt();
   // 私钥
   jse.setPrivateKey(privateKey)
