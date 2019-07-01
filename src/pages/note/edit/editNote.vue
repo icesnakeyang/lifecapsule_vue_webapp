@@ -94,7 +94,7 @@
           console.log(response)
           if (response.data.code === 0) {
             console.log('save note')
-            req.data = RSAencrypt(params, response.data.data.publicKey)
+            req.data = RSAencrypt(params.toString(), response.data.data.publicKey)
             req.keyToken = response.data.data.keyToken
             console.log(req)
 

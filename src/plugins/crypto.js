@@ -71,8 +71,9 @@ export function RSAencrypt(content, publicKey) {
   jse.setPublicKey(publicKey);
   // console.log('加密：'+jse.encrypt(pas))
 
+  console.log('加密的明文：'+content)
   const result = jse.encrypt(content);
-  console.log(result)
+  console.log('加密后的密文:'+result)
   return result
 }
 
