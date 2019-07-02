@@ -23,7 +23,7 @@
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
   import {Decrypt, Encrypt} from "../../../plugins/crypto";
-  import {apigetKey} from "../../../api/api";
+  import {apiRequestRSAPublicKey} from "../../../api/api";
 
   export default {
     name: "newNote",
@@ -50,7 +50,7 @@
         console.log(this.title)
         console.log(this.noteContent)
 
-        apigetKey().then((response) => {
+        apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
             console.log(response)
             const keyAES = response.data.data.encoded

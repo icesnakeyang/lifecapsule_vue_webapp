@@ -62,8 +62,19 @@ export function GenerateKey() {
   return uuidstr
 }
 
+export function GenerateRandomString16() {
+  let x = "0123456789qwertyuioplkjhgfdsazxcvbnm";
+  let tmp = "";
+  let timestamp = new Date().getTime();
+  for (let i = 0; i < 16; i++) {
+    tmp += x.charAt(Math.ceil(Math.random() * 100000000) % x.length);
+  }
+  // return timestamp + tmp;
+  return tmp;
+}
+
 //加密方法
-export function RSAencrypt(content, publicKey){
+export function RSAencrypt(content, publicKey) {
   //实例化jsEncrypt对象
   let jse = new JSEncrypt();
   //设置公钥
@@ -73,7 +84,7 @@ export function RSAencrypt(content, publicKey){
 }
 
 //解密方法
-export function RSAdecrypt(content, privateKey){
+export function RSAdecrypt(content, privateKey) {
   let jse = new JSEncrypt();
   // 私钥
   jse.setPrivateKey(privateKey)

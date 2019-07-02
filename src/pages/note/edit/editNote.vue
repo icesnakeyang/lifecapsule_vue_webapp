@@ -33,7 +33,7 @@
   import 'quill/dist/quill.bubble.css'
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
-  import {Decrypt, Encrypt, GenerateKey, RSAencrypt} from "../../../plugins/crypto";
+  import {Decrypt, Encrypt, GenerateKey, RSAencrypt, GenerateRandomString16} from "../../../plugins/crypto";
   import {apiRequestRSAPublicKey} from "../../../api/api";
   // import {sha256} from "js-sha256";
 
@@ -65,6 +65,26 @@
         const params = {
           noteId: this.$store.state.note_id,
         }
+
+
+        // let key = "2l49lstcupu81upx"
+        // params.encryptKey = key
+        // key = CryptoJS.enc.Utf8.parse("2l49lstcupu81upx");
+        // let key = CryptoJS.enc.Utf8.parse("abcdefgabcdefg12");
+
+        // console.log('key1:' + key)
+        let key = GenerateRandomString16()
+        params.encryptKey=key
+        console.log('key2:' + key)
+        key = CryptoJS.enc.Utf8.parse(key)
+        // console.log('key3:' + key)
+
+        let srcs = CryptoJS.enc.Utf8.parse("hellow zell");
+        let encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
+
+        params.detail = encrypted.toString()
+
+
         console.log(params)
         apiGetNote(params).then((response) => {
           console.log(response)
