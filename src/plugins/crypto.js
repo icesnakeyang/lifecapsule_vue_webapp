@@ -62,6 +62,8 @@ export function GenerateKey() {
   return uuidstr
 }
 
+
+
 //加密方法
 export function RSAencrypt(content, publicKey) {
   //实例化jsEncrypt对象
