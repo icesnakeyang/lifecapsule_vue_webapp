@@ -1,13 +1,13 @@
 import CryptoJS from 'crypto-js'
 
-const KEY = CryptoJS.enc.Base64.parse("4525ba31a83e0b3a19ba2cbbafecf679de87dda749766b4e911e2d4cc7d25032")
+// const KEY = CryptoJS.enc.Base64.parse("4525ba31a83e0b3a19ba2cbbafecf679de87dda749766b4e911e2d4cc7d25032")
 // const KEY = CryptoJS.enc.Base64.parse("ZGIyMTM5NTYxYzlmZTA2OA==")
 // const KEY = CryptoJS.enc.Base64.parse("icesnakeyang")
 // const IV = CryptoJS.enc.Base64.parse("icesnakeyang")
 
 export function Encrypt(word, keyStr, ivStr) {
-  let key = KEY
-  let iv = KEY
+  let key
+  let iv
 
   if (keyStr) {
     key = CryptoJS.enc.Utf8.parse(keyStr)
@@ -30,23 +30,22 @@ export function Encrypt(word, keyStr, ivStr) {
 }
 
 export function Decrypt(cipherText, keyStr, ivStr) {
-  console.log(cipherText)
+  console.log('密文1:' + cipherText)
+  console.log('keyStr2', keyStr)
+  console.log('ivstr2', ivStr)
+  // cipherText = "ff504db1690037bfa17569ab575d41f3"
   let cipherTextHexStr = CryptoJS.enc.Hex.parse(cipherText)
   console.log(cipherTextHexStr)
   let cipherTextBase64Str = CryptoJS.enc.Base64.stringify(cipherTextHexStr)
   console.log(cipherTextBase64Str)
 
-  let key = KEY
-  let iv = KEY
-  if (keyStr) {
-    key = CryptoJS.enc.Utf8.parse(keyStr)
-    iv = CryptoJS.enc.Utf8.parse(ivStr)
-  }
+  let key = CryptoJS.enc.Utf8.parse(keyStr)
+  let iv = CryptoJS.enc.Utf8.parse(ivStr)
 
-  console.log(key)
+  console.log('key:' + key)
+  console.log('iv:' + iv)
 
-
-  var decrypt = CryptoJS.AES.decrypt(cipherTextBase64Str, key, {
+  let decrypt = CryptoJS.AES.decrypt(cipherTextBase64Str, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
@@ -54,9 +53,31 @@ export function Decrypt(cipherText, keyStr, ivStr) {
 
   console.log(decrypt.toString())
 
-  var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+  console.log(decryptedStr)
 
   return decryptedStr
+
+}
+
+export function DecryptAES(words, keyStr) {
+  // // let encrypted1 = CryptoJS.enc.Base64.parse(encrypted);
+  // let decrypted = CryptoJS.AES.decrypt(words, CryptoJS.enc.Utf8.parse(keyStr), {
+  //   iv: CryptoJS.enc.Utf8.parse(keyStr),
+  //   mode: CryptoJS.mode.CBC,
+  //   padding: CryptoJS.pad.NoPadding
+  // });
+  // decrypted = CryptoJS.enc.Utf8.stringify(decrypted);// 转换为 utf8 字符串
+  // // decrypted = CryptoJS.enc.Base64.stringify(decrypted)
+  // return decrypted
+
+  let decrypted = CryptoJS.AES.decrypt(words, CryptoJS.enc.Base64.parse(keyStr), {
+    iv: CryptoJS.enc.Base64.parse(keyStr),
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.NoPadding
+  })
+  decrypted = CryptoJS.enc.Base64.stringify(decrypted)
+  return decrypted
 
 }
 
@@ -75,7 +96,6 @@ export function GenerateRandomString16() {
   // return timestamp + tmp;
   return tmp;
 }
-
 
 
 //加密方法

@@ -26,14 +26,12 @@
 </template>
 
 <script>
-  import {apiGetNote} from "@/api/api";
-  import {apiEditNote} from "@/api/api";
+  import {apiEditNote, apiGetNote} from "@/api/api";
   import {quillEditor} from 'vue-quill-editor'
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
   import 'quill/dist/quill.snow.css'
-  import {imageResize} from 'quill-image-resize-module'
-  import {Decrypt, Encrypt, GenerateKey, RSAencrypt, GenerateRandomString16} from "../../../plugins/crypto";
+  import {Decrypt, DecryptAES, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../../../plugins/crypto";
   import {apiRequestRSAPublicKey} from "../../../api/api";
 
   import CryptoJS from 'crypto-js'
@@ -95,9 +93,7 @@
             const keyAES_1 = GenerateRandomString16();
             console.log(keyAES_1)
 
-            const rsaEncryptAESkey = RSAencrypt(keyAES_1, response.data.data.publicKey)
-
-            params.encryptKey = rsaEncryptAESkey
+            params.encryptKey = RSAencrypt(keyAES_1, response.data.data.publicKey)
             params.keyToken = response.data.data.keyToken
 
             apiGetNote(params).then((response) => {
@@ -106,30 +102,75 @@
                 this.note = response.data.data.note
                 console.log(keyAES_1)
 
-                let strKey=this.note.userEncodeKey
+                console.log(encodeURIComponent(this.note.userEncodeKey))
+                let strKey = this.note.userEncodeKey
+                console.log(encodeURIComponent(strKey))
+
+                if (this.note.userEncodeKey === strKey) {
+                  console.log("相等")
+                } else {
+                  console.log("不相等")
+                }
+
+                strKey = DecryptAES(strKey, keyAES_1)
+
+
+                /**
+                 * 对strKey进行AES解密
+                 */
                 console.log(strKey)
+                console.log(encodeURIComponent(strKey))
 
-                // let cipherTextHexStr = CryptoJS.enc.Hex.parse(cipherText)
-                // let cipherTextBase64Str = CryptoJS.enc.Base64.stringify(cipherTextHexStr)
+                let strKey2 = "KGd66hoKjTf/K2/upxpvv2xJkCfIJBF5drXrbYmowBo="
+                console.log(strKey2)
+                console.log(typeof strKey)
+                console.log(typeof strKey2)
+                console.log(encodeURIComponent(strKey))
+                console.log(encodeURIComponent(strKey2))
+                if (strKey === strKey2) {
+                  console.log(1)
+                } else {
+                  console.log(2)
+                }
+                // let decryptedStr = Decrypt("ff504db1690037bfa17569ab575d41f3", "KGd66hoKjTf/K2/upxpvv2xJkCfIJBF5drXrbYmowBo=", "KGd66hoKjTf/K2/upxpvv2xJkCfIJBF5drXrbYmowBo=")
+                let decryptedStr = Decrypt("ff504db1690037bfa17569ab575d41f3", strKey, strKey)
+                console.log(decryptedStr)
 
-                // let key = KEY
-                // let iv = KEY
-                // if (keyStr) {
-                //   key = CryptoJS.enc.Utf8.parse(keyStr)
-                //   iv = CryptoJS.enc.Utf8.parse(ivStr)
+
+                // let encrypted = 'oSvEnvPP7cWVgmj5nYqBPZgOJ/UEBwQr5HRMhVBsO6elNgk+aAgZlJYXg+fRW94Y'
+                let encrypted = strKey
+                // let key = '6twpxnxaunl7wsnv'
+                let key = keyAES_1
+                console.log("encrypted=" + encrypted);
+
+                // let decrypted=DecryptAES(encrypted, key)
+
+                // var encrypted1 = CryptoJS.enc.Base64.parse(encrypted);
+                // let decrypted = CryptoJS.AES.decrypt(encrypted, CryptoJS.enc.Utf8.parse(key), {
+                //   iv: CryptoJS.enc.Utf8.parse(key),
+                //   mode: CryptoJS.mode.CBC,
+                //   padding: CryptoJS.pad.NoPadding
+                // });
+                // decrypted = CryptoJS.enc.Utf8.stringify(decrypted);// 转换为 utf8 字符串
+                // console.log("decrypted=" + decrypted);
+
+
+                // function Encrypt(strKey){
+                //   let srcs = CryptoJS.enc.Utf8.parse(word);
+                //   let encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv,mode:CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7});
+                //   return encrypted.ciphertext.toString().toUpperCase();
                 // }
 
-                var decrypt = CryptoJS.AES.decrypt(strKey, keyAES_1, {
-                  iv: keyAES_1,
-                  mode: CryptoJS.mode.CBC,
-                  padding: CryptoJS.pad.Pkcs7
-                })
+                // let encryptedHexStr = CryptoJS.enc.Hex.parse(strKey);
+                // let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+                // let decrypt = CryptoJS.AES.decrypt(srcs, key, { iv: iv,mode:CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7});
+                // let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
 
-                console.log(decrypt)
 
-                console.log(decrypt.toString())
+                // let decryptedStr=CryptoJS.AES.decrypt(strKey,keyAES_1).toString(CryptoJS.enc.Utf8);
+                // let decryptedStr = CryptoJS.AES.decrypt(strKey, decrypted).toString();
 
-                // var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+                // console.log(decryptedStr)
 
                 // return
                 //
@@ -142,7 +183,13 @@
                 // return decryptedStr.toString();
 
                 // const aes1 = Decrypt(this.note.userEncodeKey, keyAES_1, keyAES_1)
-                // this.note.detail = Decrypt(this.note.detail, aes1, aes1)
+                // console.log(decrypted)
+                console.log(this.note.detail)
+                const ddr = Decrypt(this.note.detail, strKey, strKey)
+                console.log(ddr)
+                console.log(decryptedStr)
+                this.note.detail = ddr
+                // this.note.detail = decryptedStr
               }
             })
           }
