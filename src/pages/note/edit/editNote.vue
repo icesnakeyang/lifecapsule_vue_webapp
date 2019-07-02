@@ -35,9 +35,7 @@
   import {imageResize} from 'quill-image-resize-module'
   import {Decrypt, Encrypt, GenerateKey, RSAencrypt, GenerateRandomString16} from "../../../plugins/crypto";
   import {apiRequestRSAPublicKey} from "../../../api/api";
-  // import {sha256} from "js-sha256";
 
-  import sha256, {Hash, HMAC} from "fast-sha256";
   import CryptoJS from 'crypto-js'
 
   export default {
@@ -62,7 +60,7 @@
     },
     methods: {
       loadAllData() {
-        const params = {
+        let params = {
           noteId: this.$store.state.note_id,
         }
 
@@ -86,12 +84,49 @@
 
 
         console.log(params)
-        apiGetNote(params).then((response) => {
-          console.log(response)
+        /**
+         * 请求一个RSA公钥
+         * 生成一个AES秘钥
+         * 用RSA公钥加密AES秘钥，发送到服务器
+         * 服务器用私钥解密AES，加密note的AES，发送回前端
+         * 前端用AES解开note的AES
+         * 用解开的note的AES解开detail
+         *
+         */
+        apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            this.note = response.data.data.note
-            console.log(this.note.detail)
-            this.note.detail = Decrypt(this.note.detail, this.note.userEncodeKey, this.note.userEncodeKey)
+            const uuid = GenerateKey()
+            const keyAES_1 = CryptoJS.SHA1(uuid);
+            let keyAES64_1 = CryptoJS.enc.Base64.stringify(keyAES_1)
+
+
+            let keyStr = "hctrsZ7+ZHFJoR5iWChnQA=="
+            const data="hellow zell"
+
+            var sendData = CryptoJS.enc.Utf8.parse(data);
+            var key = CryptoJS.enc.Utf8.parse(keyStr);
+            var iv  = CryptoJS.enc.Utf8.parse(keyStr);
+            var encrypted = CryptoJS.AES.encrypt(sendData, key,{iv:iv,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.Iso10126});
+            //return CryptoJS.enc.Base64.stringify(encrypted.toString(CryptoJS.enc.Utf8));
+            keyAES64_1= CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
+
+            console.log(keyAES64_1)
+            const rsaEncryptAESkey = RSAencrypt(keyAES64_1, response.data.data.publicKey)
+            params.encryptKey = keyAES64_1
+            params.keyToken = response.data.data.keyToken
+            const src = Encrypt("hellow zell", keyAES64_1, keyAES64_1)
+            console.log(src)
+            params.detail = src
+
+            apiGetNote(params).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                const aes1 = Decrypt(this.note.userEncodeKey, keyAES64_1, keyAES64_1)
+                this.note = response.data.data.note
+                console.log(this.note.detail)
+                this.note.detail = Decrypt(this.note.detail, aes1, aes1)
+              }
+            })
           }
         })
       },
@@ -106,9 +141,10 @@
           noteId: this.note.noteId,
           title: this.note.title,
           detail: Encrypt(this.note.detail, keyAESBase64, keyAESBase64),
-          token: this.$store.state.gogo_token,
           encryptKey: keyAESBase64
         }
+
+        const txtData = '杨超越，我爱你'
 
         let req = {}
 
@@ -116,13 +152,12 @@
           console.log(response)
           if (response.data.code === 0) {
             console.log('save note')
-            req.data = RSAencrypt(params, response.data.publicKey)
-            req.keyToken = response.data.keyToken
-            console.log(req)
+            params.encryptKey = RSAencrypt(params.encryptKey, response.data.data.publicKey)
+            params.keyToken = response.data.data.keyToken
+            console.log(params)
 
-            return
             this.saving = true
-            apiEditNote(req).then((response) => {
+            apiEditNote(params).then((response) => {
               console.log(response)
               if (response.data.code === 0) {
                 this.$Message.info('Save successful')

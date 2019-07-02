@@ -73,14 +73,21 @@ export function GenerateRandomString16() {
   return tmp;
 }
 
+
+
 //加密方法
 export function RSAencrypt(content, publicKey) {
   //实例化jsEncrypt对象
   let jse = new JSEncrypt();
   //设置公钥
+  console.log(publicKey)
   jse.setPublicKey(publicKey);
   // console.log('加密：'+jse.encrypt(pas))
-  return jse.encrypt(content);
+
+  console.log('加密的明文：'+content)
+  const result = jse.encrypt(content);
+  console.log('加密后的密文:'+result)
+  return result
 }
 
 //解密方法
