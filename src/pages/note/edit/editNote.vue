@@ -93,6 +93,7 @@
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
             const keyAES_1 = GenerateRandomString16();
+            console.log(keyAES_1)
 
             const rsaEncryptAESkey = RSAencrypt(keyAES_1, response.data.data.publicKey)
 
@@ -103,10 +104,45 @@
               if (response.data.code === 0) {
 
                 this.note = response.data.data.note
-                console.log(this.note.userEncodeKey)
                 console.log(keyAES_1)
-                const aes1 = Decrypt(this.note.userEncodeKey, keyAES_1, keyAES_1)
-                this.note.detail = Decrypt(this.note.detail, aes1, aes1)
+
+                let strKey=this.note.userEncodeKey
+                console.log(strKey)
+
+                // let cipherTextHexStr = CryptoJS.enc.Hex.parse(cipherText)
+                // let cipherTextBase64Str = CryptoJS.enc.Base64.stringify(cipherTextHexStr)
+
+                // let key = KEY
+                // let iv = KEY
+                // if (keyStr) {
+                //   key = CryptoJS.enc.Utf8.parse(keyStr)
+                //   iv = CryptoJS.enc.Utf8.parse(ivStr)
+                // }
+
+                var decrypt = CryptoJS.AES.decrypt(strKey, keyAES_1, {
+                  iv: keyAES_1,
+                  mode: CryptoJS.mode.CBC,
+                  padding: CryptoJS.pad.Pkcs7
+                })
+
+                console.log(decrypt)
+
+                console.log(decrypt.toString())
+
+                // var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+
+                // return
+                //
+                // var decrypt = CryptoJS.AES.decrypt(context, key, {
+                //   iv: iv,
+                //   mode: CryptoJS.mode.CBC,
+                //   padding: CryptoJS.pad.Pkcs7
+                // });
+                // var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+                // return decryptedStr.toString();
+
+                // const aes1 = Decrypt(this.note.userEncodeKey, keyAES_1, keyAES_1)
+                // this.note.detail = Decrypt(this.note.detail, aes1, aes1)
               }
             })
           }
