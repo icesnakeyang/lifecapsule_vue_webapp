@@ -20,7 +20,6 @@ export const apiAddNote = params => {
 }
 
 export const apiGetNote = params => {
-  console.log(params.noteId)
   return axios.post(`${host}/note/getNoteDetailByNoteId`, params, {
     headers: {
       token: store.state.gogo_token
@@ -29,7 +28,6 @@ export const apiGetNote = params => {
 }
 
 export const apiListNote = params => {
-  console.log(store.state.gogo_token)
   return axios.post(`${host}/note/listNoteByUserToken`, params, {
     headers: {
       token: store.state.gogo_token

@@ -30,10 +30,11 @@ export function Encrypt(word, keyStr, ivStr) {
 }
 
 export function Decrypt(cipherText, keyStr, ivStr) {
-  console.log('密文:' + cipherText)
-  console.log('keyStr', keyStr)
+  console.log(cipherText)
   let cipherTextHexStr = CryptoJS.enc.Hex.parse(cipherText)
+  console.log(cipherTextHexStr)
   let cipherTextBase64Str = CryptoJS.enc.Base64.stringify(cipherTextHexStr)
+  console.log(cipherTextBase64Str)
 
   let key = KEY
   let iv = KEY
@@ -42,14 +43,16 @@ export function Decrypt(cipherText, keyStr, ivStr) {
     iv = CryptoJS.enc.Utf8.parse(ivStr)
   }
 
-  console.log('key:' + key)
-  console.log('iv:' + iv)
+  console.log(key)
+
 
   var decrypt = CryptoJS.AES.decrypt(cipherTextBase64Str, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
   })
+
+  console.log(decrypt.toString())
 
   var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
 
@@ -80,13 +83,10 @@ export function RSAencrypt(content, publicKey) {
   //实例化jsEncrypt对象
   let jse = new JSEncrypt();
   //设置公钥
-  console.log(publicKey)
   jse.setPublicKey(publicKey);
   // console.log('加密：'+jse.encrypt(pas))
 
-  console.log('加密的明文：'+content)
   const result = jse.encrypt(content);
-  console.log('加密后的密文:'+result)
   return result
 }
 

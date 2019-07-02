@@ -71,19 +71,15 @@
         // let key = CryptoJS.enc.Utf8.parse("abcdefgabcdefg12");
 
         // console.log('key1:' + key)
-        let key = GenerateRandomString16()
-        params.encryptKey = key
-        console.log('key2:' + key)
-        key = CryptoJS.enc.Utf8.parse(key)
+        // let key = GenerateRandomString16()
+        // params.encryptKey = key
+        // console.log('key2:' + key)
+        // key = CryptoJS.enc.Utf8.parse(key)
         // console.log('key3:' + key)
 
-        let srcs = CryptoJS.enc.Utf8.parse("hellow zell");
-        let encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
-
-        params.detail = encrypted.toString()
+        // let encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
 
 
-        console.log(params)
         /**
          * 请求一个RSA公钥
          * 生成一个AES秘钥
@@ -94,47 +90,22 @@
          *
          */
 
-        apiGetNote(params).then((response) => {
-          console.log(response)
-        })
-
-        return
-
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            const uuid = GenerateKey()
-            const keyAES_1 = CryptoJS.SHA1(uuid);
-            let keyAES64_1 = CryptoJS.enc.Base64.stringify(keyAES_1)
+            const keyAES_1 = GenerateRandomString16();
 
+            const rsaEncryptAESkey = RSAencrypt(keyAES_1, response.data.data.publicKey)
 
-            let keyStr = "hctrsZ7+ZHFJoR5iWChnQA=="
-            const data = "hellow zell"
-
-            var sendData = CryptoJS.enc.Utf8.parse(data);
-            var key = CryptoJS.enc.Utf8.parse(keyStr);
-            var iv = CryptoJS.enc.Utf8.parse(keyStr);
-            var encrypted = CryptoJS.AES.encrypt(sendData, key, {
-              iv: iv,
-              mode: CryptoJS.mode.CBC,
-              padding: CryptoJS.pad.Iso10126
-            });
-            //return CryptoJS.enc.Base64.stringify(encrypted.toString(CryptoJS.enc.Utf8));
-            keyAES64_1 = CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
-
-            console.log(keyAES64_1)
-            const rsaEncryptAESkey = RSAencrypt(keyAES64_1, response.data.data.publicKey)
-            params.encryptKey = keyAES64_1
+            params.encryptKey = rsaEncryptAESkey
             params.keyToken = response.data.data.keyToken
-            const src = Encrypt("hellow zell", keyAES64_1, keyAES64_1)
-            console.log(src)
-            params.detail = src
 
             apiGetNote(params).then((response) => {
-              console.log(response)
               if (response.data.code === 0) {
-                const aes1 = Decrypt(this.note.userEncodeKey, keyAES64_1, keyAES64_1)
+
                 this.note = response.data.data.note
-                console.log(this.note.detail)
+                console.log(this.note.userEncodeKey)
+                console.log(keyAES_1)
+                const aes1 = Decrypt(this.note.userEncodeKey, keyAES_1, keyAES_1)
                 this.note.detail = Decrypt(this.note.detail, aes1, aes1)
               }
             })
@@ -193,7 +164,6 @@
 
     mounted() {
       if (this.$route.params.noteId) {
-        console.log(this.$route.params.noteId)
         this.$store.dispatch('saveNoteId', this.$route.params.noteId)
       }
       this.loadAllData()
