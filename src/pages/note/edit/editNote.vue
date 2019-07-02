@@ -72,7 +72,7 @@
 
         // console.log('key1:' + key)
         let key = GenerateRandomString16()
-        params.encryptKey=key
+        params.encryptKey = key
         console.log('key2:' + key)
         key = CryptoJS.enc.Utf8.parse(key)
         // console.log('key3:' + key)
@@ -93,6 +93,13 @@
          * 用解开的note的AES解开detail
          *
          */
+
+        apiGetNote(params).then((response) => {
+          console.log(response)
+        })
+
+        return
+
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
             const uuid = GenerateKey()
@@ -101,14 +108,18 @@
 
 
             let keyStr = "hctrsZ7+ZHFJoR5iWChnQA=="
-            const data="hellow zell"
+            const data = "hellow zell"
 
             var sendData = CryptoJS.enc.Utf8.parse(data);
             var key = CryptoJS.enc.Utf8.parse(keyStr);
-            var iv  = CryptoJS.enc.Utf8.parse(keyStr);
-            var encrypted = CryptoJS.AES.encrypt(sendData, key,{iv:iv,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.Iso10126});
+            var iv = CryptoJS.enc.Utf8.parse(keyStr);
+            var encrypted = CryptoJS.AES.encrypt(sendData, key, {
+              iv: iv,
+              mode: CryptoJS.mode.CBC,
+              padding: CryptoJS.pad.Iso10126
+            });
             //return CryptoJS.enc.Base64.stringify(encrypted.toString(CryptoJS.enc.Utf8));
-            keyAES64_1= CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
+            keyAES64_1 = CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
 
             console.log(keyAES64_1)
             const rsaEncryptAESkey = RSAencrypt(keyAES64_1, response.data.data.publicKey)
