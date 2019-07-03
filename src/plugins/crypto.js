@@ -30,34 +30,17 @@ export function Encrypt(word, keyStr, ivStr) {
 }
 
 export function Decrypt(cipherText, keyStr, ivStr) {
-  console.log('密文1:' + cipherText)
-  console.log('keyStr2', keyStr)
-  console.log('ivstr2', ivStr)
-  // cipherText = "ff504db1690037bfa17569ab575d41f3"
   let cipherTextHexStr = CryptoJS.enc.Hex.parse(cipherText)
-  console.log(cipherTextHexStr)
   let cipherTextBase64Str = CryptoJS.enc.Base64.stringify(cipherTextHexStr)
-  console.log(cipherTextBase64Str)
-
   let key = CryptoJS.enc.Utf8.parse(keyStr)
   let iv = CryptoJS.enc.Utf8.parse(ivStr)
-
-  console.log('key:' + key)
-  console.log('iv:' + iv)
-
   let decrypt = CryptoJS.AES.decrypt(cipherTextBase64Str, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
   })
-
-  console.log(decrypt.toString())
-
   let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
-  console.log(decryptedStr)
-
   return decryptedStr
-
 }
 
 export function DecryptAES(words, keyStr) {
@@ -117,4 +100,16 @@ export function RSAdecrypt(content, privateKey) {
   jse.setPrivateKey(privateKey)
   // console.log('解密：'+jse.decrypt(pas))
   return jse.decrypt(content);
+}
+
+export function Decrypt2(word, keyStr) {
+  let key = CryptoJS.enc.Utf8.parse(keyStr)
+
+  let decrypt = CryptoJS.AES.decrypt(word, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  })
+
+  return CryptoJS.enc.Utf8.stringify(decrypt).toString()
+
 }

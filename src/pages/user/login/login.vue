@@ -30,6 +30,8 @@
 
 <script>
   import {apiLogin} from "@/api/api";
+  import {apiRequestRSAPublicKey} from "../../../api/api";
+  import {RSAencrypt} from "../../../plugins/crypto";
 
   export default {
     name: "login",
@@ -50,27 +52,40 @@
         })
       },
       onLogin() {
-        const params = {
+        let params = {
           phone: this.loginname,
-          email:this.loginname,
+          email: this.loginname,
           password: this.login_password
         }
         this.submitting = true
-        apiLogin(params).then((response) => {
-          console.log(response)
+
+        /**
+         * 从服务器取一个RSA公钥
+         * 用公钥加密密码
+         */
+        apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            this.token = response.data.data.user.token
-            this.$store.dispatch('saveToken', this.token)
-            this.$router.push({
-              name: 'notelist'
+            params.password = RSAencrypt(this.login_password, response.data.data.publicKey)
+            params.keyToken = response.data.data.keyToken
+
+            this.submitting = true
+            apiLogin(params).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                this.token = response.data.data.user.token
+                this.$store.dispatch('saveToken', this.token)
+                this.$router.push({
+                  name: 'notelist'
+                })
+              } else {
+                this.$Message.error(this.$t('syserr.' + response.data.code))
+              }
+              this.submitting = false
+            }).catch((error) => {
+              console.log(error)
+              this.submitting = false
             })
-          } else {
-            this.$Message.error(this.$t('syserr.' + response.data.code))
           }
-          this.submitting = false
-        }).catch((error) => {
-          console.log(error)
-          this.submitting = false
         })
       }
     },

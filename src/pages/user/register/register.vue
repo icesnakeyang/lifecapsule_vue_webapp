@@ -30,6 +30,8 @@
 
 <script>
   import {apiRegister} from "@/api/api";
+  import {apiRequestRSAPublicKey} from "../../../api/api";
+  import {RSAencrypt} from "../../../plugins/crypto";
 
   export default {
     name: "register",
@@ -61,30 +63,42 @@
           phone = this.login_name
         }
 
-        this.submitting = true
-        apiRegister({
+        let params = {
           phone: phone,
-          email: email,
-          password: this.password
-        }).then((response) => {
-          console.log(response)
+          email: email
+        }
+        /**
+         * 从服务器取一个RSA公钥
+         * 用公钥加密密码
+         */
+        apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            const token = response.data.data.user.token
-            console.log(token)
-            this.$store.dispatch('saveToken', token)
-            // this.$store.dispatch('saveToken', user);
-            this.$router.push({
-              name: 'login'
+            params.password = RSAencrypt(this.password, response.data.data.publicKey)
+            params.keyToken = response.data.data.keyToken
+
+            this.submitting = true
+            apiRegister(params).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                const token = response.data.data.user.token
+                console.log(token)
+                this.$store.dispatch('saveToken', token)
+                this.$router.push({
+                  name: 'login'
+                })
+                this.$Message.success(this.$t('user.msgRegisterSuccess'))
+              } else {
+                this.$Message.error(this.$t('syserr.' + response.data.code))
+              }
+              this.submitting = false
+            }).catch((error) => {
+              console.log(error)
+              this.$Message.error(error)
+              this.submitting = false
             })
-            this.$Message.success(this.$t('user.msgRegisterSuccess'))
           } else {
             this.$Message.error(this.$t('syserr.' + response.data.code))
           }
-          this.submitting = false
-        }).catch((error) => {
-          console.log(error)
-          this.$Message.error(error)
-          this.submitting = false
         })
       }
     }

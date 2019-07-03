@@ -22,8 +22,9 @@
   import 'quill/dist/quill.bubble.css'
   import 'quill/dist/quill.snow.css'
   import {imageResize} from 'quill-image-resize-module'
-  import {Decrypt, Encrypt} from "../../../plugins/crypto";
+  import {Encrypt, GenerateKey, RSAencrypt} from "../../../plugins/crypto";
   import {apiRequestRSAPublicKey} from "../../../api/api";
+  import CryptoJS from 'crypto-js'
 
   export default {
     name: "newNote",
@@ -47,24 +48,22 @@
     },
     methods: {
       onSave() {
-        console.log(this.title)
-        console.log(this.noteContent)
-
+        const uuid=GenerateKey()
+        const keyAES=CryptoJS.SHA256(uuid)
+        const keyAESBase64=CryptoJS.enc.Base64.stringify(keyAES)
+        let params={
+          title:this.title,
+          detail:Encrypt(this.noteContent,keyAESBase64, keyAESBase64),
+          encryptKey:keyAESBase64,
+          categoryId: this.$store.state.category_id,
+        }
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            console.log(response)
-            const keyAES = response.data.data.encoded
-            console.log('key:' + keyAES)
+            params.encryptKey=RSAencrypt(params.encryptKey, response.data.data.publicKey)
+            params.keyToken=response.data.data.keyToken
 
-            console.log('save')
             this.saving = true
-            apiAddNote({
-              title: this.title,
-              detail: Encrypt(this.noteContent, keyAES, keyAES),
-              categoryId: this.$store.state.category_id,
-              encryptKey:keyAES
-            }).then((response) => {
-              console.log(response)
+            apiAddNote(params).then((response) => {
               if (response.data.code === 0) {
                 this.$Message.info('Save successful')
                 this.$router.push({
