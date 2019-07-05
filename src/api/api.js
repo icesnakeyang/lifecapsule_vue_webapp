@@ -99,6 +99,23 @@ export const apiCreateRecipient = params => {
   })
 }
 
+export const apiDeleteRecipient = params => {
+  return axios.post(`${host}/trigger/deleteRecipient`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+
+export const apiUpdateRecipient = params => {
+  return axios.post(`${host}/trigger/updateRecipient`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
 export const apiListTriggerByNoteId = params => {
   return axios.post(`${host}/trigger/listTriggerByNoteId`, params, {
     headers: {

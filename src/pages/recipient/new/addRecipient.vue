@@ -1,21 +1,23 @@
 <template>
   <div>
     <Form>
-      <FormItem>
+      <FormItem :label="$t('recipient.name')">
         <Input type="text" v-model="name" placeholder="name"></Input>
       </FormItem>
-      <FormItem>
+      <FormItem :label="$t('recipient.email')">
         <Input type="text" v-model="email" placeholder="email"></Input>
       </FormItem>
-      <FormItem>
+      <FormItem :label="$t('recipient.phone')">
         <Input type="text" v-model="phone" placeholder="phone"></Input>
       </FormItem>
-      <FormItem>
+      <FormItem :label="$t('recipient.address')">
         <Input type="text" v-model="address" placeholder="address"></Input>
       </FormItem>
       <FormItem>
-        <quill-editor v-model="remark"
-                      :options="editorOption"></quill-editor>
+        <span>
+          <quill-editor v-model="remark"
+                        :options="editorOption"></quill-editor>
+        </span>
       </FormItem>
       <FormItem>
         <Button class="gogo_button" type="primary" @click="onSave">Submit</Button>
@@ -70,10 +72,12 @@
           if (response.data.code === 0) {
             this.$router.push({
               name: 'editTrigger',
-              params:{
-                triggerId:response.data.data.trigger.triggerId
+              params: {
+                triggerId: response.data.data.trigger.triggerId
               }
             })
+          } else {
+            this.$Message.error(this.$t('syserr.' + response.data.code))
           }
         })
       },

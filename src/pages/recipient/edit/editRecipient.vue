@@ -1,46 +1,52 @@
 <template>
   <div>
     <Form>
-      <FormItem>
+      <FormItem :label="$t('recipient.name')">
         <Input v-model="recipient.recipientName"></Input>
       </FormItem>
-      <FormItem>
-        <Tabs :animated="false">
-          <TabPane label="email">
-            <email-list :emailList="recipient.emailList"></email-list>
-          </TabPane>
-        </Tabs>
+      <FormItem :label="$t('recipient.email')">
+        <Input v-model="recipient.email"></Input>
+      </FormItem>
+      <FormItem :label="$t('recipient.phone')">
+        <Input v-model="recipient.phone"></Input>
+      </FormItem>
+      <FormItem :label="$t('recipient.address')">
+        <Input v-model="recipient.address"></Input>
       </FormItem>
       <FormItem>
-        <Tabs :animated="false">
-          <TabPane label="phone">
-            <Input v-model="recipient.personName"></Input>
-          </TabPane>
-        </Tabs>
+        <quill-editor v-model="recipient.remark"
+                      :options="editorOption"></quill-editor>
       </FormItem>
       <FormItem>
-        <Tabs :animated="false">
-          <TabPane label="address">
-            <Input v-model="recipient.personName"></Input>
-          </TabPane>
-        </Tabs>
+        <Button class="gogo_button" type="primary" @click="onSave">{{$t('common.btSave')}}</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 
 <script>
-  import {apiGetRecipientByRecipientId} from "../../../api/api";
-  import emailList from '../../../components/email/emailList'
+  import {apiGetRecipientByRecipientId, apiUpdateRecipient} from "../../../api/api";
+  import {quillEditor} from 'vue-quill-editor'
+  import 'quill/dist/quill.core.css'
+  import 'quill/dist/quill.bubble.css'
+  import 'quill/dist/quill.snow.css'
 
   export default {
     name: "editRecipient",
     components: {
-      emailList
+      quillEditor
     },
     data() {
       return {
-        recipient: {}
+        recipient: {},
+        editorOption: {
+          modules: {
+            toolbar: null,
+            imageResize: true
+          },
+          placeholder: 'remark',
+          theme: 'snow'
+        }
       }
     },
     methods: {
@@ -52,6 +58,23 @@
           this.recipient = response.data.data.recipient
         })
       },
+      onSave() {
+        console.log(this.recipient.recipientId)
+        apiUpdateRecipient({
+          recipientId: this.recipient.recipientId,
+          recipientName: this.recipient.recipientName,
+          phone: this.recipient.phone,
+          email: this.recipient.email,
+          address: this.recipient.address,
+          remark: this.recipient.remark
+        }).then((response)=>{
+          if(response.data.code===0){
+            this.$Message.success(this.$t('common.btSaveSuccess'))
+          }else {
+            this.$Message.error(this.$t('common.btSaveFailed'))
+          }
+        })
+      }
     },
     mounted() {
       console.log(this.$store.state.recipient_id)
@@ -65,5 +88,5 @@
 </script>
 
 <style scoped>
-
+  @import "../../../assets/gogoStyle.css";
 </style>

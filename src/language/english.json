@@ -1,7 +1,10 @@
 {
   "common": {
     "loading": "Loading...",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "btSave": "Save",
+    "btSaveSuccess": "Save successful",
+    "btSaveFailed": "Save failed"
   },
   "headerBar": {
     "appName": "LifeCapsule",
@@ -29,9 +32,17 @@
     "detail": "Detail",
     "btSave": "Save"
   },
+  "recipient": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "remark": "Remark"
+  },
   "syserr": {
     "10001": "Unknown error",
     "10002": "Username or password error",
-    "10009": "This email has been registered by others"
+    "10009": "This email has been registered by others",
+    "10022": "Please input a contact information for the recipient"
   }
 }
