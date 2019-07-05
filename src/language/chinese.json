@@ -1,10 +1,12 @@
 {
-  "common":{
-    "loading":"加载中...",
-    "saving":"保存中...",
+  "common": {
+    "loading": "加载中...",
+    "saving": "保存中...",
     "btSave": "保存",
     "btSaveSuccess": "保存成功",
-    "btSaveFailed": "保存失败"
+    "btSaveFailed": "保存失败",
+    "btDeleteSuccess": "删除成功",
+    "btDeleteFailed": "删除失败"
   },
   "headerBar": {
     "appName": "时空笔记",
@@ -19,18 +21,18 @@
     "loginNameHolder": "手机/邮箱",
     "password": "密码",
     "btLogin": "登录",
-    "btRegister":"注册",
-    "msgRegisterSuccess":"注册成功",
-    "msgRegisterFail":"注册失败"
+    "btRegister": "注册",
+    "msgRegisterSuccess": "注册成功",
+    "msgRegisterFail": "注册失败"
   },
   "email": {
     "emailHolder": "请输入Email地址"
   },
-  "note":{
-    "title":"标题",
-    "titleHolder":"请输入标题",
-    "detail":"内容",
-    "btSave":"保存"
+  "note": {
+    "title": "标题",
+    "titleHolder": "请输入标题",
+    "detail": "内容",
+    "btSave": "保存"
   },
   "recipient": {
     "name": "姓名",
@@ -42,7 +44,7 @@
   "syserr": {
     "10001": "未知错误",
     "10002": "用户名或密码错误",
-    "10009":"该email已经被其他用户注册使用了",
+    "10009": "该email已经被其他用户注册使用了",
     "10022": "接收人至少需要填写一种联系方式"
   }
 }

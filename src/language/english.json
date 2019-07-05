@@ -4,7 +4,9 @@
     "saving": "Saving...",
     "btSave": "Save",
     "btSaveSuccess": "Save successful",
-    "btSaveFailed": "Save failed"
+    "btSaveFailed": "Save failed",
+    "btDeleteSuccess": "Delete successful",
+    "btDeleteFailed": "Delete failed"
   },
   "headerBar": {
     "appName": "LifeCapsule",

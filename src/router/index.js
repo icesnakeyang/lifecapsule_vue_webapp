@@ -9,6 +9,10 @@ import baseHeader from '@/pages/layout/baseHeader'
 import baseLayout from '@/pages/layout/baseLayout'
 import baseFooter from '@/pages/layout/baseFooter'
 
+
+import allBlank from '@/components/allBlank'
+
+
 /**
  * register
  */
@@ -71,6 +75,13 @@ const router = new Router({
       path: '/',
       component: baseLayout,
       children: [
+        {
+          path: 'allBlank',
+          name: 'allBlank',
+          components: {
+            content: allBlank
+          }
+        },
         {
           path: '/register',
           name: 'register',
@@ -185,27 +196,27 @@ const router = new Router({
           }
         },
         {
-          path:'conditionEdit',
-          name:'conditionEdit',
-          components:{
-            header:baseHeader,
-            content:conditionEdit
+          path: 'conditionEdit',
+          name: 'conditionEdit',
+          components: {
+            header: baseHeader,
+            content: conditionEdit
           }
         },
         {
-          path:'gogoKeyNew',
-          name:'gogoKeyNew',
-          components:{
-            header:baseHeader,
-            content:gogoKeyNew
+          path: 'gogoKeyNew',
+          name: 'gogoKeyNew',
+          components: {
+            header: baseHeader,
+            content: gogoKeyNew
           }
         },
         {
-          path:'gogoKeyList',
-          name:'gogoKeyList',
-          components:{
-            header:baseHeader,
-            content:gogoKeyList
+          path: 'gogoKeyList',
+          name: 'gogoKeyList',
+          components: {
+            header: baseHeader,
+            content: gogoKeyList
           }
         }
       ]

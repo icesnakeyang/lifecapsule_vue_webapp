@@ -36,9 +36,19 @@
       },
       onDelete() {
         console.log('delete')
-        return
-        apiDeleteRecipient({}).then((response) => {
-
+        console.log(this.recipient.recipientId)
+        apiDeleteRecipient({
+          recipientId: this.recipient.recipientId
+        }).then((response) => {
+          if (response.data.code === 0) {
+            this.$Message.success(this.$t('common.btDeleteSuccess'))
+            // location.reload()
+            this.$router.replace({
+              name: 'allBlank'
+            })
+          } else {
+            this.$Message.error(this.$t('common.btDeleteFailed'))
+          }
         })
       }
     },
