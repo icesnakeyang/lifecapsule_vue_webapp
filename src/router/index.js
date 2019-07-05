@@ -48,6 +48,7 @@ import triggerList from '@/pages/trigger/list/triggerList'
 import triggerListHeader from '@/pages/trigger/list/triggerListHeader'
 import newTrigger from '@/pages/trigger/new/newTrigger'
 import editTrigger from '@/pages/trigger/edit/editTrigger'
+import selectGogoKey from '@/pages/trigger/condition/selectGogoKey'
 
 /**
  * recipient
@@ -217,6 +218,14 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: gogoKeyList
+          }
+        },
+        {
+          path: 'selectGogoKey',
+          name: 'selectGogoKey',
+          components: {
+            header: baseHeader,
+            content: selectGogoKey
           }
         }
       ]

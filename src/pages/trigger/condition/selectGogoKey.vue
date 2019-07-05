@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <CellGroup>
+      <Cell title="Only show titles"/>
+      <Cell title="Display label content" label="label content"/>
+      <Cell title="Display right content" extra="details"/>
+      <Cell title="Link" extra="details" to="/components/button"/>
+      <Cell title="Open link in new window" to="/components/button" target="_blank"/>
+      <Cell title="Disabled" disabled/>
+      <Cell title="Selected" selected/>
+      <Cell title="With Badge" to="/components/badge">
+        <Badge :count="10" slot="extra"/>
+      </Cell>
+      <Cell title="With Switch">
+        <Switch v-model="switchValue" slot="extra"/>
+      </Cell>
+    </CellGroup>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "selectGogoKey"
+  }
+</script>
+
+<style scoped>
+
+</style>

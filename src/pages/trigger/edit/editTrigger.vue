@@ -53,7 +53,7 @@
       },
       onAddCondition() {
         this.$router.push({
-          name: 'conditionNew'
+          name: 'selectGogoKey'
         })
       }
     },
