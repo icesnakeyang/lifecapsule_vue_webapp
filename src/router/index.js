@@ -68,6 +68,9 @@ import conditionEdit from '@/pages/condition/edit/conditionEdit'
 import gogoKeyNew from '@/pages/gogoKey/new/gogoKeyNew'
 import gogoKeyList from '@/pages/gogoKey/list/gogoKeyList'
 
+import adminGogoKeyMain from '@/admin/gogoKey/main'
+import adminGogoKeyNew from '@/admin/gogoKey/new'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -81,6 +84,22 @@ const router = new Router({
           name: 'allBlank',
           components: {
             content: allBlank
+          }
+        },
+        {
+          path: 'adminGogoKeyMain',
+          name: 'adminGogoKeyMain',
+          components: {
+            header: baseHeader,
+            content: adminGogoKeyMain
+          }
+        },
+        {
+          path: 'adminGogoKeyNew',
+          name: 'adminGogoKeyNew',
+          components: {
+            header: baseHeader,
+            content: adminGogoKeyNew
           }
         },
         {
