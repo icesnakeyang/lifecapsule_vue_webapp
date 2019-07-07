@@ -3,8 +3,30 @@
     <Tabs>
       <TabPane label="触发条件" icon="md-transgender">
         <Alert type="error">设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。</Alert>
-        <condition-list :conditionList="conditionList"></condition-list>
+        <Form>
+          <FormItem label="Title">
+            <Input v-model="condition.title"></Input>
+          </FormItem>
+          <FormItem label="Type">
+            <Input v-model="condition.type"></Input>
+          </FormItem>
+          <Form label-position="right" :label-width="100">
+            <div v-for="(item, index) in condition.params">
+              <FormItem label="参数">
+                <Input v-model="item.param"></Input>
+              </FormItem>
+              <FormItem label="值">
+                <DatePicker :transfer=true type="datetime"
+                            placeholder="Select date and time"
+                            v-model="item.value"
+                            style="width: 200px"></DatePicker>
+                <br>
+              </FormItem>
+            </div>
+          </Form>
+        </Form>
         <Button type="error" class="gogo_button" @click="onAddCondition">Add condition</Button>
+        <Button type="error" class="gogo_button" @click="btSaveCondition">Save</Button>
       </TabPane>
     </Tabs>
     <Tabs>
@@ -21,6 +43,7 @@
   import {apiGetTriggerByTriggerId} from "@/api/api";
   import recipientList from '../../recipient/list/recipientList'
   import conditionList from '../../condition/list/conditionList'
+  import {apiGetGogoPublicKey, apiListGogoPublicKey} from "../../../api/api";
 
   export default {
     name: "editTrigger",
@@ -31,7 +54,7 @@
     data() {
       return {
         recipientList: [],
-        conditionList: []
+        condition: {}
       }
     },
     methods: {
@@ -42,7 +65,15 @@
           console.log(response)
           if (response.data.code === 0) {
             this.recipientList = response.data.data.recipientList
-            this.conditionList = response.data.data.conditionList
+            apiGetGogoPublicKey({
+              uuid: this.condition.uuid
+            }).then((response) => {
+              console.log(response)
+              if (response.data.code === 0) {
+                this.condition = response.data.data.key
+                console.log(this.condition)
+              }
+            })
           }
         })
       },
@@ -55,11 +86,19 @@
         this.$router.push({
           name: 'selectGogoKey'
         })
+      },
+      btSaveCondition() {
+        console.log(this.condition)
       }
     },
     mounted() {
       console.log('old trigger id: ' + this.$store.state.trigger_id)
       console.log('param trigger id: ' + this.$route.params.triggerId)
+      console.log('uuid:' + this.$route.params.uuid)
+      if (this.$route.params.uuid) {
+        this.condition.uuid = this.$route.params.uuid
+        console.log(this.condition)
+      }
 
       if (this.$route.params.triggerId) {
         this.$store.dispatch('saveTriggerId', this.$route.params.triggerId)

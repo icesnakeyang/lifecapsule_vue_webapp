@@ -191,3 +191,19 @@ export const apiCreateGogoPublicKey = params => {
     }
   })
 }
+
+export const apiListGogoPublicKey = params => {
+  return axios.post(`${host}/admin/gogokey/listGogoPublicKey`, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetGogoPublicKey = params => {
+  return axios.post(`${host}/admin/gogokey/getGogoPublicKey`, params,{
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
