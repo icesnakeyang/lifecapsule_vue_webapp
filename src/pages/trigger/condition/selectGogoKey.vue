@@ -39,12 +39,14 @@
          * 跳转到触发条件的配置页面
          */
         console.log(item.uuid)
-        this.$router.push({
-          name: 'editTrigger',
-          params: {
-            uuid: item.uuid
-          }
-        })
+        if (item.uuid) {
+          this.$router.push({
+            name: 'editTrigger',
+            params: {
+              uuid: item.uuid
+            }
+          })
+        }
       }
     },
     mounted() {
