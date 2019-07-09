@@ -39,7 +39,6 @@
         apiCreateNoteCategory({
           categoryName: this.categoryName
         }).then((response) => {
-          console.log(response)
           this.saving = false
           if (response.data.code === 0) {
             this.$Message.success('创建成功')
@@ -50,7 +49,6 @@
             this.$Message.error('保存失败')
           }
         }).catch((error) => {
-          console.log(error)
           this.saving = false
         })
       }

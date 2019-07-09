@@ -13,7 +13,6 @@
       }
     },
     mounted() {
-      console.log(1)
       this.$router.replace({
         name: "editTrigger"
       })

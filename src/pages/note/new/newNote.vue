@@ -73,7 +73,6 @@
                 this.$Message.error('Save failed')
               }
             }).catch((error) => {
-              console.log(error)
             })
           }
         })

@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import {apiGetTriggerByTriggerId} from "../../../api/api";
 
   export default {
     name: "triggerRow",
@@ -21,11 +20,9 @@
     },
     methods: {
       onClick() {
+        this.$store.dispatch('saveTriggerId', this.trigger.triggerId)
         this.$router.push({
-          name: 'editTrigger',
-          params: {
-            triggerId: this.trigger.triggerId
-          }
+          name: 'editTrigger'
         })
       }
     }

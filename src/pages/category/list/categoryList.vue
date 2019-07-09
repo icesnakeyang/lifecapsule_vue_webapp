@@ -34,7 +34,6 @@
       loadAllData() {
         this.loading = true
         apiListCategory({}).then((response) => {
-          console.log(response)
           this.loading = false
           if (response.data.code === 0) {
             this.categoryList = response.data.data.categoryList
@@ -42,7 +41,6 @@
 
           }
         }).catch((error) => {
-          console.log(error)
           this.loading = false
         })
       }

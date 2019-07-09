@@ -25,14 +25,12 @@
     name: "registerHeader",
     methods: {
       onMenuItem(name) {
-        console.log(name)
         if (name === 'menuLogin') {
           this.$router.push({
             name: 'login'
           })
         }
         if (name === 'menuTitle') {
-          console.log('here')
           this.$router.push({
             name: 'notelist'
           })

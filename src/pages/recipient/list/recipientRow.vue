@@ -26,7 +26,6 @@
     },
     methods: {
       onClick() {
-        console.log(this.recipient)
         this.$router.push({
           name: 'editRecipient',
           params: {
@@ -35,8 +34,6 @@
         })
       },
       onDelete() {
-        console.log('delete')
-        console.log(this.recipient.recipientId)
         apiDeleteRecipient({
           recipientId: this.recipient.recipientId
         }).then((response) => {
@@ -53,7 +50,6 @@
       }
     },
     mounted() {
-      console.log(this.recipient)
     }
   }
 </script>

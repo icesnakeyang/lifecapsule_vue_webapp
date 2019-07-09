@@ -25,12 +25,10 @@
     name: "categoryHeader",
     methods: {
       onMenuItem(name) {
-        console.log(name)
         if (name === 'menuBack') {
           this.$router.back()
         }
         if (name === 'menuTitle') {
-          console.log('here')
           this.$router.push({
             name: 'notelist'
           })

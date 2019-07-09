@@ -25,12 +25,7 @@
     },
     methods: {
       onCell() {
-        console.log(this.$store.state.category_id)
-        console.log(this.$store.state.category_name)
-        console.log(this.category)
         this.$store.dispatch('saveCategory', this.category)
-        console.log(this.$store.state.category_id)
-        console.log(this.$store.state.category_name)
         this.$router.push({
           name: 'noteList'
         })

@@ -44,10 +44,8 @@
           listRecipientPersonByRecipientId({
             recipientId: this.$store.state.recipient_id
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.personList = response.data.data.personList
-              console.log(this.personList)
             }
           })
         }

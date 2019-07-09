@@ -44,7 +44,6 @@
     },
     methods: {
       btCreate() {
-        console.log('create gogokey')
         const keyvalus = {
           date: '2019-4-2',
           month: '4'
@@ -63,7 +62,6 @@
           }]
         }
         apiCreateGogoPublicKey(params).then((response) => {
-          console.log(response)
         })
       }
     }

@@ -26,7 +26,6 @@
         apiGetConditionByConditionId({
           conditionId: this.$store.state.condition_id
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.condition = response.data.data.condition
           }

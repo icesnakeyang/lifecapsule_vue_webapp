@@ -23,7 +23,6 @@
     },
     methods: {
       onCondition() {
-        console.log(this.condition.conditionId)
         this.$router.push({
           name: 'conditionEdit',
           params: {

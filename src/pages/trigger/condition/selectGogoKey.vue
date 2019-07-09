@@ -27,7 +27,6 @@
          * gogoKey
          */
         apiListGogoPublicKey({}).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.gogoKeys = response.data.data.list
           }
@@ -38,12 +37,11 @@
          * 选择一个触发条件
          * 跳转到触发条件的配置页面
          */
-        console.log(item.uuid)
         if (item.uuid) {
           this.$router.push({
             name: 'editTrigger',
             params: {
-              uuid: item.uuid
+              gogoPublicKeyId: item.uuid
             }
           })
         }

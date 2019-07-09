@@ -50,7 +50,6 @@
     methods: {
       loadAllData() {
         apiListGogoKey({}).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.conditions = response.data.data.gogoKeyList
           }
@@ -58,14 +57,10 @@
       },
 
       onKey() {
-        console.log(1)
       },
 
       addCondition() {
-        console.log(this.conditionName)
-        console.log(this.conditionKey)
         const theDate = new Date(this.conditionValueDate);
-        console.log(theDate)
         apiAddCondition({
           triggerId: this.$store.state.trigger_id,
           conditionName: this.conditionName,
@@ -73,7 +68,6 @@
           conditionTime: theDate,
           remark: this.remark
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.$Message.success('Add success')
             this.$router.back()
@@ -82,7 +76,6 @@
       }
     },
     mounted() {
-      console.log('trigger id：' + this.$store.state.trigger_id)
       this.loadAllData()
     }
   }

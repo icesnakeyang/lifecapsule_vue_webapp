@@ -35,7 +35,6 @@
     },
     methods: {
       onMenuItem(name) {
-        console.log(name)
         if (name === 'menuBack') {
           this.$router.back()
         }

@@ -68,7 +68,6 @@
           address: this.address,
           remark: this.remark
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.$router.push({
               name: 'editTrigger',
@@ -83,8 +82,6 @@
       },
     },
     mounted() {
-      console.log('noteId:' + this.$store.state.note_id)
-      console.log('triggerId:' + this.$store.state.trigger_id)
     }
   }
 </script>

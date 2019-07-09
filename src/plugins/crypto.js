@@ -15,17 +15,13 @@ export function Encrypt(word, keyStr, ivStr) {
   }
 
 
-  console.log(1)
   var encrypted = CryptoJS.AES.encrypt(word, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
   });
 
-  console.log(2)
-  console.log(encrypted)
   let ciphertext = encrypted.ciphertext.toString()
-  console.log(ciphertext)
   return ciphertext
 }
 
@@ -87,7 +83,6 @@ export function RSAencrypt(content, publicKey) {
   let jse = new JSEncrypt();
   //设置公钥
   jse.setPublicKey(publicKey);
-  // console.log('加密：'+jse.encrypt(pas))
 
   const result = jse.encrypt(content);
   return result
@@ -98,7 +93,6 @@ export function RSAdecrypt(content, privateKey) {
   let jse = new JSEncrypt();
   // 私钥
   jse.setPrivateKey(privateKey)
-  // console.log('解密：'+jse.decrypt(pas))
   return jse.decrypt(content);
 }
 

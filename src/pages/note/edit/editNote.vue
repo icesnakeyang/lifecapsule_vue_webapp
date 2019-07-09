@@ -116,7 +116,6 @@
                 this.saving = false
               }
             }).catch((error) => {
-              console.log(error)
               this.saving = false
             })
           }

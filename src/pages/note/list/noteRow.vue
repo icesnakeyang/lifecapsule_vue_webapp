@@ -28,7 +28,6 @@
     },
     methods: {
       onNote() {
-        console.log(this.note.noteId)
         this.$router.push({
           name: 'editNote',
           params: {

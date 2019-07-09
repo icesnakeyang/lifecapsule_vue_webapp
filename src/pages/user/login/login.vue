@@ -70,7 +70,6 @@
 
             this.submitting = true
             apiLogin(params).then((response) => {
-              console.log(response)
               if (response.data.code === 0) {
                 this.token = response.data.data.user.token
                 this.$store.dispatch('saveToken', this.token)
@@ -82,7 +81,6 @@
               }
               this.submitting = false
             }).catch((error) => {
-              console.log(error)
               this.submitting = false
             })
           }

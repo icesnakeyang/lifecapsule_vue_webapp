@@ -26,7 +26,6 @@
         apiListTriggerByNoteId({
           noteId: this.$store.state.note_id
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.triggerList = response.data.data.triggerList
           }
@@ -34,7 +33,6 @@
       }
     },
     mounted() {
-      console.log(this.$store.state.note_id)
       this.loadAllData()
     }
 

@@ -42,7 +42,6 @@
             categoryId: this.categoryId,
             categoryName: this.categoryName
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.$Message.success('Save access')
             } else {
@@ -50,7 +49,6 @@
             }
             this.saving = false
           }).catch((error) => {
-            console.log(error)
             this.saving = false
           })
         }
@@ -64,7 +62,6 @@
         apiDeleteCategory({
           categoryId: this.categoryId
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.$Message.success('Delete success')
             this.$router.push({
@@ -75,7 +72,6 @@
           }
           this.saving = false
         }).catch((error) => {
-          console.log(error)
           this.saving = false
         })
       }

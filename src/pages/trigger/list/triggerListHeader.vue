@@ -32,7 +32,7 @@
         if (name === 'menuAddTrigger') {
           this.$store.dispatch('clearTriggerId')
           this.$router.push({
-            name: 'newTrigger'
+            name: 'editTrigger'
           })
         }
       }

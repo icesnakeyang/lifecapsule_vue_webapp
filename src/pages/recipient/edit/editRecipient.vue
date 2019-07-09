@@ -54,12 +54,10 @@
         apiGetRecipientByRecipientId({
           recipientId: this.$store.state.recipient_id
         }).then((response) => {
-          console.log(response)
           this.recipient = response.data.data.recipient
         })
       },
       onSave() {
-        console.log(this.recipient.recipientId)
         apiUpdateRecipient({
           recipientId: this.recipient.recipientId,
           recipientName: this.recipient.recipientName,
@@ -77,8 +75,6 @@
       }
     },
     mounted() {
-      console.log(this.$store.state.recipient_id)
-      console.log(this.$route.params.recipientId)
       if (this.$route.params.recipientId) {
         this.$store.dispatch('saveRecipientId', this.$route.params.recipientId)
       }

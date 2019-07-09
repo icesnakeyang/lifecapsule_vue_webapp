@@ -1,21 +1,29 @@
 <template>
   <div>
+    <Alert type="error">设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。</Alert>
+    <Form label-position="right" :label-width="100">
+      <FormItem label="触发器名称">
+        <Input type="text" v-model="trigger.name"></Input>
+      </FormItem>
+      <FormItem label="说明">
+        <textarea type="text" rows="2" style="width: 100%;" v-model="trigger.remark"></textarea>
+      </FormItem>
+    </Form>
     <Tabs>
       <TabPane label="触发条件" icon="md-transgender">
-        <Alert type="error">设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。</Alert>
-        <Button type="error" class="gogo_button" @click="onAddCondition">Select Condition</Button>
+        <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
         <Form>
           <FormItem label="Title">
-            <Input v-model="condition.title" readonly></Input>
+            <Input v-model="trigger.title" readonly></Input>
           </FormItem>
           <Form label-position="right" :label-width="100">
-            <div v-for="(item, index) in condition.params">
+            <div v-for="(item, index) in gogoKey.params">
               <FormItem label="参数">
                 <Input v-model="item.param" readonly></Input>
               </FormItem>
               <FormItem label="值">
                 <DatePicker :transfer=true type="datetime"
-                            placeholder="Select date and time"
+                            placeholder="Select date  and time"
                             v-model="item.value"
                             style="width: 200px"></DatePicker>
                 <br>
@@ -23,13 +31,13 @@
             </div>
           </Form>
         </Form>
-        <Button type="error" class="gogo_button" @click="btSaveCondition">Save Condition</Button>
+        <Button type="error" class="gogo_button" @click="btSaveGogoKey">Save gogoKey</Button>
       </TabPane>
     </Tabs>
     <Tabs>
       <TabPane label="接收人" icon="md-contacts">
         <Alert>指定接收人，条件触发时，系统会自动把笔记发送给此人。</Alert>
-        <recipient-list :recipientList="recipientList"></recipient-list>
+        <recipient-list :recipientList="trigger.recipientList"></recipient-list>
         <Button type="primary" class="gogo_button" @click="onAddRecipient">Add recipient</Button>
       </TabPane>
     </Tabs>
@@ -39,38 +47,36 @@
 <script>
   import {apiGetTriggerByTriggerId} from "@/api/api";
   import recipientList from '../../recipient/list/recipientList'
-  import conditionList from '../../condition/list/conditionList'
-  import {apiGetGogoPublicKey} from "../../../api/api";
+  import {apiGetGogoPublicKey, apiSaveGogoKey} from "../../../api/api";
 
   export default {
     name: "editTrigger",
     components: {
-      recipientList,
-      conditionList
+      recipientList
     },
     data() {
       return {
-        recipientList: [],
-        condition: {}
+        trigger: {},
+        gogoKey: {}
       }
     },
     methods: {
       loadAllData() {
-        apiGetTriggerByTriggerId({
-          triggerId: this.$store.state.trigger_id
+        if (this.$store.state.trigger_id) {
+          apiGetTriggerByTriggerId({
+            triggerId: this.$store.state.trigger_id
+          }).then((response) => {
+            if (response.data.code === 0) {
+              this.trigger = response.data.data.trigger
+            }
+          })
+        }
+        apiGetGogoPublicKey({
+          uuid: this.gogoKey.gogoPublicKeyId
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
-            this.recipientList = response.data.data.recipientList
-            apiGetGogoPublicKey({
-              uuid: this.condition.uuid
-            }).then((response) => {
-              console.log(response)
-              if (response.data.code === 0) {
-                this.condition = response.data.data.key
-                console.log(this.condition)
-              }
-            })
+            this.gogoKey = response.data.data.key
+            console.log(this.gogoKey)
           }
         })
       },
@@ -79,37 +85,34 @@
           name: 'addRecipient'
         })
       },
-      onAddCondition() {
+      btSelectGogoKey() {
         this.$router.push({
           name: 'selectGogoKey'
         })
       },
-      btSaveCondition() {
-        console.log(this.condition)
+      btSaveGogoKey() {
+        console.log(this.gogoKey.gogoPublicKeyId)
         let params = {
-          uuid: this.condition.uuid,
-          params: this.condition.params
+          triggerId: this.$store.state.trigger_id,
+          noteId: this.$store.state.note_id,
+          remark: this.trigger.remark,
+          uuid: this.gogoKey.gogoPublicKeyId,
+          params: this.gogoKey.params
         }
+
         console.log(params)
 
         return
+
+        apiSaveGogoKey({params}).then((response) => {
+        })
       }
     },
     mounted() {
-      console.log('old trigger id: ' + this.$store.state.trigger_id)
-      console.log('param trigger id: ' + this.$route.params.triggerId)
-      console.log('uuid:' + this.$route.params.uuid)
-      if (this.$route.params.uuid) {
-        this.condition.uuid = this.$route.params.uuid
-        console.log(this.condition)
+      if (this.$route.params.gogoPublicKeyId) {
+        this.gogoKey.gogoPublicKeyId = this.$route.params.gogoPublicKeyId
       }
-
-      if (this.$route.params.triggerId) {
-        this.$store.dispatch('saveTriggerId', this.$route.params.triggerId)
-      }
-
-      console.log('now trigger id: ' + this.$store.state.trigger_id)
-
+      console.log(this.gogoKey.gogoPublicKeyId)
       this.loadAllData()
     }
   }

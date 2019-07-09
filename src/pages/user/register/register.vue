@@ -78,10 +78,8 @@
 
             this.submitting = true
             apiRegister(params).then((response) => {
-              console.log(response)
               if (response.data.code === 0) {
                 const token = response.data.data.user.token
-                console.log(token)
                 this.$store.dispatch('saveToken', token)
                 this.$router.push({
                   name: 'login'
@@ -92,7 +90,6 @@
               }
               this.submitting = false
             }).catch((error) => {
-              console.log(error)
               this.$Message.error(error)
               this.submitting = false
             })

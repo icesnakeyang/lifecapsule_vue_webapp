@@ -48,35 +48,28 @@
          */
         this.loading = true
         if (this.$store.state.category_id) {
-          console.log('有category')
-          console.log(this.$store.state.category_id)
           //有分类，查询该分类下的笔记
           apiListNoteByCategory({
             pageSize: 10,
             pageIndex: 1,
             categoryId: this.$store.state.category_id
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.noteList = response.data.data.noteList
-              console.log(this.noteList)
               this.loading = false
             } else {
               this.$Message.error("Load data error")
               this.loading = false
             }
           }).catch((error) => {
-            console.log(error)
             this.loading = false
           })
         } else {
           //没有分类，按时间倒序读取笔记
-          console.log('没有category')
           apiListNote({
             pageSize: 10,
             pageIndex: 1
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.noteList = response.data.data.noteList
               this.loading = false
@@ -85,7 +78,6 @@
               this.loading = false
             }
           }).catch((error) => {
-            console.log(error)
             this.loading = false
           })
         }

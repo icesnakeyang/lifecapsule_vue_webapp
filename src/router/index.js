@@ -46,7 +46,6 @@ import editNote from '@/pages/note/edit/editNote'
  */
 import triggerList from '@/pages/trigger/list/triggerList'
 import triggerListHeader from '@/pages/trigger/list/triggerListHeader'
-import newTrigger from '@/pages/trigger/new/newTrigger'
 import editTrigger from '@/pages/trigger/edit/editTrigger'
 import selectGogoKey from '@/pages/trigger/condition/selectGogoKey'
 
@@ -176,14 +175,6 @@ const router = new Router({
           }
         },
         {
-          path: 'newTrigger',
-          name: 'newTrigger',
-          components: {
-            header: triggerListHeader,
-            content: newTrigger
-          }
-        },
-        {
           path: 'editTrigger',
           name: 'editTrigger',
           components: {
@@ -253,7 +244,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   if (to.name === 'register') {
     next()
     return
