@@ -15,7 +15,8 @@
     "menu": {
       "login": "Login",
       "register": "Register"
-    }
+    },
+    "noteList": "Note"
   },
   "user": {
     "loginNameHolder": "Phone / Email",

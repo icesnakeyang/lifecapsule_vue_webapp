@@ -4,6 +4,9 @@
       <MenuItem name="menuBack" class="gogo_menuItem">
         <Icon type="ios-arrow-back"></Icon>
       </MenuItem>
+      <MenuItem name="menuNoteList" class="gogo_title">
+        {{$t("headerBar.noteList")}}
+      </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
         <MenuItem name="menuAddTrigger" class="gogo_menuItem">
           <Icon type="md-add"></Icon>
@@ -20,6 +23,11 @@
       onMenuItem(name) {
         if (name === 'menuBack') {
           this.$router.back()
+        }
+        if(name==='menuNoteList'){
+          this.$router.push({
+            name:'noteList'
+          })
         }
         if (name === 'menuAddTrigger') {
           this.$store.dispatch('clearTriggerId')

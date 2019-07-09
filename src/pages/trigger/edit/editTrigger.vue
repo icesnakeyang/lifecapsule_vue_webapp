@@ -3,17 +3,15 @@
     <Tabs>
       <TabPane label="触发条件" icon="md-transgender">
         <Alert type="error">设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。</Alert>
+        <Button type="error" class="gogo_button" @click="onAddCondition">Select Condition</Button>
         <Form>
           <FormItem label="Title">
-            <Input v-model="condition.title"></Input>
-          </FormItem>
-          <FormItem label="Type">
-            <Input v-model="condition.type"></Input>
+            <Input v-model="condition.title" readonly></Input>
           </FormItem>
           <Form label-position="right" :label-width="100">
             <div v-for="(item, index) in condition.params">
               <FormItem label="参数">
-                <Input v-model="item.param"></Input>
+                <Input v-model="item.param" readonly></Input>
               </FormItem>
               <FormItem label="值">
                 <DatePicker :transfer=true type="datetime"
@@ -25,8 +23,7 @@
             </div>
           </Form>
         </Form>
-        <Button type="error" class="gogo_button" @click="onAddCondition">Add condition</Button>
-        <Button type="error" class="gogo_button" @click="btSaveCondition">Save</Button>
+        <Button type="error" class="gogo_button" @click="btSaveCondition">Save Condition</Button>
       </TabPane>
     </Tabs>
     <Tabs>
@@ -43,7 +40,7 @@
   import {apiGetTriggerByTriggerId} from "@/api/api";
   import recipientList from '../../recipient/list/recipientList'
   import conditionList from '../../condition/list/conditionList'
-  import {apiGetGogoPublicKey, apiListGogoPublicKey} from "../../../api/api";
+  import {apiGetGogoPublicKey} from "../../../api/api";
 
   export default {
     name: "editTrigger",
@@ -89,6 +86,13 @@
       },
       btSaveCondition() {
         console.log(this.condition)
+        let params = {
+          uuid: this.condition.uuid,
+          params: this.condition.params
+        }
+        console.log(params)
+
+        return
       }
     },
     mounted() {

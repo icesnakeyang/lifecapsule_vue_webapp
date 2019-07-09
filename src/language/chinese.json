@@ -15,7 +15,8 @@
     "menu": {
       "login": "登录",
       "register": "注册"
-    }
+    },
+    "noteList": "笔记列表"
   },
   "user": {
     "loginNameHolder": "手机/邮箱",
