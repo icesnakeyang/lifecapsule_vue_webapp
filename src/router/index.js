@@ -70,10 +70,38 @@ import gogoKeyList from '@/pages/gogoKey/list/gogoKeyList'
 import adminGogoKeyMain from '@/admin/gogoKey/main'
 import adminGogoKeyNew from '@/admin/gogoKey/new'
 
+/**
+ * admin
+ */
+import dashboard from '@/admin/dashboard/dashboard'
+import adminLayout from "../admin/layout/adminLayout";
+import registerBoard from "../admin/register/registerBoard";
+
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/admin',
+      component: adminLayout,
+      children: [
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          components: {
+            adminContent: dashboard
+          }
+        },
+        {
+          path: 'registerBoard',
+          name: 'registerBoard',
+          components: {
+            adminContent: registerBoard
+          }
+
+        }
+      ]
+    },
     {
       path: '/',
       component: baseLayout,
