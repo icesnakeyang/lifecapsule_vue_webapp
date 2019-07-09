@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: "main",
+    name: "gogoPublicKeyMain",
     methods: {
       loadAllData() {
         /**
@@ -19,7 +19,7 @@
       },
       btAddNewKey() {
         this.$router.push({
-          name: 'adminGogoKeyNew'
+          name: 'gogoPublicKeyNew'
         })
       }
     }

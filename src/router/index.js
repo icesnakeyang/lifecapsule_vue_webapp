@@ -67,8 +67,8 @@ import conditionEdit from '@/pages/condition/edit/conditionEdit'
 import gogoKeyNew from '@/pages/gogoKey/new/gogoKeyNew'
 import gogoKeyList from '@/pages/gogoKey/list/gogoKeyList'
 
-import adminGogoKeyMain from '@/admin/gogoKey/main'
-import adminGogoKeyNew from '@/admin/gogoKey/new'
+import gogoPublicKeyMain from '@/admin/gogoKey/gogoPublicKeyMain'
+import gogoPublicKeyNew from '@/admin/gogoKey/gogoPublicKeyNew'
 
 /**
  * admin
@@ -98,7 +98,20 @@ const router = new Router({
           components: {
             adminContent: registerBoard
           }
-
+        },
+        {
+          path: 'gogoPublicKeyMain',
+          name: 'gogoPublicKeyMain',
+          components: {
+            adminContent: gogoPublicKeyMain
+          }
+        },
+        {
+          path: 'gogoPublicKeyNew',
+          name: 'gogoPublicKeyNew',
+          components: {
+            adminContent: gogoPublicKeyNew
+          }
         }
       ]
     },
@@ -111,22 +124,6 @@ const router = new Router({
           name: 'allBlank',
           components: {
             content: allBlank
-          }
-        },
-        {
-          path: 'adminGogoKeyMain',
-          name: 'adminGogoKeyMain',
-          components: {
-            header: baseHeader,
-            content: adminGogoKeyMain
-          }
-        },
-        {
-          path: 'adminGogoKeyNew',
-          name: 'adminGogoKeyNew',
-          components: {
-            header: baseHeader,
-            content: adminGogoKeyNew
           }
         },
         {

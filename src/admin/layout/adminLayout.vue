@@ -31,7 +31,7 @@
   .menu-item span {
     display: inline-block;
     overflow: hidden;
-    width: 69px;
+    /*width: 69px;*/
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: bottom;
@@ -60,7 +60,7 @@
 <template>
   <div class="layout">
     <Layout>
-      <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+      <Sider ref="side1" hide-trigger collapsible :collapsed-width="100" v-model="isCollapsed">
         <Menu theme="dark" width="auto" :class="menuitemClasses" @on-select="onMenuItem">
           <MenuItem name="menuDashboard">
             <Icon type="ios-navigate"></Icon>
@@ -70,9 +70,9 @@
             <Icon type="ios-search"></Icon>
             <span>Registration</span>
           </MenuItem>
-          <MenuItem name="1-3">
+          <MenuItem name="menuGogoPublicKey">
             <Icon type="ios-settings"></Icon>
-            <span>Option 3</span>
+            <span>gogoPublic Key</span>
           </MenuItem>
         </Menu>
       </Sider>
@@ -123,9 +123,9 @@
             name:'registerBoard'
           })
         }
-        if (name === 'menuAdd') {
+        if(name==='menuGogoPublicKey'){
           this.$router.push({
-            name: 'newNote'
+            name:'gogoPublicKeyMain'
           })
         }
       },
