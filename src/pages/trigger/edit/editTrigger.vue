@@ -11,27 +11,26 @@
     </Form>
     <Tabs>
       <TabPane label="触发条件" icon="md-transgender">
-        <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
-        <Form>
-          <FormItem label="Title">
-            <Input v-model="trigger.title" readonly></Input>
+        <Form label-position="right" :label-width="100">
+          <div class="gogo_btn">
+            <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
+          </div>
+          <FormItem label="Title" v-if="gogoKey.title">
+            <Input v-model="gogoKey.title" readonly></Input>
           </FormItem>
-          <Form label-position="right" :label-width="100">
-            <div v-for="(item, index) in gogoKey.params">
-              <FormItem label="参数">
-                <Input v-model="item.param" readonly></Input>
-              </FormItem>
-              <FormItem label="值">
-                <DatePicker :transfer=true type="datetime"
-                            placeholder="Select date  and time"
-                            v-model="item.value"
-                            style="width: 200px"></DatePicker>
-                <br>
-              </FormItem>
-            </div>
-          </Form>
+          <div v-for="(item, index) in gogoKey.params">
+            <FormItem label="参数">
+              <Input v-model="item.param" readonly></Input>
+            </FormItem>
+            <FormItem label="值">
+              <DatePicker :transfer=true type="datetime"
+                          placeholder="Select date  and time"
+                          v-model="item.value"
+                          style="width: 200px"></DatePicker>
+              <br>
+            </FormItem>
+          </div>
         </Form>
-        <Button type="error" class="gogo_button" @click="btSaveGogoKey">Save gogoKey</Button>
       </TabPane>
     </Tabs>
     <Tabs>
@@ -41,6 +40,9 @@
         <Button type="primary" class="gogo_button" @click="onAddRecipient">Add recipient</Button>
       </TabPane>
     </Tabs>
+    <div class="gogo_btn">
+      <Button type="error" class="gogo_button" @click="btSaveTrigger" style="width: 100%">Save Trigger</Button>
+    </div>
   </div>
 </template>
 
@@ -68,11 +70,12 @@
           }).then((response) => {
             if (response.data.code === 0) {
               this.trigger = response.data.data.trigger
+              this.gogoKey = response.data.data.trigger.gogoKey
             }
           })
         }
         apiGetGogoPublicKey({
-          uuid: this.gogoKey.gogoPublicKeyId
+          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId
         }).then((response) => {
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
@@ -90,21 +93,22 @@
           name: 'selectGogoKey'
         })
       },
-      btSaveGogoKey() {
-        console.log(this.gogoKey.gogoPublicKeyId)
-        let params = {
+
+      btSaveTrigger() {
+        let params1 = {
+          triggerName: this.trigger.name,
+          remark: this.trigger.remark,
           triggerId: this.$store.state.trigger_id,
           noteId: this.$store.state.note_id,
-          remark: this.trigger.remark,
-          uuid: this.gogoKey.gogoPublicKeyId,
-          params: this.gogoKey.params
+          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
+          params: this.gogoKey.params,
+          gogoKeyId: this.gogoKey.gogoKeyId
         }
 
-        console.log(params)
+        console.log(params1)
 
-        return
-
-        apiSaveGogoKey({params}).then((response) => {
+        apiSaveGogoKey(params1).then((response) => {
+          console.log(response)
         })
       }
     },
@@ -119,5 +123,8 @@
 </script>
 
 <style scoped>
-
+  .gogo_btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 </style>

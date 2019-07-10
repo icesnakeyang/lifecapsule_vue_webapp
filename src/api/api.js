@@ -148,22 +148,6 @@ export const apiAddEmail = params => {
   })
 }
 
-export const apiAddCondition = params => {
-  return axios.post(`${host}/trigger/addCondition`, params, {
-    headers: {
-      token: store.state.gogo_token
-    }
-  })
-}
-
-export const apiGetConditionByConditionId = params => {
-  return axios.post(`${host}/trigger/getConditionByConditionId`, params, {
-    headers: {
-      token: store.state.gogo_token
-    }
-  })
-}
-
 export const apiSaveGogoKey = params => {
   return axios.post(`${host}/trigger/saveGogoKey`, params, {
     headers: {

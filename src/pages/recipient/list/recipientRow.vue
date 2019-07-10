@@ -2,7 +2,7 @@
   <div>
     <Row class="gogo_row">
       <Col :xs="22" :sm="22" :md="22" :lg="22">
-        <Button type="primary" @click="onClick"
+        <Button type="info" ghost @click="onClick"
                 size="small"
         >{{recipient.recipientName}}
         </Button>

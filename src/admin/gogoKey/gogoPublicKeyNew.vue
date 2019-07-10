@@ -8,16 +8,35 @@
       <FormItem label="Description">
         <Input type="text" v-model="gogoKey.description" placeholder="描述"></Input>
       </FormItem>
-      <FormItem label="Params">
-        <Input type="text" v-model="gogoKey.params" placeholder="参数"></Input>
-      </FormItem>
-      <FormItem label="Values">
-        <Input type="text" v-model="gogoKey.values" placeholder="值"></Input>
-      </FormItem>
       <Tabs>
         <TabPane label="参数配置">
+          <Form label-position="right" :label-width="100">
+            <div v-for="(item,index) in params">
+              <Row>
+                <Col :xs="2" :sm="4" :md="6" :lg="8">
+                  <FormItem label="Param">
+                    <Input v-model="item.param"></Input>
+                  </FormItem>
+                </Col>
+                <Col :xs="20" :sm="16" :md="12" :lg="8">
+                  <Button type="error">del</Button>
+                </Col>
+                <Col :xs="2" :sm="4" :md="6" :lg="8">Col</Col>
+              </Row>
+              <Row>
+                <Col :xs="2" :sm="4" :md="6" :lg="8">
+                  <FormItem label="Value">
+                    <Input v-model="item.value"></Input>
+                  </FormItem>
+                </Col>
+                <Col :xs="20" :sm="16" :md="12" :lg="8">
+                  <Button type="error">del</Button>
+                </Col>
+                <Col :xs="2" :sm="4" :md="6" :lg="8">Col</Col>
+              </Row>
+            </div>
+          </Form>
           <Button type="primary" @click="modalNewParam = true">Add</Button>
-
         </TabPane>
       </Tabs>
     </Form>
@@ -28,8 +47,7 @@
       v-model="modalNewParam"
       :mask-closable="false"
       @on-ok="modalOnConfirm"
-      @on-cancel="modalOnCancel"
-    >
+      @on-cancel="modalOnCancel">
       <Form>
         <FormItem label="Param">
           <Input v-model="modalParam"></Input>
@@ -60,6 +78,13 @@
     methods: {
       modalOnConfirm() {
         console.log('confirm')
+        this.params.push({
+          param: this.modalParam,
+          value: this.modalValue
+        })
+        this.modalParam = ''
+        this.modalValue = ''
+        console.log(this.params)
       },
 
       modalOnCancel() {
@@ -72,20 +97,12 @@
           month: '4'
         }
         const params = {
-
           title: this.gogoKey.title,
           description: this.gogoKey.description,
-          params: [{
-            key: 'time',
-            value: '2019-7-21'
-          }, {
-            key: 'year',
-            value: '2010'
-          }, {
-            key: 'week',
-            value: 50
-          }]
+          params: this.params
         }
+
+        console.log(params)
         apiCreateGogoPublicKey(params).then((response) => {
           console.log(response)
         })

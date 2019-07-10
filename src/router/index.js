@@ -47,19 +47,13 @@ import editNote from '@/pages/note/edit/editNote'
 import triggerList from '@/pages/trigger/list/triggerList'
 import triggerListHeader from '@/pages/trigger/list/triggerListHeader'
 import editTrigger from '@/pages/trigger/edit/editTrigger'
-import selectGogoKey from '@/pages/trigger/condition/selectGogoKey'
+import selectGogoKey from '@/pages/trigger/gogoKey/selectGogoKey'
 
 /**
  * recipient
  */
 import addRecipient from '@/pages/recipient/new/addRecipient'
 import editRecipient from '@/pages/recipient/edit/editRecipient'
-
-/**
- * condition
- */
-import conditionNew from '@/pages/condition/new/conditionNew'
-import conditionEdit from '@/pages/condition/edit/conditionEdit'
 
 /**
  * gogoKey
@@ -221,22 +215,6 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: editRecipient
-          }
-        },
-        {
-          path: 'conditionNew',
-          name: 'conditionNew',
-          components: {
-            header: baseHeader,
-            content: conditionNew
-          }
-        },
-        {
-          path: 'conditionEdit',
-          name: 'conditionEdit',
-          components: {
-            header: baseHeader,
-            content: conditionEdit
           }
         },
         {
