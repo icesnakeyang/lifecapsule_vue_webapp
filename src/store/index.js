@@ -52,8 +52,8 @@ export default new Vuex.Store({
       localStorage.trigger_id = triggerId
     },
     clearTriggerId(state) {
-      state.trigger_id = null
-      localStorage.trigger_id = null
+      state.trigger_id = undefined
+      localStorage.trigger_id = undefined
     },
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId

@@ -15,20 +15,22 @@
           <div class="gogo_btn">
             <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
           </div>
-          <FormItem label="Title" v-if="gogoKey.title">
-            <Input v-model="gogoKey.title" readonly></Input>
-          </FormItem>
-          <div v-for="(item, index) in gogoKey.params">
-            <FormItem label="参数">
-              <Input v-model="item.param" readonly></Input>
+          <div v-if="gogoKey">
+            <FormItem label="Title">
+              <Input v-model="gogoKey.title" readonly></Input>
             </FormItem>
-            <FormItem label="值">
-              <DatePicker :transfer=true type="datetime"
-                          placeholder="Select date  and time"
-                          v-model="item.value"
-                          style="width: 200px"></DatePicker>
-              <br>
-            </FormItem>
+            <div v-for="(item, index) in gogoKey.params">
+              <FormItem label="参数">
+                <Input v-model="item.param" readonly></Input>
+              </FormItem>
+              <FormItem label="值">
+                <DatePicker :transfer=true type="datetime"
+                            placeholder="Select date  and time"
+                            v-model="item.value"
+                            style="width: 200px"></DatePicker>
+                <br>
+              </FormItem>
+            </div>
           </div>
         </Form>
       </TabPane>
@@ -36,7 +38,7 @@
     <Tabs>
       <TabPane label="接收人" icon="md-contacts">
         <Alert>指定接收人，条件触发时，系统会自动把笔记发送给此人。</Alert>
-        <recipient-list :recipientList="trigger.recipientList"></recipient-list>
+        <recipient-list :recipientList="recipientList"></recipient-list>
         <Button type="primary" class="gogo_button" @click="onAddRecipient">Add recipient</Button>
       </TabPane>
     </Tabs>
@@ -59,24 +61,35 @@
     data() {
       return {
         trigger: {},
-        gogoKey: {}
+        gogoKey: {},
+        recipientList: []
       }
     },
     methods: {
       loadAllData() {
+        console.log(12)
+        console.log(this.$store.state.trigger_id)
         if (this.$store.state.trigger_id) {
           apiGetTriggerByTriggerId({
             triggerId: this.$store.state.trigger_id
           }).then((response) => {
+            console.log(response)
             if (response.data.code === 0) {
               this.trigger = response.data.data.trigger
               this.gogoKey = response.data.data.trigger.gogoKey
+              this.recipientList = response.data.data.trigger.recipientList
+
+              console.log(this.trigger)
+              console.log(this.gogoKey)
+              console.log(this.recipientList)
             }
           })
         }
+        console.log(this.gogoKey.gogoPublicKeyId)
         apiGetGogoPublicKey({
           gogoPublicKeyId: this.gogoKey.gogoPublicKeyId
         }).then((response) => {
+          console.log(response)
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
             console.log(this.gogoKey)
