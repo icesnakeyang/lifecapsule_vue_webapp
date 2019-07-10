@@ -15,9 +15,12 @@
           <div class="gogo_btn">
             <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
           </div>
-          <div v-if="gogoKey">
+          <div v-if="gogoPublicKeyId">
             <FormItem label="Title">
               <Input v-model="gogoKey.title" readonly></Input>
+            </FormItem>
+            <FormItem label="Title">
+              <Input v-model="gogoKey.description" readonly></Input>
             </FormItem>
             <div v-for="(item, index) in gogoKey.params">
               <FormItem label="参数">
@@ -62,50 +65,56 @@
       return {
         trigger: {},
         gogoKey: {},
-        recipientList: []
+        recipientList: [],
+        gogoPublicKeyId: ''
       }
     },
+    computed: {
+      showGogoKey() {
+        console.log(this.gogoKey)
+        if (this.gogoKey) {
+          if (this.gogoKey.title) {
+            return true
+          }
+        }
+        return false
+      }
+    }
+    ,
     methods: {
       loadAllData() {
-        console.log(12)
-        console.log(this.$store.state.trigger_id)
         if (this.$store.state.trigger_id) {
           apiGetTriggerByTriggerId({
             triggerId: this.$store.state.trigger_id
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.trigger = response.data.data.trigger
               this.gogoKey = response.data.data.trigger.gogoKey
               this.recipientList = response.data.data.trigger.recipientList
-
-              console.log(this.trigger)
-              console.log(this.gogoKey)
-              console.log(this.recipientList)
             }
           })
         }
-        console.log(this.gogoKey.gogoPublicKeyId)
         apiGetGogoPublicKey({
-          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId
+          gogoPublicKeyId: this.gogoPublicKeyId
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
-            console.log(this.gogoKey)
           }
         })
-      },
+      }
+      ,
       onAddRecipient() {
         this.$router.push({
           name: 'addRecipient'
         })
-      },
+      }
+      ,
       btSelectGogoKey() {
         this.$router.push({
-          name: 'selectGogoKey'
+          name: 'editGogoKey'
         })
-      },
+      }
+      ,
 
       btSaveTrigger() {
         let params1 = {
@@ -118,18 +127,15 @@
           gogoKeyId: this.gogoKey.gogoKeyId
         }
 
-        console.log(params1)
-
         apiSaveGogoKey(params1).then((response) => {
-          console.log(response)
         })
       }
-    },
+    }
+    ,
     mounted() {
       if (this.$route.params.gogoPublicKeyId) {
-        this.gogoKey.gogoPublicKeyId = this.$route.params.gogoPublicKeyId
+        this.gogoPublicKeyId = this.$route.params.gogoPublicKeyId
       }
-      console.log(this.gogoKey.gogoPublicKeyId)
       this.loadAllData()
     }
   }

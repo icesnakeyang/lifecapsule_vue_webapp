@@ -48,16 +48,17 @@ import triggerList from '@/pages/trigger/list/triggerList'
 import triggerListHeader from '@/pages/trigger/list/triggerListHeader'
 import editTrigger from '@/pages/trigger/edit/editTrigger'
 import selectGogoKey from '@/pages/trigger/gogoKey/selectGogoKey'
+import editGogoKey from '@/pages/trigger/gogoKey/editGogoKey'
 
 /**
  * recipient
+ /**
+ * gogoKey
  */
+*/
 import addRecipient from '@/pages/recipient/new/addRecipient'
 import editRecipient from '@/pages/recipient/edit/editRecipient'
 
-/**
- * gogoKey
- */
 import gogoKeyNew from '@/pages/gogoKey/new/gogoKeyNew'
 import gogoKeyList from '@/pages/gogoKey/list/gogoKeyList'
 
@@ -231,6 +232,14 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: gogoKeyList
+          }
+        },
+        {
+          path: 'editGogoKey',
+          name: 'editGogoKey',
+          components: {
+            header: baseHeader,
+            content: editGogoKey
           }
         },
         {
