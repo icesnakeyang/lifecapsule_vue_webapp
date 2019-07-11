@@ -26,9 +26,9 @@
     name: "baseHeader",
     computed: {
       categoryName() {
-        if(this.$store.state.category_name) {
+        if (this.$store.state.category_name) {
           return this.$store.state.category_name
-        }else{
+        } else {
           return this.$t('headerBar.appName')
         }
       }
@@ -46,6 +46,11 @@
         if (name === 'menuAdd') {
           this.$router.push({
             name: 'newNote'
+          })
+        }
+        if (name === 'menuTitle') {
+          this.$router.push({
+            name: 'noteList'
           })
         }
       }

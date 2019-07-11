@@ -28,7 +28,7 @@
          */
         apiListGogoPublicKey({}).then((response) => {
           if (response.data.code === 0) {
-            this.gogoKeys = response.data.data.list
+            this.gogoKeys = response.data.data.gogoPublicKeyList
             console.log(this.gogoKeys)
           }
         })
@@ -41,7 +41,7 @@
         console.log(item)
         if (item.gogoPublicKeyId) {
           this.$router.push({
-            name: 'editTrigger',
+            name: 'editGogoKey',
             params: {
               gogoPublicKeyId: item.gogoPublicKeyId
             }

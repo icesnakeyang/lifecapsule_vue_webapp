@@ -83,26 +83,24 @@
     ,
     methods: {
       loadAllData() {
-        if (this.$store.state.trigger_id) {
-          apiGetTriggerByTriggerId({
-            triggerId: this.$store.state.trigger_id
-          }).then((response) => {
-            if (response.data.code === 0) {
-              this.trigger = response.data.data.trigger
-              this.gogoKey = response.data.data.trigger.gogoKey
-              this.recipientList = response.data.data.trigger.recipientList
-            }
-          })
-        }
-        apiGetGogoPublicKey({
-          gogoPublicKeyId: this.gogoPublicKeyId
-        }).then((response) => {
-          if (response.data.code === 0) {
-            this.gogoKey = response.data.data.key
+        console.log(1)
+        console.log(this.$route.params.gogoPublicKeyId)
+        if (this.$route.params.gogoPublicKeyId) {
+          console.log(2)
+        } else {
+          if (this.$store.state.trigger_id) {
+            apiGetTriggerByTriggerId({
+              triggerId: this.$store.state.trigger_id
+            }).then((response) => {
+              if (response.data.code === 0) {
+                this.trigger = response.data.data.trigger
+                this.gogoKey = response.data.data.trigger.gogoKey
+                this.recipientList = response.data.data.trigger.recipientList
+              }
+            })
           }
-        })
-      }
-      ,
+        }
+      },
       onAddRecipient() {
         this.$router.push({
           name: 'addRecipient'

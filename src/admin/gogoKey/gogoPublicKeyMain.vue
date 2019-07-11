@@ -4,12 +4,17 @@
     <div>
       <Button type="primary" @click="btAddNewKey">添加新Key</Button>
     </div>
+    <gogo-public-key-list></gogo-public-key-list>
   </div>
 </template>
 
 <script>
+  import gogoPublicKeyList from "./gogoPublicKeyList"
   export default {
     name: "gogoPublicKeyMain",
+    components:{
+      gogoPublicKeyList
+    },
     methods: {
       loadAllData() {
         /**

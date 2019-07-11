@@ -50,12 +50,6 @@ import editTrigger from '@/pages/trigger/edit/editTrigger'
 import selectGogoKey from '@/pages/trigger/gogoKey/selectGogoKey'
 import editGogoKey from '@/pages/trigger/gogoKey/editGogoKey'
 
-/**
- * recipient
- /**
- * gogoKey
- */
-*/
 import addRecipient from '@/pages/recipient/new/addRecipient'
 import editRecipient from '@/pages/recipient/edit/editRecipient'
 
@@ -71,6 +65,7 @@ import gogoPublicKeyNew from '@/admin/gogoKey/gogoPublicKeyNew'
 import dashboard from '@/admin/dashboard/dashboard'
 import adminLayout from "../admin/layout/adminLayout";
 import registerBoard from "../admin/register/registerBoard";
+import gogoPublicKeyEdit from "@/admin/gogoKey/gogoPublicKeyEdit"
 
 Vue.use(Router)
 
@@ -106,6 +101,13 @@ const router = new Router({
           name: 'gogoPublicKeyNew',
           components: {
             adminContent: gogoPublicKeyNew
+          }
+        },
+        {
+          path: 'gogoPublicKeyEdit',
+          name: 'gogoPublicKeyEdit',
+          components: {
+            adminContent: gogoPublicKeyEdit
           }
         }
       ]
