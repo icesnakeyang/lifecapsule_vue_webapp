@@ -1,11 +1,22 @@
 <template>
   <div>
-    <div>param</div>
-    <div>{{item.param}}</div>
-    <div>{{item.value}}</div>
-    <div v-if="paramTime">
-      时间驱动
-    </div>
+    <Divider></Divider>
+    <FormItem label="Type">
+      <Input v-model="item.type" readonly></Input>
+    </FormItem>
+    <FormItem label="Param">
+      <Input v-model="item.param" readonly></Input>
+    </FormItem>
+    <FormItem v-if="paramTime" label="Value">
+      <DatePicker :transfer=true type="datetime"
+                  placeholder="Select date  and time"
+                  v-model="item.value"
+                  style="width: 100%"></DatePicker>
+    </FormItem>
+
+    <FormItem v-if="paramApi" label="Value">
+      <Input v-model="item.value"></Input>
+    </FormItem>
   </div>
 </template>
 
@@ -18,6 +29,12 @@
     computed: {
       paramTime() {
         if (this.item.type === 'datetime') {
+          return true
+        }
+        return false
+      },
+      paramApi(){
+        if(this.item.type==='api'){
           return true
         }
         return false

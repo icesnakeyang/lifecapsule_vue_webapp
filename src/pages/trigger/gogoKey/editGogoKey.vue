@@ -6,18 +6,12 @@
 
     </div>
     <div v-else="gogoMSG">
-      <Form>
-        <FormItem>
+      <Form :label-width="80">
+        <FormItem label="Title">
           <Input v-model="gogoKey.title" readonly></Input>
         </FormItem>
-        <FormItem>
-          <Input v-model="gogoKey.type" readonly></Input>
-        </FormItem>
-        <FormItem>
+        <FormItem label="Description">
           <Input v-model="gogoKey.description" readonly></Input>
-        </FormItem>
-        <FormItem v-if="gogoKey.url">
-          <Input v-model="gogoKey.url" readonly></Input>
         </FormItem>
         <gogo-key-param v-for="(item,index) in gogoKey.params"
                         :item=item
@@ -35,7 +29,7 @@
 
   export default {
     name: "editGogoKey",
-    components:{
+    components: {
       gogoKeyParam
     },
     data() {
@@ -76,6 +70,7 @@
               console.log(response)
               if (response.data.code === 0) {
                 console.log(this.gogoMSG)
+                this.gogoKey = response.data.data.gogoKey
               } else {
                 this.gogoMSG = "No gogoKey was set, please set one"
               }
@@ -94,7 +89,7 @@
         console.log(this.gogoKey)
         apiSaveGogoKey({
           triggerId: this.$store.state.trigger_id,
-          gogoPublicKeyId: this.$route.params.gogoPublicKeyId,
+          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
           params: this.gogoKey.params
         }).then((response) => {
           console.log(response)
@@ -102,6 +97,7 @@
       }
     },
     mounted() {
+      console.log(this.$store.state.trigger_id)
       this.loadAllData()
     }
   }
