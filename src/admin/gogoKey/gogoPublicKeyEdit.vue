@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import {apiGetGogoPublicKey} from "../../api/api";
+  import {apiGetGogoPublicKey, apiUpdateGogoPublicKey} from "../../api/api";
   import gogoPublicKeyEditParam from "./gogoPublicKeyEditParam"
 
   export default {
@@ -90,10 +90,7 @@
                   },
                   on: {
                     click: () => {
-                      console.log('edit')
-                      console.log(params.row)
                       this.editParam = params.row
-                      console.log(this.param)
                       this.modalEditParam = true
                     }
                   }
@@ -105,8 +102,7 @@
                   },
                   on: {
                     click: () => {
-                      console.log('delete')
-                      console.log(params.row.gogoPublicKeyId)
+                      this.dataParams.splice([params.row._index], 1)
                     }
                   }
                 }, 'Delete')
@@ -118,9 +114,7 @@
         modalNewParam: false,
         dataParams: [],
         editParam: {},
-        newParam: {},
-        test: [],
-        idd: 1
+        newParam: {}
       }
     },
     methods: {
@@ -128,7 +122,6 @@
         apiGetGogoPublicKey({
           gogoPublicKeyId: this.$route.params.gogoPublicKeyId
         }).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
             this.dataParams = this.gogoKey.params
@@ -137,19 +130,15 @@
       },
 
       modalEditParam_onOk() {
-        console.log(this.param)
-        console.log(this.gogoKey.params.type)
-        this.dataParams[1] = this.editParam
-        console.log(this.dataParams)
-
+        let param = {
+          type: this.editParam.type,
+          param: this.editParam.param,
+          value: this.editParam.value
+        }
+        this.dataParams[this.editParam._index] = param
       },
 
       modalEditParam_onCancel() {
-        console.log(this.test)
-        this.test.push({
-          a: this.idd
-        })
-        this.idd++
 
       },
 
@@ -166,7 +155,14 @@
       },
 
       btSaveGogoPublicKey() {
-        console.log(this.gogoKey)
+        this.gogoKey.params = this.dataParams
+        apiUpdateGogoPublicKey({
+          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
+          title: this.gogoKey.title,
+          params: this.gogoKey.params
+        }).then((response) => {
+          console.log(response)
+        })
       }
     },
     mounted() {
