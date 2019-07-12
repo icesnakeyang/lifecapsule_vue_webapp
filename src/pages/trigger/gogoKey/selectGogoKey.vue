@@ -39,7 +39,7 @@
          */
         if (item.gogoPublicKeyId) {
           this.$router.push({
-            name: 'editTrigger',
+            name: 'editGogoKey',
             params: {
               gogoPublicKeyId: item.gogoPublicKeyId
             }

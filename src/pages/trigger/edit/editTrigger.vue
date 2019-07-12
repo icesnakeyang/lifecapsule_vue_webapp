@@ -3,10 +3,10 @@
     <Alert type="error">设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。</Alert>
     <Form label-position="right" :label-width="100">
       <FormItem label="触发器名称">
-        <Input type="text" v-model="trigger.triggerName"></Input>
+        <Input type="text" v-model="triggerName"></Input>
       </FormItem>
       <FormItem label="说明">
-        <textarea type="text" rows="2" style="width: 100%;" v-model="trigger.triggerRemark"></textarea>
+        <textarea type="text" rows="2" style="width: 100%;" v-model="triggerRemark"></textarea>
       </FormItem>
     </Form>
     <Tabs>
@@ -15,7 +15,7 @@
           <div class="gogo_btn">
             <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
           </div>
-          <div v-if="gogoPublicKeyId">
+          <div v-if="showGogoKey">
             <FormItem>
               <Input v-model="gogoKey.title" readonly></Input>
             </FormItem>
@@ -58,6 +58,8 @@
     data() {
       return {
         trigger: {},
+        triggerName: '',
+        triggerRemark: '',
         gogoKey: {},
         recipientList: [],
         gogoPublicKeyId: ''
@@ -72,61 +74,88 @@
         }
         return false
       }
-    }
-    ,
+    },
     methods: {
       loadAllData() {
-        return
-        console.log(this.$store.state.trigger_id)
-        if (this.$route.params.gogoPublicKeyId) {
-          apiGetGogoPublicKey({
-            gogoPublicKeyId: this.gogoPublicKeyId
-          }).then((response) => {
+        console.log(this.$store.state.note_id)
+        /**
+         * 根据noteId，读取trigger
+         */
+        apiGetTriggerByNoteId({
+          noteId: this.$store.state.note_id
+        }).then((response) => {
+          if (response.data.code === 0) {
             console.log(response.data.data)
-            if (response.data.code === 0) {
+            if (response.data.data === {}) {
               console.log(1)
-              this.gogoKey = response.data.data.key
-              console.log(this.gogoKey)
+            } else {
+              console.log(2)
             }
-          })
-        } else {
-          if (this.$store.state.trigger_id) {
-            apiGetTriggerByTriggerId({
-              triggerId: this.$store.state.trigger_id
-            }).then((response) => {
-              if (response.data.code === 0) {
-                this.trigger = response.data.data.trigger
-                this.gogoKey = response.data.data.trigger.gogoKey
-                this.recipientList = response.data.data.trigger.recipientList
-              }
-            })
-          } else {
-            /**
-             * 根据noteId，读取trigger
-             */
-            apiGetTriggerByNoteId({
-              noteId: this.$store.state.note_id
-            }).then((response) => {
-              console.log(response)
-              if (response.data.code === 0) {
-                this.trigger = response.data.data.trigger
-                console.log(22)
-              }
-            })
+            console.log(4)
+            if (response.data.data.trigger) {
+              this.trigger = response.data.data.trigger
+            }
+            console.log(5)
+            console.log(this.trigger.triggerId)
+            if (this.trigger.triggerId) {
+              console.log(10)
+              this.gogoKey = this.trigger.gogoKey
+              this.$store.dispatch('saveTriggerId', this.trigger.triggerId)
+              console.log(this.$store.state.trigger_id)
+            } else {
+              console.log(11)
+            }
+
+            console.log(this.trigger)
+
+            console.log(this.$store.state.trigger_name)
+
+            if (this.$store.state.trigger_name) {
+              this.triggerName = this.$store.state.trigger_name
+              console.log(this.triggerName)
+            }
+            if (this.$store.state.trigger_remark) {
+              this.triggerRemark = this.$store.state.trigger_remark
+            }
           }
+        })
+
+        if (this.$route.params.gogoPublicKeyId) {
+          this.loadPublicKey()
         }
       },
+
+      loadPublicKey() {
+        apiGetGogoPublicKey({
+          gogoPublicKeyId: this.$route.params.gogoPublicKeyId
+        }).then((response) => {
+          if (response.data.code === 0) {
+            this.gogoKey = response.data.data.key
+            console.log(this.gogoKey)
+          }
+        })
+      },
+
       onAddRecipient() {
-        this.$store.dispatch('saveTrigger', this.trigger)
+        const trigger = {
+          triggerName: this.triggerName,
+          triggerRemark: this.triggerRemark,
+        }
+        this.$store.dispatch('saveTrigger', trigger)
         this.$router.push({
           name: 'addRecipient'
         })
       }
       ,
       btSelectGogoKey() {
-        this.$store.dispatch('saveTrigger', this.trigger)
+        const trigger = {
+          triggerName: this.triggerName,
+          triggerRemark: this.triggerRemark,
+          gogoKey: this.gogoKey
+        }
+        this.$store.dispatch('saveTrigger', trigger)
         this.$router.push({
-          name: 'selectGogoKey'
+          name: 'editGogoKey'
         })
       }
       ,
@@ -142,30 +171,15 @@
         }
 
         console.log(params1)
+
         return
         apiSaveGogoKey(params1).then((response) => {
-          console.log(response)
         })
       }
     }
     ,
     mounted() {
-      console.log('mount')
-      if (this.$route.params.gogoPublicKeyId) {
-        this.gogoPublicKeyId = this.$route.params.gogoPublicKeyId
-      }
-      console.log(this.trigger)
-      this.trigger.triggerName = this.$store.state.trigger_name
-      this.trigger.triggerRemark = this.$store.state.trigger_remark
-      this.trigger.triggerId = this.$store.state.trigger_id
-      console.log(this.trigger)
-      console.log('publicKeyId:' + this.gogoPublicKeyId)
-      console.log('noteId:' + this.$store.state.note_id)
-      console.log('triggerId:' + this.$store.state.trigger_id)
-      console.log('trigger_name:' + this.$store.state.trigger_name)
-      console.log('trigger_remark:' + this.$store.state.trigger_remark)
-      // this.loadAllData()
-      console.log(this.trigger)
+      this.loadAllData()
     }
   }
 </script>
