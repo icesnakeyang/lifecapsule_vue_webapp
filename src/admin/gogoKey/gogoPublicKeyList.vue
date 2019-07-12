@@ -7,10 +7,11 @@
 </template>
 
 <script>
-  import {apiListGogoPublicKey} from "../../api/api";
+  import {apiDeleteGogoPublicKey, apiListGogoPublicKey} from "../../api/api";
 
   export default {
     name: "gogoPublicKeyList",
+    components: {},
     data() {
       return {
         gogoKey: [],
@@ -50,8 +51,6 @@
                   },
                   on: {
                     click: () => {
-                      console.log('edit')
-                      console.log(params.row.gogoPublicKeyId)
                       this.$router.push({
                         name: 'gogoPublicKeyEdit',
                         params: {
@@ -68,8 +67,21 @@
                   },
                   on: {
                     click: () => {
-                      console.log('delete')
                       console.log(params.row.gogoPublicKeyId)
+                      this.$Modal.confirm({
+                        title: 'Title',
+                        content: '<p>Are you sure?</p>',
+                        onOk: () => {
+                          this.$Message.info('Clicked ok');
+                          apiDeleteGogoPublicKey({
+                            gogoPublicKeyId: params.row.gogoPublicKeyId
+                          }).then((response) => {
+                            console.log(response)
+                          })
+                        },
+                        onCancel: () => {
+                        }
+                      });
                     }
                   }
                 }, 'Delete')
@@ -82,10 +94,8 @@
     methods: {
       loadAllData() {
         apiListGogoPublicKey({}).then((response) => {
-          console.log(response)
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.gogoPublicKeyList
-            console.log(this.gogoKey)
           }
         })
       }

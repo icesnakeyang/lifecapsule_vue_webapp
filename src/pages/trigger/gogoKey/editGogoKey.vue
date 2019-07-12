@@ -50,26 +50,16 @@
           apiGetGogoPublicKey({
             gogoPublicKeyId: this.$route.params.gogoPublicKeyId
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
-              console.log(this.gogoMSG)
-              if (this.gogoMSG) {
-                console.log(1)
-              } else {
-                console.log(2)
-              }
               this.gogoKey = response.data.data.key
             }
           })
         } else {
-          console.log(this.$store.state.trigger_id)
           if (this.$store.state.trigger_id) {
             apiGetGogoKeyByTriggerId({
               triggerId: this.$store.state.trigger_id
             }).then((response) => {
-              console.log(response)
               if (response.data.code === 0) {
-                console.log(this.gogoMSG)
                 this.gogoKey = response.data.data.gogoKey
               } else {
                 this.gogoMSG = "No gogoKey was set, please set one"
@@ -86,18 +76,16 @@
       },
 
       btSaveGogoKey() {
-        console.log(this.gogoKey)
         apiSaveGogoKey({
           triggerId: this.$store.state.trigger_id,
           gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
-          params: this.gogoKey.params
+          params: this.gogoKey.params,
+          noteId: this.$store.state.note_id
         }).then((response) => {
-          console.log(response)
         })
       }
     },
     mounted() {
-      console.log(this.$store.state.trigger_id)
       this.loadAllData()
     }
   }

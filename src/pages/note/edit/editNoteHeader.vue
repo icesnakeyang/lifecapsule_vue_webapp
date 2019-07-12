@@ -5,8 +5,8 @@
         <Icon type="ios-arrow-back"></Icon>
       </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
-        <MenuItem name="menuRecipient" class="gogo_menuItem">
-          <Icon type="ios-locate-outline" />
+        <MenuItem name="menuTrigger" class="gogo_menuItem">
+          <Icon type="ios-locate-outline"/>
         </MenuItem>
       </div>
     </Menu>
@@ -21,9 +21,10 @@
         if (name === 'menuBack') {
           this.$router.back()
         }
-        if (name === 'menuRecipient') {
+        if (name === 'menuTrigger') {
+          this.$store.dispatch('clearTriggerId')
           this.$router.push({
-            name: 'triggerList'
+            name: 'editTrigger'
           })
         }
       }

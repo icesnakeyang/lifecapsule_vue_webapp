@@ -77,18 +77,15 @@
     },
     methods: {
       modalOnConfirm() {
-        console.log('confirm')
         this.params.push({
           param: this.modalParam,
           value: this.modalValue
         })
         this.modalParam = ''
         this.modalValue = ''
-        console.log(this.params)
       },
 
       modalOnCancel() {
-        console.log('cancel')
       },
 
       btCreate() {
@@ -102,9 +99,7 @@
           params: this.params
         }
 
-        console.log(params)
         apiCreateGogoPublicKey(params).then((response) => {
-          console.log(response)
         })
       }
     }

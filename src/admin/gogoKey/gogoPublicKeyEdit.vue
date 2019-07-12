@@ -161,7 +161,6 @@
           title: this.gogoKey.title,
           params: this.gogoKey.params
         }).then((response) => {
-          console.log(response)
         })
       }
     },

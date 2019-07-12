@@ -10,7 +10,9 @@ export default new Vuex.Store({
     category_id: '' || localStorage.category_id,
     category_name: '' || localStorage.category_name,
     trigger_id: '' || localStorage.trigger_id,
-    recipient_id: '' || localStorage.recipient_id
+    recipient_id: '' || localStorage.recipient_id,
+    trigger_name: '' || localStorage.trigger_name,
+    trigger_remark: '' || localStorage.trigger_remark
   },
   actions: {
     saveToken(ctx, token) {
@@ -24,6 +26,9 @@ export default new Vuex.Store({
     },
     saveTriggerId(ctx, triggerId) {
       ctx.commit('saveTriggerId', triggerId)
+    },
+    saveTrigger(ctx, trigger) {
+      ctx.commit('saveTrigger', trigger)
     },
     clearTriggerId(ctx) {
       ctx.commit('clearTriggerId')
@@ -51,9 +56,21 @@ export default new Vuex.Store({
       state.trigger_id = triggerId
       localStorage.trigger_id = triggerId
     },
+    saveTrigger(state, trigger) {
+      state.trigger_id = trigger.triggerId
+      localStorage.trigger_id = trigger.triggerId
+      state.trigger_name = trigger.triggerName
+      localStorage.trigger_name = trigger.triggerName
+      state.trigger_remark = trigger.triggerRemark
+      localStorage.trigger_remark = trigger.triggerRemark
+    },
     clearTriggerId(state) {
-      state.trigger_id = undefined
-      localStorage.trigger_id = undefined
+      state.trigger_id = ''
+      localStorage.trigger_id = ''
+      state.trigger_name = ''
+      localStorage.trigger_name = ''
+      state.trigger_remark = ''
+      localStorage.trigger_remark = ''
     },
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId

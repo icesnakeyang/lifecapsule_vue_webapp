@@ -112,13 +112,11 @@
     methods: {
       onMenuItem(name) {
         if (name === 'menuDashboard') {
-          console.log('dashboard')
           this.$router.push({
             name:'dashboard'
           })
         }
         if (name === 'menuRegistration') {
-          console.log('menuRegistration')
           this.$router.push({
             name:'registerBoard'
           })

@@ -124,6 +124,14 @@ export const apiListTriggerByNoteId = params => {
   })
 }
 
+export const apiGetTriggerByNoteId = params => {
+  return axios.post(`${host}/trigger/getTriggerByNoteId`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
 export const apiGetTriggerByTriggerId = params => {
   return axios.post(`${host}/trigger/getTriggerByTriggerId`, params, {
     headers: {
@@ -170,6 +178,14 @@ export const apiRequestRSAPublicKey = params => {
 
 export const apiCreateGogoPublicKey = params => {
   return axios.post(`${host}/admin/gogokey/createGogoPublicKey`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiDeleteGogoPublicKey = params => {
+  return axios.post(`${host}/admin/gogokey/deleteGogoPublicKey`, params, {
     headers: {
       token: store.state.gogo_token
     }

@@ -14,7 +14,7 @@
                   style="width: 100%"></DatePicker>
     </FormItem>
 
-    <FormItem v-if="paramApi" label="Value">
+    <FormItem v-if="paramString" label="Value">
       <Input v-model="item.value"></Input>
     </FormItem>
   </div>
@@ -33,8 +33,8 @@
         }
         return false
       },
-      paramApi(){
-        if(this.item.type==='api'){
+      paramString(){
+        if(this.item.type==='string'){
           return true
         }
         return false

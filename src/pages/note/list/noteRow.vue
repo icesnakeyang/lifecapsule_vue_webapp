@@ -28,6 +28,7 @@
     },
     methods: {
       onNote() {
+        this.$store.dispatch('saveNoteId', this.note.noteId)
         this.$router.push({
           name: 'editNote',
           params: {
