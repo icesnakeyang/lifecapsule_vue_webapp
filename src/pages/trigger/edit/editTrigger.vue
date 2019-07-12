@@ -153,6 +153,10 @@
           triggerRemark: this.triggerRemark,
           gogoKey: this.gogoKey
         }
+        console.log(this.$store.state.trigger_id)
+        if (this.$store.state.trigger_id) {
+          trigger.triggerId = this.$store.state.trigger_id
+        }
         this.$store.dispatch('saveTrigger', trigger)
         this.$router.push({
           name: 'editGogoKey'
