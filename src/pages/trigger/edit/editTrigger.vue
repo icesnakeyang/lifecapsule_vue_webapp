@@ -13,7 +13,7 @@
       <TabPane label="触发条件" icon="md-transgender">
         <Form label-position="right" :label-width="100">
           <div class="gogo_btn">
-            <Button type="error" class="gogo_button" @click="btSelectGogoKey">Select gogoKey</Button>
+            <Button type="error" class="gogo_button" @click="btSelectGogoKey">Set gogoKey</Button>
           </div>
           <div v-if="showGogoKey">
             <FormItem>
@@ -37,9 +37,6 @@
         <Button type="primary" class="gogo_button" @click="onAddRecipient">Add recipient</Button>
       </TabPane>
     </Tabs>
-    <div class="gogo_btn">
-      <Button type="error" class="gogo_button" @click="btSaveTrigger" style="width: 100%">Save Trigger</Button>
-    </div>
   </div>
 </template>
 
@@ -77,7 +74,6 @@
     },
     methods: {
       loadAllData() {
-        console.log(this.$store.state.note_id)
         /**
          * 根据noteId，读取trigger
          */
@@ -85,34 +81,20 @@
           noteId: this.$store.state.note_id
         }).then((response) => {
           if (response.data.code === 0) {
-            console.log(response.data.data)
-            if (response.data.data === {}) {
-              console.log(1)
-            } else {
-              console.log(2)
-            }
-            console.log(4)
             if (response.data.data.trigger) {
               this.trigger = response.data.data.trigger
-            }
-            console.log(5)
-            console.log(this.trigger.triggerId)
-            if (this.trigger.triggerId) {
-              console.log(10)
+              this.triggerName = this.trigger.name
+              this.triggerRemark = this.trigger.remark
               this.gogoKey = this.trigger.gogoKey
+              this.recipientList=this.trigger.recipientList
               this.$store.dispatch('saveTriggerId', this.trigger.triggerId)
-              console.log(this.$store.state.trigger_id)
-            } else {
-              console.log(11)
             }
-
-            console.log(this.trigger)
-
-            console.log(this.$store.state.trigger_name)
-
+            /**
+             * 如果缓存里保存有triggerName和triggerRemark，则显示
+             * 否则用户创建条件或添加接收人后，跳转回来时名称和备注会消失
+             */
             if (this.$store.state.trigger_name) {
               this.triggerName = this.$store.state.trigger_name
-              console.log(this.triggerName)
             }
             if (this.$store.state.trigger_remark) {
               this.triggerRemark = this.$store.state.trigger_remark
@@ -131,7 +113,6 @@
         }).then((response) => {
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
-            console.log(this.gogoKey)
           }
         })
       },
@@ -139,21 +120,23 @@
       onAddRecipient() {
         const trigger = {
           triggerName: this.triggerName,
-          triggerRemark: this.triggerRemark,
+          triggerRemark: this.triggerRemark
+        }
+        if (this.$store.state.trigger_id) {
+          trigger.triggerId = this.$store.state.trigger_id
         }
         this.$store.dispatch('saveTrigger', trigger)
         this.$router.push({
           name: 'addRecipient'
         })
-      }
-      ,
+      },
+
       btSelectGogoKey() {
         const trigger = {
           triggerName: this.triggerName,
           triggerRemark: this.triggerRemark,
           gogoKey: this.gogoKey
         }
-        console.log(this.$store.state.trigger_id)
         if (this.$store.state.trigger_id) {
           trigger.triggerId = this.$store.state.trigger_id
         }
@@ -162,26 +145,8 @@
           name: 'editGogoKey'
         })
       }
-      ,
+    },
 
-      btSaveTrigger() {
-        let params1 = {
-          noteId: this.$store.state.note_id,
-          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
-          params: this.gogoKey.params,
-          triggerId: this.trigger.triggerId,
-          triggerName: this.trigger.triggerName,
-          triggerRemark: this.trigger.triggerRemark
-        }
-
-        console.log(params1)
-
-        return
-        apiSaveGogoKey(params1).then((response) => {
-        })
-      }
-    }
-    ,
     mounted() {
       this.loadAllData()
     }

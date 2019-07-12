@@ -77,18 +77,19 @@
 
       btSaveGogoKey() {
         console.log(this.$store.state.trigger_id)
-        const params={
+        const params = {
           triggerId: this.$store.state.trigger_id,
           gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
           params: this.gogoKey.params,
-          noteId: this.$store.state.note_id
+          noteId: this.$store.state.note_id,
+          triggerName: this.$store.state.trigger_name,
+          triggerRemark: this.$store.state.trigger_remark
         }
 
         console.log(params)
-        return
-        apiSaveGogoKey({
 
-        }).then((response) => {
+        apiSaveGogoKey(params).then((response) => {
+          console.log(response)
         })
       }
     },

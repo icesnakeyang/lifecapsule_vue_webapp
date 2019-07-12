@@ -59,15 +59,19 @@
     },
     methods: {
       onSave() {
-        apiCreateRecipient({
+        const params = {
           triggerId: this.$store.state.trigger_id,
           noteId: this.$store.state.note_id,
           recipientName: this.name,
           email: this.email,
           phone: this.phone,
           address: this.address,
-          remark: this.remark
-        }).then((response) => {
+          remark: this.remark,
+          triggerName: this.$store.state.trigger_name,
+          triggerRemark: this.$store.state.trigger_remark
+        }
+        console.log(params)
+        apiCreateRecipient(params).then((response) => {
           if (response.data.code === 0) {
             this.$router.push({
               name: 'editTrigger',
