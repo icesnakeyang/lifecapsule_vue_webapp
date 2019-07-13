@@ -10,9 +10,10 @@
     <FormItem v-if="paramTime" label="Value">
       <DatePicker :transfer=true type="datetime"
                   placeholder="Select date and time"
-                  value="setTime"
+                  v-model="item.value"
                   style="width: 100%"></DatePicker>
     </FormItem>
+<!--    <Input v-model="setTime"></Input>-->
 
     <FormItem v-if="paramString" label="Value">
       <Input v-model="item.value"></Input>
@@ -21,7 +22,8 @@
 </template>
 
 <script>
-  import moment from 'moment/moment'
+  // import moment from 'moment/moment'
+  import moment from 'moment-timezone'
 
   export default {
     name: "gogoKeyParam",
@@ -55,6 +57,13 @@
           return true
         }
         return false
+      }
+    },
+
+    mounted() {
+      if(this.item.type==='datetime'){
+        console.log(this.item.value)
+        console.log(moment(this.item.value).format('YYYY-MM-DD HH:mm:ss'))
       }
     }
   }

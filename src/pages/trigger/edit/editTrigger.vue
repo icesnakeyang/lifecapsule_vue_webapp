@@ -80,6 +80,7 @@
         apiGetTriggerByNoteId({
           noteId: this.$store.state.note_id
         }).then((response) => {
+          console.log(response)
           if (response.data.code === 0) {
             if (response.data.data.trigger) {
               this.trigger = response.data.data.trigger
