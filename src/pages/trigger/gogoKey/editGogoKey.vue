@@ -76,7 +76,6 @@
       },
 
       btSaveGogoKey() {
-        console.log(this.$store.state.trigger_id)
         const params = {
           triggerId: this.$store.state.trigger_id,
           gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
@@ -86,10 +85,13 @@
           triggerRemark: this.$store.state.trigger_remark
         }
 
-        console.log(params)
-
         apiSaveGogoKey(params).then((response) => {
-          console.log(response)
+          if (response.data.code === 0) {
+            this.$Message.success('Save success!')
+            this.$router.push({
+              name: 'editTrigger'
+            })
+          }
         })
       }
     },
