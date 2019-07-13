@@ -22,6 +22,12 @@
             <FormItem>
               <Input v-model="gogoKey.description" readonly></Input>
             </FormItem>
+            <FormItem>
+              <DatePicker :transfer=true type="datetime"
+                          placeholder="Select date and time"
+                          v-model="ddd"
+                          style="width: 100%"></DatePicker>
+            </FormItem>
             <gogo-key-param v-for="(item, index) in gogoKey.params"
                             :item="item"
                             :key="index">
@@ -45,6 +51,7 @@
   import recipientList from '../../recipient/list/recipientList'
   import {apiGetGogoPublicKey, apiGetTriggerByNoteId, apiSaveGogoKey} from "../../../api/api";
   import gogoKeyParam from '../gogoKey/gogoKeyParam'
+  import moment from 'moment/moment'
 
   export default {
     name: "editTrigger",
@@ -59,7 +66,8 @@
         triggerRemark: '',
         gogoKey: {},
         recipientList: [],
-        gogoPublicKeyId: ''
+        gogoPublicKeyId: '',
+        ddd: ''
       }
     },
     computed: {
@@ -82,13 +90,18 @@
         }).then((response) => {
           console.log(response)
           if (response.data.code === 0) {
+            this.ddd = response.data.data.ddd
+            this.ddd = moment(this.ddd).format("YYYY-MM-dd HH:mm:ss")
+            console.log(this.ddd)
             if (response.data.data.trigger) {
               this.trigger = response.data.data.trigger
               this.triggerName = this.trigger.name
               this.triggerRemark = this.trigger.remark
               this.gogoKey = this.trigger.gogoKey
-              this.recipientList=this.trigger.recipientList
+              this.recipientList = this.trigger.recipientList
               this.$store.dispatch('saveTriggerId', this.trigger.triggerId)
+              console.log(this.trigger.createdTime)
+              console.log('trigger created time:' + moment(this.trigger.createdTime).format("YYYY-MM-DD HH:mm:ss"))
             }
             /**
              * 如果缓存里保存有triggerName和triggerRemark，则显示

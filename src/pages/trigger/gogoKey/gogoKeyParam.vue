@@ -13,7 +13,7 @@
                   v-model="item.value"
                   style="width: 100%"></DatePicker>
     </FormItem>
-<!--    <Input v-model="setTime"></Input>-->
+    <!--    <Input v-model="setTime"></Input>-->
 
     <FormItem v-if="paramString" label="Value">
       <Input v-model="item.value"></Input>
@@ -40,6 +40,7 @@
             console.log(this.item.value)
             let tt = moment(this.item.value).format('YYYY-MM-DD HH:mm:ss')
             console.log(tt)
+
             return this.item.value
           }
         }
@@ -61,9 +62,16 @@
     },
 
     mounted() {
-      if(this.item.type==='datetime'){
-        console.log(this.item.value)
-        console.log(moment(this.item.value).format('YYYY-MM-DD HH:mm:ss'))
+      console.log(11)
+      console.log(this.item)
+      if (this.item.type === 'datetime') {
+        console.log('value:' + this.item.value)
+        console.log('value:' + moment(this.item.value).format('YYYY-MM-DD HH:mm:ss'))
+
+        console.log('datetime:' + this.item.datetime)
+        console.log('datetime:' + moment(this.item.datetime).format('YYYY-MM-DD HH:mm:ss'))
+        // this.item.value = moment(this.item.datetime).format('YYYY-MM-DD HH:mm:ss')
+        // console.log(this.item.value)
       }
     }
   }
