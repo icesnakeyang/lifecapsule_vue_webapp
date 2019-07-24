@@ -49,6 +49,9 @@
       @on-ok="modalOnConfirm"
       @on-cancel="modalOnCancel">
       <Form>
+        <FormItem label="Type">
+          <Input v-model="modalType"></Input>
+        </FormItem>
         <FormItem label="Param">
           <Input v-model="modalParam"></Input>
         </FormItem>
@@ -72,17 +75,20 @@
         params: [],
         modalNewParam: false,
         modalParam: '',
-        modalValue: ''
+        modalValue: '',
+        modalType: ''
       }
     },
     methods: {
       modalOnConfirm() {
         this.params.push({
           param: this.modalParam,
-          value: this.modalValue
+          value: this.modalValue,
+          type: this.modalType
         })
         this.modalParam = ''
         this.modalValue = ''
+        this.modalType = ''
       },
 
       modalOnCancel() {
