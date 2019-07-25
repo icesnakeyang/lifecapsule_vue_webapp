@@ -136,7 +136,8 @@
         let param = {
           type: this.editParam.type,
           param: this.editParam.param,
-          value: this.editParam.value
+          value: this.editParam.value,
+          paramId: this.editParam.paramId
         }
         this.dataParams[this.editParam._index] = param
       },
@@ -158,7 +159,7 @@
       },
 
       btSaveGogoPublicKey() {
-        // this.gogoKey.params = this.dataParams
+        this.gogoKey.params = this.dataParams
         console.log(this.gogoKey)
         apiUpdateGogoPublicKey({
           gogoKeyId: this.gogoKey.gogoKeyId,
