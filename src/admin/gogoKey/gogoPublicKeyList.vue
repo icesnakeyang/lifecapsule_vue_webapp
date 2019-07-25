@@ -51,10 +51,11 @@
                   },
                   on: {
                     click: () => {
+                      console.log(params.row.gogoKeyId)
                       this.$router.push({
                         name: 'gogoPublicKeyEdit',
                         params: {
-                          gogoPublicKeyId: params.row.gogoPublicKeyId
+                          gogoKeyId: params.row.gogoKeyId
                         }
                       })
                     }

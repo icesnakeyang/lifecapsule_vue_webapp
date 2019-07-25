@@ -119,12 +119,15 @@
     },
     methods: {
       loadAllData() {
+        console.log(this.$route.params.gogoKeyId)
         apiGetGogoPublicKey({
-          gogoPublicKeyId: this.$route.params.gogoPublicKeyId
+          gogoKeyId: this.$route.params.gogoKeyId
         }).then((response) => {
+          console.log(response)
           if (response.data.code === 0) {
             this.gogoKey = response.data.data.key
-            this.dataParams = this.gogoKey.params
+            this.dataParams = this.gogoKey.keyParams
+            console.log(this.dataParams)
           }
         })
       },
@@ -155,16 +158,19 @@
       },
 
       btSaveGogoPublicKey() {
-        this.gogoKey.params = this.dataParams
+        // this.gogoKey.params = this.dataParams
+        console.log(this.gogoKey)
         apiUpdateGogoPublicKey({
-          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
+          gogoKeyId: this.gogoKey.gogoKeyId,
           title: this.gogoKey.title,
-          params: this.gogoKey.params
+          keyParams: this.gogoKey.keyParams,
+          description: this.gogoKey.description
         }).then((response) => {
         })
       }
     },
     mounted() {
+      console.log(this.$route.params.gogoKeyId)
       this.loadAllData()
     }
   }
