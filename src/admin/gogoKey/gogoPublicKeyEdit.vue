@@ -14,6 +14,7 @@
     </Form>
 
     <Modal v-model="modalEditParam"
+           :mask-closable="false"
            title="Edit Param"
            @on-ok="modalEditParam_onOk"
            @on-cancel="modalEditParam_onCancel">
@@ -30,6 +31,7 @@
       </Form>
     </Modal>
     <Modal v-model="modalNewParam"
+           :mask-closable="false"
            title="Add New Param"
            @on-ok="modalNewParam_onOk"
            @on-cancel="modalNewParam_onCancel">

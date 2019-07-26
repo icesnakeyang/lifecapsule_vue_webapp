@@ -13,7 +13,7 @@
         <FormItem label="Description">
           <Input v-model="gogoKey.description" readonly></Input>
         </FormItem>
-        <gogo-key-param v-for="(item,index) in gogoKey.params"
+        <gogo-key-param v-for="(item,index) in gogoKey.keyParams"
                         :item=item
                         :key=index>
         </gogo-key-param>
@@ -45,11 +45,13 @@
          * 2、如果还没有gogoKey，就只显示select gogoKey按钮
          * 3、如果有gogoPublicKeyId，就读取公共模板，显示
          */
+        console.log(this.$route.params.gogoPublicKeyId)
         if (this.$route.params.gogoPublicKeyId) {
           //选择了公共模板，显示模板设置
           apiGetGogoPublicKey({
-            gogoPublicKeyId: this.$route.params.gogoPublicKeyId
+            gogoKeyId: this.$route.params.gogoPublicKeyId
           }).then((response) => {
+            console.log(response)
             if (response.data.code === 0) {
               this.gogoKey = response.data.data.key
             }
@@ -76,14 +78,17 @@
       },
 
       btSaveGogoKey() {
+        console.log(this.gogoKey)
+        console.log(this.$store.state)
         const params = {
           triggerId: this.$store.state.trigger_id,
-          gogoPublicKeyId: this.gogoKey.gogoPublicKeyId,
-          params: this.gogoKey.params,
+          params: this.gogoKey.keyParams,
           noteId: this.$store.state.note_id,
           triggerName: this.$store.state.trigger_name,
           triggerRemark: this.$store.state.trigger_remark
         }
+
+        console.log(params)
 
         apiSaveGogoKey(params).then((response) => {
           if (response.data.code === 0) {
@@ -96,6 +101,7 @@
       }
     },
     mounted() {
+      console.log(this.$store.state)
       this.loadAllData()
     }
   }
