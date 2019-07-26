@@ -81,8 +81,10 @@
         console.log(this.gogoKey)
         console.log(this.$store.state)
         const params = {
+          title: this.gogoKey.title,
+          description: this.gogoKey.description,
           triggerId: this.$store.state.trigger_id,
-          params: this.gogoKey.keyParams,
+          keyParams: this.gogoKey.keyParams,
           noteId: this.$store.state.note_id,
           triggerName: this.$store.state.trigger_name,
           triggerRemark: this.$store.state.trigger_remark
