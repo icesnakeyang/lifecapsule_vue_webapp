@@ -223,3 +223,11 @@ export const apiUpdateGogoPublicKey = params => {
     }
   })
 }
+
+export const apiDeleteNote = params => {
+  return axios.post(`${host}/note/deleteNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
