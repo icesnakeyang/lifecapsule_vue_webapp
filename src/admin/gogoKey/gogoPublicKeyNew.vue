@@ -102,8 +102,10 @@
         const params = {
           title: this.gogoKey.title,
           description: this.gogoKey.description,
-          params: this.params
+          keyParams: this.params
         }
+
+        console.log(params)
 
         apiCreateGogoPublicKey(params).then((response) => {
         })

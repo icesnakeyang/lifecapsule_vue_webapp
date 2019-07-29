@@ -9,7 +9,7 @@
       </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
         <MenuItem name="menuAddTrigger" class="gogo_menuItem">
-          <Icon type="md-add"></Icon>
+          <Icon type="ios-trash-outline"/>
         </MenuItem>
       </div>
     </Menu>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+  import {apiDeleteTrigger} from "../../../api/api";
+
   export default {
     name: "triggerListHeader",
     methods: {
@@ -24,15 +26,35 @@
         if (name === 'menuBack') {
           this.$router.back()
         }
-        if(name==='menuNoteList'){
+        if (name === 'menuNoteList') {
           this.$router.push({
-            name:'noteList'
+            name: 'noteList'
           })
         }
         if (name === 'menuAddTrigger') {
-          this.$store.dispatch('clearTriggerId')
-          this.$router.push({
-            name: 'editTrigger'
+          console.log('delete trigger')
+          console.log(this.$store.state.trigger_id)
+
+          this.$Modal.confirm({
+            title: 'Attentoin',
+            content: '<p>Confirm to delete?</p><p>All recipient and triggers will be deleted and cannot be recovered.</p>',
+            onOk: () => {
+              apiDeleteTrigger({
+                triggerId: this.$store.state.trigger_id
+              }).then((response) => {
+                console.log(response)
+                if (response.data.code === 0) {
+                  this.$router.push({
+                    name: 'editNote'
+                  })
+                } else {
+                  this.$Message.error(this.$t('syserr.' + response.data.code));
+                }
+              })
+            },
+            onCancel: () => {
+
+            }
           })
         }
       }
