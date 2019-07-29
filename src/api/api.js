@@ -231,3 +231,11 @@ export const apiDeleteNote = params => {
     }
   })
 }
+
+export const apiDeleteTrigger = params => {
+  return axios.post(`${host}/trigger/deleteTrigger`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
