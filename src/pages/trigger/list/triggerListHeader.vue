@@ -36,14 +36,14 @@
           console.log(this.$store.state.trigger_id)
 
           this.$Modal.confirm({
-            title: 'Attentoin',
-            content: '<p>Confirm to delete?</p><p>All recipient and triggers will be deleted and cannot be recovered.</p>',
+            title: this.$t('common.modal.delete.title'),
+            content: this.$t('common.modal.delete.content'),
             onOk: () => {
               apiDeleteTrigger({
                 triggerId: this.$store.state.trigger_id
               }).then((response) => {
-                console.log(response)
                 if (response.data.code === 0) {
+                  this.$Message.success(this.$t('common.btDeleteSuccess'))
                   this.$router.push({
                     name: 'editNote'
                   })

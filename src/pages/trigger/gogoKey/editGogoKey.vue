@@ -1,23 +1,23 @@
 <template>
   <div>
     <Alert v-if="gogoMSG" type="warning" show-icon>{{gogoMSG}}</Alert>
-    <Button type="primary" @click="btSelectKey">select</Button>
+    <Button type="primary" @click="btSelectKey">{{$t('gogoKey.gogoPublicKey')}}</Button>
     <div v-if="gogoMSG">
 
     </div>
     <div v-else="gogoMSG">
       <Form :label-width="80">
-        <FormItem label="Title">
+        <FormItem :label="$t('gogoKey.title')">
           <Input v-model="gogoKey.title" readonly></Input>
         </FormItem>
-        <FormItem label="Description">
+        <FormItem :label="$t('gogoKey.description')">
           <Input v-model="gogoKey.description" readonly></Input>
         </FormItem>
         <gogo-key-param v-for="(item,index) in gogoKey.keyParams"
                         :item=item
                         :key=index>
         </gogo-key-param>
-        <Button type="primary" @click="btSaveGogoKey">Save gogoKey</Button>
+        <Button type="primary" @click="btSaveGogoKey">{{$t('common.btSave')}}</Button>
       </Form>
     </div>
   </div>
@@ -45,15 +45,15 @@
          * 2、如果还没有gogoKey，就只显示select gogoKey按钮
          * 3、如果有gogoPublicKeyId，就读取公共模板，显示
          */
-        console.log(this.$route.params.gogoPublicKeyId)
         if (this.$route.params.gogoPublicKeyId) {
           //选择了公共模板，显示模板设置
           apiGetGogoPublicKey({
             gogoKeyId: this.$route.params.gogoPublicKeyId
           }).then((response) => {
-            console.log(response)
             if (response.data.code === 0) {
               this.gogoKey = response.data.data.key
+            } else {
+              this.$Message.error(this.$t('common.loadDataError'))
             }
           })
         } else {
@@ -64,9 +64,12 @@
               if (response.data.code === 0) {
                 this.gogoKey = response.data.data.gogoKey
               } else {
-                this.gogoMSG = "No gogoKey was set, please set one"
+                this.$store.dispatch('clearTriggerId')
+                this.gogoMSG = this.$t('gogoKey.msgNoKey')
               }
             })
+          } else {
+            this.gogoMSG = this.$t('gogoKey.msgNoKey')
           }
         }
       },
@@ -78,8 +81,6 @@
       },
 
       btSaveGogoKey() {
-        console.log(this.gogoKey)
-        console.log(this.$store.state)
         const params = {
           title: this.gogoKey.title,
           description: this.gogoKey.description,
@@ -90,11 +91,9 @@
           triggerRemark: this.$store.state.trigger_remark
         }
 
-        console.log(params)
-
         apiSaveGogoKey(params).then((response) => {
           if (response.data.code === 0) {
-            this.$Message.success('Save success!')
+            this.$Message.success(this.$t('common.btSaveSuccess'))
             this.$router.push({
               name: 'editTrigger'
             })
@@ -103,7 +102,6 @@
       }
     },
     mounted() {
-      console.log(this.$store.state)
       this.loadAllData()
     }
   }

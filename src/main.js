@@ -23,7 +23,7 @@ const messages = {
 }
 const i18n = new VueI18n({
   //默认设置为英语
-  locale: 'en',
+  locale: 'zh',
   messages
 })
 

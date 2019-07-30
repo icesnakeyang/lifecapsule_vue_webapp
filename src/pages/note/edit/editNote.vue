@@ -3,7 +3,7 @@
     <div>
       <Form>
         <FormItem>
-          <Input v-model="note.title" placeholder="Title"></Input>
+          <Input v-model="note.title" :placeholder="$t('note.btSave')"></Input>
         </FormItem>
         <FormItem>
           <quill-editor v-model="note.detail"
@@ -17,7 +17,7 @@
         </span>
         <span v-else>
           <FormItem>
-            <Button type="primary" @click="onSave" class="gogo_button">Save</Button>
+            <Button type="primary" @click="onSave" class="gogo_button">{{$t('common.btSave')}}</Button>
           </FormItem>
         </span>
       </Form>
@@ -51,7 +51,8 @@
               ['image', 'video']
             ],
             imageResize: true
-          }
+          },
+          placeholder: this.$t('note.detailHolder')
         },
         saving: false
       }
@@ -82,7 +83,7 @@
                 this.note = response.data.data.note
                 let strKey = this.note.userEncodeKey
                 strKey = Decrypt2(strKey, keyAES_1)
-                this.note.detail=Decrypt(this.note.detail, strKey, strKey)
+                this.note.detail = Decrypt(this.note.detail, strKey, strKey)
               }
             })
           }
@@ -109,10 +110,10 @@
             this.saving = true
             apiEditNote(params).then((response) => {
               if (response.data.code === 0) {
-                this.$Message.info('Save successful')
+                this.$Message.info(this.$t('common.btSaveSuccess'))
                 this.saving = false
               } else {
-                this.$Message.error('Save failed')
+                this.$Message.error(this.$t('common.btSaveFailed'))
                 this.saving = false
               }
             }).catch((error) => {

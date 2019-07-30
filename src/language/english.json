@@ -3,10 +3,18 @@
     "loading": "Loading...",
     "saving": "Saving...",
     "btSave": "Save",
+    "loadDataError": "Load data failed!",
     "btSaveSuccess": "Save successful",
     "btSaveFailed": "Save failed",
     "btDeleteSuccess": "Delete successful",
-    "btDeleteFailed": "Delete failed"
+    "btDeleteFailed": "Delete failed",
+    "modal": {
+      "delete": {
+        "title": "Confirm to delete?",
+        "content": "It will not be recovered after you deleted！"
+      }
+    },
+    "datepickerHolder": "Select date and time"
   },
   "headerBar": {
     "appName": "LifeCapsule",
@@ -33,9 +41,29 @@
     "title": "Title",
     "titleHolder": "Please input title",
     "detail": "Detail",
+    "detailHolder": "Input note detail here",
     "btSave": "Save"
   },
+  "trigger": {
+    "alert1": "Set a condition to trigger action of this note.",
+    "triggerName": "Trigger name",
+    "description": "Description",
+    "gogoKeys": "Trigger keys",
+    "recipients": "Recipients",
+    "btSetGogoKey": "Set trigger keys"
+  },
+  "gogoKey": {
+    "msgNoKey": "No gogoKey was set, please set one",
+    "gogoPublicKey": "gogoKey Template",
+    "title": "Title",
+    "description": "Description",
+    "type": "Type",
+    "param": "Param",
+    "value": "Value"
+  },
   "recipient": {
+    "alert1": "Set the recipients, when the trigger trigger, the note will be send to these recipients automatically",
+    "btAddRecipient": "Add recipient",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",

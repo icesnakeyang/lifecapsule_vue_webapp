@@ -1,15 +1,15 @@
 <template>
   <div>
     <Divider></Divider>
-    <FormItem label="Type">
+    <FormItem :label="$t('gogoKey.type')">
       <Input v-model="item.type" readonly></Input>
     </FormItem>
-    <FormItem label="Param">
+    <FormItem :label="$t('gogoKey.param')">
       <Input v-model="item.param" readonly></Input>
     </FormItem>
-    <FormItem v-if="paramTime" label="Value">
+    <FormItem v-if="paramTime" :label="$t('gogoKey.value')">
       <DatePicker :transfer=true type="datetime"
-                  placeholder="Select date and time"
+                  :placeholder="$t('common.datepickerHolder')"
                   v-model="theTime"
                   @on-change="onNewTime"
                   style="width: 100%"></DatePicker>

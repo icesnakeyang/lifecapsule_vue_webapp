@@ -58,7 +58,7 @@
               this.noteList = response.data.data.noteList
               this.loading = false
             } else {
-              this.$Message.error("Load data error")
+              this.$Message.error(this.$t("common.loadDataError"))
               this.loading = false
             }
           }).catch((error) => {
@@ -74,7 +74,7 @@
               this.noteList = response.data.data.noteList
               this.loading = false
             } else {
-              this.$Message.error('Load data error')
+              this.$Message.error(this.$t('common.loadDataError'))
               this.loading = false
             }
           }).catch((error) => {

@@ -2,16 +2,16 @@
   <div>
     <Form>
       <FormItem :label="$t('recipient.name')">
-        <Input type="text" v-model="name" placeholder="name"></Input>
+        <Input type="text" v-model="name"></Input>
       </FormItem>
       <FormItem :label="$t('recipient.email')">
-        <Input type="text" v-model="email" placeholder="email"></Input>
+        <Input type="text" v-model="email"></Input>
       </FormItem>
       <FormItem :label="$t('recipient.phone')">
-        <Input type="text" v-model="phone" placeholder="phone"></Input>
+        <Input type="text" v-model="phone"></Input>
       </FormItem>
       <FormItem :label="$t('recipient.address')">
-        <Input type="text" v-model="address" placeholder="address"></Input>
+        <Input type="text" v-model="address"></Input>
       </FormItem>
       <FormItem>
         <span>
@@ -20,7 +20,7 @@
         </span>
       </FormItem>
       <FormItem>
-        <Button class="gogo_button" type="primary" @click="onSave">Submit</Button>
+        <Button class="gogo_button" type="primary" @click="onSave">{{$t('common.btSave')}}</Button>
       </FormItem>
     </Form>
   </div>
@@ -51,7 +51,7 @@
             toolbar: null,
             imageResize: true
           },
-          placeholder: 'remark',
+          placeholder: this.$t('recipient.remark'),
           theme: 'snow'
         },
         recipientId: null
@@ -70,7 +70,6 @@
           triggerName: this.$store.state.trigger_name,
           triggerRemark: this.$store.state.trigger_remark
         }
-        console.log(params)
         apiCreateRecipient(params).then((response) => {
           if (response.data.code === 0) {
             this.$router.push({

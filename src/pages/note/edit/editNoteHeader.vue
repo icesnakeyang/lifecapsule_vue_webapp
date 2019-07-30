@@ -45,23 +45,20 @@
           })
         }
         if (name === 'menuDelete') {
-          console.log('delete')
           this.$Modal.confirm({
-            title: 'Title',
-            content: '<p>Confirm to delete this note?</p>',
+            title: this.$t('common.modal.delete.title'),
+            content: this.$t('common.modal.delete.content'),
             onOk: () => {
-              console.log(this.$store.state)
               apiDeleteNote({
                 noteId: this.$store.state.note_id
               }).then((response) => {
-                console.log(response)
                 if (response.data.code === 0) {
-                  this.$Message.info('Delete successful');
+                  this.$Message.info(this.$t('common.btDeleteSuccess'))
                   this.$router.push({
                     name: 'noteList'
                   })
                 } else {
-                  this.$Message.error('Delete failed');
+                  this.$Message.error(this.$t('common.btDeleteFailed'))
                 }
               })
             }

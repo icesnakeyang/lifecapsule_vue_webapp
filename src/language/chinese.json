@@ -3,10 +3,18 @@
     "loading": "加载中...",
     "saving": "保存中...",
     "btSave": "保存",
+    "loadDataError": "读取数据失败！",
     "btSaveSuccess": "保存成功",
     "btSaveFailed": "保存失败",
     "btDeleteSuccess": "删除成功",
-    "btDeleteFailed": "删除失败"
+    "btDeleteFailed": "删除失败",
+    "modal": {
+      "delete": {
+        "title": "确定删除吗？",
+        "content": "删除后不可恢复！"
+      }
+    },
+    "datepickerHolder": "选择日期和时间"
   },
   "headerBar": {
     "appName": "时空笔记",
@@ -33,14 +41,34 @@
     "title": "标题",
     "titleHolder": "请输入标题",
     "detail": "内容",
+    "detailHolder": "请输入详细内容",
     "btSave": "保存"
   },
+  "trigger": {
+    "alert1": "设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。",
+    "triggerName": "触发器名称",
+    "description": "触发器说明",
+    "gogoKeys": "触发条件",
+    "recipients": "接收人",
+    "btSetGogoKey": "设置触发条件"
+  },
+  "gogoKey": {
+    "msgNoKey": "没有设置触发条件，请选择一个条件模板",
+    "gogoPublicKey": "gogoKey模板",
+    "title": "模板标题",
+    "description": "模板说明",
+    "type": "触发类型",
+    "param": "参数",
+    "value": "值"
+  },
   "recipient": {
+    "alert1": "指定接收人，条件触发时，系统会自动把笔记发送给此人。",
+    "btAddRecipient": "添加接收人",
     "name": "姓名",
     "email": "Email",
     "phone": "电话",
     "address": "地址",
-    "remark": "说明"
+    "remark": "写下你与该接收人的故事，让他/她更形象地留在时空中。"
   },
   "syserr": {
     "10001": "未知错误",

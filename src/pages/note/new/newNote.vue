@@ -42,35 +42,36 @@
               ['image', 'video']
             ],
             imageResize: true
-          }
+          },
+          placeholder: this.$t('note.detailHolder'),
         }
       }
     },
     methods: {
       onSave() {
-        const uuid=GenerateKey()
-        const keyAES=CryptoJS.SHA256(uuid)
-        const keyAESBase64=CryptoJS.enc.Base64.stringify(keyAES)
-        let params={
-          title:this.title,
-          detail:Encrypt(this.noteContent,keyAESBase64, keyAESBase64),
-          encryptKey:keyAESBase64,
+        const uuid = GenerateKey()
+        const keyAES = CryptoJS.SHA256(uuid)
+        const keyAESBase64 = CryptoJS.enc.Base64.stringify(keyAES)
+        let params = {
+          title: this.title,
+          detail: Encrypt(this.noteContent, keyAESBase64, keyAESBase64),
+          encryptKey: keyAESBase64,
           categoryId: this.$store.state.category_id,
         }
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
-            params.encryptKey=RSAencrypt(params.encryptKey, response.data.data.publicKey)
-            params.keyToken=response.data.data.keyToken
+            params.encryptKey = RSAencrypt(params.encryptKey, response.data.data.publicKey)
+            params.keyToken = response.data.data.keyToken
 
             this.saving = true
             apiAddNote(params).then((response) => {
               if (response.data.code === 0) {
-                this.$Message.info('Save successful')
+                this.$Message.info(this.$t('common.btSaveSuccess'))
                 this.$router.push({
                   name: 'notelist'
                 })
               } else {
-                this.$Message.error('Save failed')
+                this.$Message.error(this.$t('common.btSaveFailed'))
               }
             }).catch((error) => {
             })

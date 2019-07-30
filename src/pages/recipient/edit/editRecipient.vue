@@ -54,7 +54,11 @@
         apiGetRecipientByRecipientId({
           recipientId: this.$store.state.recipient_id
         }).then((response) => {
-          this.recipient = response.data.data.recipient
+          if (response.data.code === 0) {
+            this.recipient = response.data.data.recipient
+          } else {
+            this.$Message.error(this.$t('common.loadDataError'))
+          }
         })
       },
       onSave() {
@@ -65,10 +69,10 @@
           email: this.recipient.email,
           address: this.recipient.address,
           remark: this.recipient.remark
-        }).then((response)=>{
-          if(response.data.code===0){
+        }).then((response) => {
+          if (response.data.code === 0) {
             this.$Message.success(this.$t('common.btSaveSuccess'))
-          }else {
+          } else {
             this.$Message.error(this.$t('common.btSaveFailed'))
           }
         })
