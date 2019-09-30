@@ -37,10 +37,10 @@
         noteContent: '',
         editorOption: {
           modules: {
-            toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              ['image', 'video']
-            ],
+            // toolbar: [
+              // ['bold', 'italic', 'underline', 'strike'],
+              // ['image', 'video']
+            // ],
             imageResize: true
           },
           placeholder: this.$t('note.detailHolder'),

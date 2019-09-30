@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/index'
 
 // const host = 'http://127.0.0.1:8088'
-const host = 'http://gogorpg.com:8088'
+const host = 'http://www.gogorpg.com:8088'
 
 export const apiRegister = params => {
   return axios.post(`${host}/user/registerme`, params)
