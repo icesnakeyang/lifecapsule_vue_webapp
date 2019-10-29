@@ -23,7 +23,7 @@
     },
     computed: {
       createTime() {
-        return moment(this.note.created_time).format('YYYY-MM-DD HH:mm:ss')
+        return moment(this.note.createdTime).format('YYYY-MM-DD HH:mm:ss')
       }
     },
     methods: {
