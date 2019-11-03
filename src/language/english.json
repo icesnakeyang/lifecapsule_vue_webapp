@@ -34,6 +34,12 @@
     "msgRegisterSuccess": "Register success",
     "msgRegisterFail": "Register failed"
   },
+  "settings": {
+    "changeLoginPassword": "Change login password",
+    "btNewPassword": "New password",
+    "btNewPasswordHolder": "Please input new login password",
+    "tipChangePasswordSuccess": "Change password successful"
+  },
   "email": {
     "emailHolder": "Please input email"
   },

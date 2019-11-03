@@ -34,6 +34,13 @@
     "msgRegisterSuccess": "注册成功",
     "msgRegisterFail": "注册失败"
   },
+  "settings": {
+    "changeLoginPassword": "修改密码",
+    "btNewPassword": "新密码",
+    "btNewPasswordHolder": "请输入新的登录密码",
+    "btChangePassword": "修改密码",
+    "tipChangePasswordSuccess": "保存成功"
+  },
   "email": {
     "emailHolder": "请输入Email地址"
   },

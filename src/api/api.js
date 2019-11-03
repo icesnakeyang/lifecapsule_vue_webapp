@@ -240,3 +240,19 @@ export const apiDeleteTrigger = params => {
     }
   })
 }
+
+export const apiSaveLoginPassword = params => {
+  return axios.post(`${host}/user/saveLoginPassword`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetUserByToken = params => {
+  return axios.post(`${host}/user/getUserByToken`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}

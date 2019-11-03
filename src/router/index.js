@@ -67,6 +67,12 @@ import adminLayout from "../admin/layout/adminLayout";
 import registerBoard from "../admin/register/registerBoard";
 import gogoPublicKeyEdit from "@/admin/gogoKey/gogoPublicKeyEdit"
 
+/**
+ * settings
+ */
+import settingPage from "../pages/setttings/settingPage";
+import changeLoginPassword from "../pages/setttings/changeLoginPassword";
+
 Vue.use(Router)
 
 const router = new Router({
@@ -250,6 +256,22 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: selectGogoKey
+          }
+        },
+        {
+          path: 'settingPage',
+          name: 'settingPage',
+          components: {
+            header: baseHeader,
+            content: settingPage
+          }
+        },
+        {
+          path: 'changeLoginPassword',
+          name: 'changeLoginPassword',
+          components: {
+            header: baseHeader,
+            content: changeLoginPassword
           }
         }
       ]

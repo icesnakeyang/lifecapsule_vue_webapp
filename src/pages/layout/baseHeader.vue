@@ -15,6 +15,9 @@
           <MenuItem name="menuAdd" class="gogo_menuItem">
             <Icon type="md-add"></Icon>
           </MenuItem>
+          <MenuItem name="menuSettings" class="gogo_menuItem">
+            <Icon type="md-settings"/>
+          </MenuItem>
         </div>
       </Menu>
     </Header>
@@ -22,40 +25,45 @@
 </template>
 
 <script>
-  export default {
-    name: "baseHeader",
-    computed: {
-      categoryName() {
-        if (this.$store.state.category_name) {
-          return this.$store.state.category_name
-        } else {
-          return this.$t('headerBar.appName')
+    export default {
+        name: "baseHeader",
+        computed: {
+            categoryName() {
+                if (this.$store.state.category_name) {
+                    return this.$store.state.category_name
+                } else {
+                    return this.$t('headerBar.appName')
+                }
+            }
+        },
+        methods: {
+            onMenuItem(name) {
+                if (name === 'menuBack') {
+                    this.$router.back()
+                }
+                if (name === 'menuCategory') {
+                    this.$router.push({
+                        name: 'categoryList'
+                    })
+                }
+                if (name === 'menuAdd') {
+                    this.$router.push({
+                        name: 'newNote'
+                    })
+                }
+                if (name === 'menuTitle') {
+                    this.$router.push({
+                        name: 'noteList'
+                    })
+                }
+                if (name === 'menuSettings') {
+                    this.$router.push({
+                        name: 'settingPage'
+                    })
+                }
+            }
         }
-      }
-    },
-    methods: {
-      onMenuItem(name) {
-        if (name === 'menuBack') {
-          this.$router.back()
-        }
-        if (name === 'menuCategory') {
-          this.$router.push({
-            name: 'categoryList'
-          })
-        }
-        if (name === 'menuAdd') {
-          this.$router.push({
-            name: 'newNote'
-          })
-        }
-        if (name === 'menuTitle') {
-          this.$router.push({
-            name: 'noteList'
-          })
-        }
-      }
     }
-  }
 </script>
 
 <style scoped>
