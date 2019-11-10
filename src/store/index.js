@@ -18,6 +18,9 @@ export default new Vuex.Store({
     saveToken(ctx, token) {
       ctx.commit('saveToken', token)
     },
+    clearToken(ctx) {
+      ctx.commit('clearToken')
+    },
     saveNoteId(ctx, noteId) {
       ctx.commit('saveNoteId', noteId)
     },
@@ -41,6 +44,10 @@ export default new Vuex.Store({
     saveToken(state, token) {
       state.gogo_token = token
       localStorage.gogo_token = token
+    },
+    clearToken(state) {
+      state.gogo_token = ''
+      localStorage.gogo_token = ''
     },
     saveNoteId(state, noteId) {
       state.note_id = noteId
