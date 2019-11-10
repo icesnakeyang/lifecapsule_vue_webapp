@@ -38,7 +38,11 @@
     "changeLoginPassword": "Change login password",
     "btNewPassword": "New password",
     "btNewPasswordHolder": "Please input new login password",
-    "tipChangePasswordSuccess": "Change password successful"
+    "tipChangePasswordSuccess": "Change password successful",
+    "userName": "User name",
+    "email": "Email",
+    "phone": "Phone",
+    "changeUser": "Change user"
   },
   "email": {
     "emailHolder": "Please input email"
