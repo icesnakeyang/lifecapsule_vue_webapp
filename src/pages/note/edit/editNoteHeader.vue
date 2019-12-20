@@ -8,6 +8,9 @@
         {{categoryName}}
       </MenuItem>
       <div class="layout-nav" :style="{float:'right'}">
+        <MenuItem name="menuPublishNote" class="gogo_menuItem">
+          <Icon type="md-share"/>
+        </MenuItem>
         <MenuItem name="menuTrigger" class="gogo_menuItem">
           <Icon type="ios-locate-outline"/>
         </MenuItem>
@@ -20,58 +23,64 @@
 </template>
 
 <script>
-  import {apiDeleteNote} from "../../../api/api";
+    import {apiDeleteNote, apiPublishNote} from "../../../api/api";
 
-  export default {
-    name: "editNoteHeader",
-    computed: {
-      categoryName() {
-        if (this.$store.state.category_name) {
-          return this.$store.state.category_name
-        } else {
-          return this.$t('headerBar.appName')
-        }
-      }
-    },
-    methods: {
-      onMenuItem(name) {
-        if (name === 'menuBack') {
-          this.$router.back()
-        }
-        if (name === 'menuTrigger') {
-          this.$store.dispatch('clearTriggerId')
-          this.$router.push({
-            name: 'editTrigger'
-          })
-        }
-        if (name === 'menuDelete') {
-          this.$Modal.confirm({
-            title: this.$t('common.modal.delete.title'),
-            content: this.$t('common.modal.delete.content'),
-            onOk: () => {
-              apiDeleteNote({
-                noteId: this.$store.state.note_id
-              }).then((response) => {
-                if (response.data.code === 0) {
-                  this.$Message.info(this.$t('common.btDeleteSuccess'))
-                  this.$router.push({
-                    name: 'noteList'
-                  })
+    export default {
+        name: "editNoteHeader",
+        computed: {
+            categoryName() {
+                if (this.$store.state.category_name) {
+                    return this.$store.state.category_name
                 } else {
-                  this.$Message.error(this.$t('common.btDeleteFailed'))
+                    return this.$t('headerBar.appName')
                 }
-              })
             }
-          });
+        },
+        methods: {
+            onMenuItem(name) {
+                if (name === 'menuBack') {
+                    this.$router.back()
+                }
+                if (name === 'menuTrigger') {
+                    this.$store.dispatch('clearTriggerId')
+                    this.$router.push({
+                        name: 'editTrigger'
+                    })
+                }
+                if (name === 'menuDelete') {
+                    this.$Modal.confirm({
+                        title: this.$t('common.modal.delete.title'),
+                        content: this.$t('common.modal.delete.content'),
+                        onOk: () => {
+                            apiDeleteNote({
+                                noteId: this.$store.state.note_id
+                            }).then((response) => {
+                                if (response.data.code === 0) {
+                                    this.$Message.info(this.$t('common.btDeleteSuccess'))
+                                    this.$router.push({
+                                        name: 'noteList'
+                                    })
+                                } else {
+                                    this.$Message.error(this.$t('common.btDeleteFailed'))
+                                }
+                            })
+                        }
+                    });
+                }
+                if (name === 'menuTitle') {
+                    this.$router.push({
+                        name: 'noteList'
+                    })
+                }
+                if (name === 'menuPublishNote') {
+                    console.log('publish note')
+                    this.$router.push({
+                        name: 'publishNote'
+                    })
+                }
+            }
         }
-        if (name === 'menuTitle') {
-          this.$router.push({
-            name: 'noteList'
-          })
-        }
-      }
     }
-  }
 </script>
 
 <style scoped>

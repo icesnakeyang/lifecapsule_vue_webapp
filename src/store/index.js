@@ -12,7 +12,9 @@ export default new Vuex.Store({
     trigger_id: '' || localStorage.trigger_id,
     recipient_id: '' || localStorage.recipient_id,
     trigger_name: '' || localStorage.trigger_name,
-    trigger_remark: '' || localStorage.trigger_remark
+    trigger_remark: '' || localStorage.trigger_remark,
+    note_title: '',
+    note_detail: ''
   },
   actions: {
     saveToken(ctx, token) {
@@ -38,6 +40,12 @@ export default new Vuex.Store({
     },
     saveRecipientId(ctx, recipientId) {
       ctx.commit('saveRecipientId', recipientId)
+    },
+    saveNoteTitle(ctx, title) {
+      ctx.commit('saveNoteTitle', title)
+    },
+    saveNoteDetail(ctx, detail) {
+      ctx.commit('saveNoteDetail', detail)
     }
   },
   mutations: {
@@ -82,6 +90,12 @@ export default new Vuex.Store({
     saveRecipientId(state, recipientId) {
       state.recipient_id = recipientId
       localStorage.recipient_id = recipientId
+    },
+    saveNoteTitle(state, title) {
+      state.note_title = title
+    },
+    saveNoteDetail(state, detail) {
+      state.note_detail = detail
     }
   }
 })

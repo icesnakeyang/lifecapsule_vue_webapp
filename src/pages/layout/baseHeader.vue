@@ -9,6 +9,9 @@
           {{categoryName}}
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
+          <MenuItem name="menuPublicNote" class="gogo_menuItem">
+            <Icon type="md-bookmarks" />
+          </MenuItem>
           <MenuItem name="menuCategory" class="gogo_menuItem">
             <Icon type="ios-folder"></Icon>
           </MenuItem>
@@ -59,6 +62,11 @@
                 if (name === 'menuSettings') {
                     this.$router.push({
                         name: 'settingPage'
+                    })
+                }
+                if(name==='menuPublicNote'){
+                    this.$router.push({
+                        name:'publicNoteListView'
                     })
                 }
             }

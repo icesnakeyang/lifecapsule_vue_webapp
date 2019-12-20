@@ -80,6 +80,14 @@
     "address": "Address",
     "remark": "Remark"
   },
+  "publicNote": {
+    "tip1": "Publish this note will copy to public area, that's means everybody can view this article free",
+    "confirmTip": "Confirm To Public",
+    "publish": "Public",
+    "cancel": "Cancel",
+    "publishSuccess": "Publish successful",
+    "publishFailed": "Publish failed"
+  },
   "syserr": {
     "10001": "Unknown error",
     "10002": "Username or password error",

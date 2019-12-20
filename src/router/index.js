@@ -72,6 +72,11 @@ import gogoPublicKeyEdit from "@/admin/gogoKey/gogoPublicKeyEdit"
  */
 import settingPage from "../pages/setttings/settingPage";
 import changeLoginPassword from "../pages/setttings/changeLoginPassword";
+import publishNote from "../pages/note/publish/publishNote";
+import publishNoteHeader from "../pages/note/publish/publishNoteHeader";
+import publicNoteViewHeader from "../pages/note/publish/publicNoteViewHeader";
+import publicNoteListView from "../pages/note/publish/publicNoteListView";
+import publicNoteDetail from "../pages/note/publish/publicNoteDetail";
 
 Vue.use(Router)
 
@@ -272,6 +277,30 @@ const router = new Router({
           components: {
             header: baseHeader,
             content: changeLoginPassword
+          }
+        },
+        {
+          path: 'publishNote',
+          name: 'publishNote',
+          components: {
+            header: publishNoteHeader,
+            content: publishNote
+          }
+        },
+        {
+          path: 'publicNoteListView',
+          name: 'publicNoteListView',
+          components: {
+            header: publicNoteViewHeader,
+            content: publicNoteListView
+          }
+        },
+        {
+          path: 'publicNoteDetail',
+          name: 'publicNoteDetail',
+          components: {
+            header: publicNoteViewHeader,
+            content: publicNoteDetail
           }
         }
       ]

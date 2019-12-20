@@ -1,8 +1,9 @@
 import axios from 'axios'
 import store from '../store/index'
 
-const host = 'http://127.0.0.1:8088'
+// const host = 'http://127.0.0.1:8088'
 // const host = 'http://www.gogorpg.com:8088'
+const host = 'http://localhost:8088'
 
 export const apiRegister = params => {
   return axios.post(`${host}/user/registerme`, params)
@@ -255,4 +256,24 @@ export const apiGetUserByToken = params => {
       token: store.state.gogo_token
     }
   })
+}
+
+export const apiPublishNote = params => {
+  return axios.post(`${host}/publicNote/publishNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiListPublicNote = params => {
+  return axios.post(`${host}/publicNote/listPublicNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetPublicNoteByNoteId = params => {
+  return axios.get(`${host}/publicNote/getPublicNote/` + params)
 }
