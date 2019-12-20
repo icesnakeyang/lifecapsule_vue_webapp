@@ -77,6 +77,7 @@ import publishNoteHeader from "../pages/note/publish/publishNoteHeader";
 import publicNoteViewHeader from "../pages/note/publish/publicNoteViewHeader";
 import publicNoteListView from "../pages/note/publish/publicNoteListView";
 import publicNoteDetail from "../pages/note/publish/publicNoteDetail";
+import editPublicNote from "../pages/note/publish/editPublicNote";
 
 Vue.use(Router)
 
@@ -300,7 +301,17 @@ const router = new Router({
           name: 'publicNoteDetail',
           components: {
             header: publicNoteViewHeader,
-            content: publicNoteDetail
+            content: publicNoteDetail,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'editPublicNote',
+          name: 'editPublicNote',
+          components: {
+            header: publishNoteHeader,
+            content: editPublicNote,
+            footer: baseFooter
           }
         }
       ]
@@ -314,6 +325,10 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (to.name === 'login') {
+    next()
+    return
+  }
+  if (to.name === 'publicNoteDetail') {
     next()
     return
   }

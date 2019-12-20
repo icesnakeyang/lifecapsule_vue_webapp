@@ -86,7 +86,10 @@
     "publish": "Public",
     "cancel": "Cancel",
     "publishSuccess": "Publish successful",
-    "publishFailed": "Publish failed"
+    "publishFailed": "Publish failed",
+    "btUpdate": "Update Public Note",
+    "tipUpdateSuccess": "Update success",
+    "tipUpdateFailed": "Update failed"
   },
   "syserr": {
     "10001": "Unknown error",

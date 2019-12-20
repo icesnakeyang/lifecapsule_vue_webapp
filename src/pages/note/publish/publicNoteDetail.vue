@@ -1,7 +1,18 @@
 <template>
   <div>
-    <div>{{note.title}}</div>
-    <quill-editor v-model="note.content" :options="editorOption"></quill-editor>
+    <Card>
+      <p slot="title">{{note.title}}</p>
+      <quill-editor v-model="note.content" :options="editorOption"></quill-editor>
+      <div v-if="loginUser">
+        <Form>
+          <FormItem style="text-align: center">
+            <Button type="primary" @click="btUpdateNote">{{$t('publicNote.btUpdate')}}</Button>
+          </FormItem>
+        </Form>
+      </div>
+    </Card>
+
+
   </div>
 </template>
 
@@ -26,6 +37,14 @@
                 }
             }
         },
+        computed: {
+            loginUser() {
+                if (this.$store.state.gogo_token) {
+                    return true
+                }
+                return false
+            }
+        },
         methods: {
             loadAllData() {
                 if (this.$route.query.noteId) {
@@ -37,6 +56,15 @@
                         }
                     })
                 }
+            },
+            btUpdateNote() {
+                console.log(this.note.noteId)
+                this.$router.push({
+                    name: 'editPublicNote',
+                    params: {
+                        noteId: this.note.noteId
+                    }
+                })
             }
         },
         mounted() {
