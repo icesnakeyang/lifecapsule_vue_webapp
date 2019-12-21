@@ -7,7 +7,9 @@
         </FormItem>
         <FormItem>
           <quill-editor v-model="note.detail"
-                        :options="editorOption"></quill-editor>
+                        :options="editorOption"
+                        @change="onEditorChange"
+          ></quill-editor>
         </FormItem>
         <span v-if="saving">
           <Spin>
@@ -16,9 +18,11 @@
           </Spin>
         </span>
         <span v-else>
-          <FormItem>
+          <div v-if="editing">
+            <FormItem>
             <Button type="primary" @click="onSave" class="gogo_button">{{$t('common.btSave')}}</Button>
           </FormItem>
+          </div>
         </span>
       </Form>
     </div>
@@ -54,7 +58,9 @@
                     },
                     placeholder: this.$t('note.detailHolder')
                 },
-                saving: false
+                saving: false,
+                editing: false,
+                keys: 0
             }
         },
         methods: {
@@ -124,6 +130,13 @@
                         })
                     }
                 })
+            },
+
+            onEditorChange() {
+                if (this.keys > 0) {
+                    this.editing = true
+                }
+                this.keys++
             }
         },
 
