@@ -87,7 +87,10 @@
     "publish": "发布",
     "cancel": "取消",
     "publishSuccess": "发布成功",
-    "publishFailed": "发布失败"
+    "publishFailed": "发布失败",
+    "btUpdate": "修改发布内容",
+    "tipUpdateSuccess": "修改成功",
+    "tipUpdateFailed": "修改失败"
   },
   "syserr": {
     "10001": "未知错误",

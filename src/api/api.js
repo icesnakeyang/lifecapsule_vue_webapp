@@ -277,3 +277,11 @@ export const apiListPublicNote = params => {
 export const apiGetPublicNoteByNoteId = params => {
   return axios.get(`${host}/publicNote/getPublicNote/` + params)
 }
+
+export const apiUpdatePublicNote = params => {
+  return axios.post(`${host}/publicNote/updatePublicNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
