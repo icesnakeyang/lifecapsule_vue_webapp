@@ -122,7 +122,7 @@
                 this.$Message.info(this.$t('common.btSaveSuccess'))
                 this.saving = false
                 this.editing = false
-                this.keys = -1
+                this.keys = 0
               } else {
                 this.$Message.error(this.$t('common.btSaveFailed'))
                 this.saving = false
@@ -139,7 +139,7 @@
         console.log(this.keys)
         console.log(this.editing)
         this.keys++
-        if (this.keys === 0) {
+        if (this.keys > 0) {
           this.editing = true
         }
       }

@@ -2,11 +2,15 @@
   <div>
     <Form>
       <FormItem>
-        <Input v-model="note.title" :placeholder="$t('note.btSave')"></Input>
+        <Input v-model="note.title" :placeholder="$t('note.btSave')"
+               @on-change="onEditorChange1"
+        ></Input>
       </FormItem>
       <FormItem>
         <quill-editor v-model="note.content"
-                      :options="editorOption"></quill-editor>
+                      :options="editorOption"
+                      @change="onEditorChange"
+        ></quill-editor>
       </FormItem>
       <span v-if="saving">
           <Spin>
@@ -15,10 +19,12 @@
           </Spin>
         </span>
       <span v-else>
+        <div v-if="editing">
           <FormItem>
             <Button type="primary" @click="onSave" class="gogo_button">{{$t('common.btSave')}}</Button>
           </FormItem>
-        </span>
+        </div>
+      </span>
     </Form>
   </div>
 </template>
@@ -45,7 +51,9 @@
                     },
                     placeholder: this.$t('note.detailHolder')
                 },
-                saving: false
+                saving: false,
+                editing: false,
+                keys: -1
             }
         },
         methods: {
@@ -67,12 +75,29 @@
                     console.log(response)
                     if (response.data.code === 0) {
                         this.$Message.success(this.$t('publicNote.tipUpdateSuccess'))
+                        this.saving = false
+                        this.editing = false
+                        this.keys = 0
                     } else {
                         throw new Error(this.$t('publicNote.tipUpdateFailed'))
+                        this.saving = false
                     }
                 }).catch((error) => {
                     this.$Message.error(error)
+                    this.saving = false
                 })
+            },
+            onEditorChange() {
+                this.keys++;
+                if (this.keys > 0) {
+                    this.editing = true
+                }
+            },
+            onEditorChange1(){
+                this.keys++;
+                if (this.keys > 0) {
+                    this.editing = true
+                }
             }
         },
         mounted() {
