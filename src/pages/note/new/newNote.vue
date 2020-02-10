@@ -9,7 +9,7 @@
       <quill-editor v-model="noteContent"
                     :options="editorOption"></quill-editor>
     </div>
-    <div>
+    <div style="margin-top: 20px">
       <Button type="primary" @click="onSave">{{$t('note.btSave')}}</Button>
     </div>
   </div>
