@@ -78,6 +78,7 @@ import publicNoteViewHeader from "../pages/note/publish/publicNoteViewHeader";
 import publicNoteListView from "../pages/note/publish/publicNoteListView";
 import publicNoteDetail from "../pages/note/publish/publicNoteDetail";
 import editPublicNote from "../pages/note/publish/editPublicNote";
+import apiNote from "../pages/note/apiNote/apiNote";
 
 Vue.use(Router)
 
@@ -311,6 +312,15 @@ const router = new Router({
           components: {
             header: publishNoteHeader,
             content: editPublicNote,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'apiNote',
+          name: 'apiNote',
+          components: {
+            header: publishNoteHeader,
+            content: apiNote,
             footer: baseFooter
           }
         }

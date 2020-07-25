@@ -91,6 +91,14 @@
     "tipUpdateSuccess": "Update success",
     "tipUpdateFailed": "Update failed"
   },
+  "userData": {
+    "title1": "Note to make Api",
+    "noteTitle": "Note",
+    "noteTime": "Create time",
+    "title2": "Api Documentation",
+    "params": "Params",
+    "values": "Values"
+  },
   "syserr": {
     "10001": "Unknown error",
     "10002": "Username or password error",

@@ -92,6 +92,14 @@
     "tipUpdateSuccess": "修改成功",
     "tipUpdateFailed": "修改失败"
   },
+  "userData": {
+    "title1": "要制作成Api服务的笔记",
+    "noteTitle": "笔记标题",
+    "noteTime": "笔记创建时间",
+    "title2": "Api说明",
+    "params": "参数",
+    "values": "值"
+  },
   "syserr": {
     "10001": "未知错误",
     "10002": "用户名或密码错误",

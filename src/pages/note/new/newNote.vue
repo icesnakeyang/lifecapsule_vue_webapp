@@ -49,6 +49,12 @@
     },
     methods: {
       onSave() {
+        /**
+         * 参数：
+         * uuid，keyAES，keyAESBase64
+         * 首先生成一个UUID，然后把该UUID进行SHA256加密，获得一个key，然后再进行base64编码，得到一个准备好的私钥
+         * 用这个AES的私钥来加密笔记内容，得到加密了的笔记detail
+         */
         const uuid = GenerateKey()
         const keyAES = CryptoJS.SHA256(uuid)
         const keyAESBase64 = CryptoJS.enc.Base64.stringify(keyAES)
@@ -58,12 +64,22 @@
           encryptKey: keyAESBase64,
           categoryId: this.$store.state.category_id,
         }
+        /**
+         * 向API请求一个公钥，得到公钥和公钥的token
+         */
         apiRequestRSAPublicKey().then((response) => {
           if (response.data.code === 0) {
+            /**
+             * 用请求到的公钥来加密AES私钥
+             */
             params.encryptKey = RSAencrypt(params.encryptKey, response.data.data.publicKey)
             params.keyToken = response.data.data.keyToken
 
             this.saving = true
+            /**
+             * 加密保存笔记
+             * 把加密好的笔记内容，AES私钥，请求的公钥token作为参数提交给Api
+             */
             apiAddNote(params).then((response) => {
               if (response.data.code === 0) {
                 this.$Message.info(this.$t('common.btSaveSuccess'))

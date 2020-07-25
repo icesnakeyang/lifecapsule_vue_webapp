@@ -11,6 +11,9 @@
         <MenuItem name="menuPublishNote" class="gogo_menuItem">
           <Icon type="md-share"/>
         </MenuItem>
+        <MenuItem name="menuMakeApi" class="gogo_menuItem">
+          <span style="font-size: 24px">API</span>
+        </MenuItem>
         <MenuItem name="menuTrigger" class="gogo_menuItem">
           <Icon type="ios-locate-outline"/>
         </MenuItem>
@@ -73,10 +76,14 @@
                     })
                 }
                 if (name === 'menuPublishNote') {
-                    console.log('publish note')
                     this.$router.push({
                         name: 'publishNote'
                     })
+                }
+                if(name==='menuMakeApi'){
+                  this.$router.push({
+                    name:'apiNote'
+                  })
                 }
             }
         }

@@ -10,7 +10,7 @@
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
           <MenuItem name="menuPublicNote" class="gogo_menuItem">
-            <Icon type="md-bookmarks" />
+            <Icon type="md-bookmarks"/>
           </MenuItem>
           <MenuItem name="menuCategory" class="gogo_menuItem">
             <Icon type="ios-folder"></Icon>
@@ -28,50 +28,51 @@
 </template>
 
 <script>
-    export default {
-        name: "baseHeader",
-        computed: {
-            categoryName() {
-                if (this.$store.state.category_name) {
-                    return this.$store.state.category_name
-                } else {
-                    return this.$t('headerBar.appName')
-                }
-            }
-        },
-        methods: {
-            onMenuItem(name) {
-                if (name === 'menuBack') {
-                    this.$router.back()
-                }
-                if (name === 'menuCategory') {
-                    this.$router.push({
-                        name: 'categoryList'
-                    })
-                }
-                if (name === 'menuAdd') {
-                    this.$router.push({
-                        name: 'newNote'
-                    })
-                }
-                if (name === 'menuTitle') {
-                    this.$router.push({
-                        name: 'noteList'
-                    })
-                }
-                if (name === 'menuSettings') {
-                    this.$router.push({
-                        name: 'settingPage'
-                    })
-                }
-                if(name==='menuPublicNote'){
-                    this.$router.push({
-                        name:'publicNoteListView'
-                    })
-                }
-            }
+  export default {
+    name: "baseHeader",
+    computed: {
+      categoryName() {
+        if (this.$store.state.category_name) {
+          return this.$store.state.category_name
+        } else {
+          return this.$t('headerBar.appName')
         }
+      }
+    },
+    methods: {
+      onMenuItem(name) {
+        console.log(name)
+        if (name === 'menuBack') {
+          this.$router.back()
+        }
+        if (name === 'menuCategory') {
+          this.$router.push({
+            name: 'categoryList'
+          })
+        }
+        if (name === 'menuAdd') {
+          this.$router.push({
+            name: 'newNote'
+          })
+        }
+        if (name === 'menuTitle') {
+          this.$router.push({
+            name: 'noteList'
+          })
+        }
+        if (name === 'menuSettings') {
+          this.$router.push({
+            name: 'settingPage'
+          })
+        }
+        if (name === 'menuPublicNote') {
+          this.$router.push({
+            name: 'publicNoteListView'
+          })
+        }
+      }
     }
+  }
 </script>
 
 <style scoped>
