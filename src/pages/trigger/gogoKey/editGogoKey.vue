@@ -45,13 +45,15 @@
          * 2、如果还没有gogoKey，就只显示select gogoKey按钮
          * 3、如果有gogoPublicKeyId，就读取公共模板，显示
          */
-        if (this.$route.params.gogoPublicKeyId) {
+        if(this.$route.params.gogoPublicKeyId){
           //选择了公共模板，显示模板设置
           apiGetGogoPublicKey({
             gogoKeyId: this.$route.params.gogoPublicKeyId
           }).then((response) => {
             if (response.data.code === 0) {
+              console.log(3)
               this.gogoKey = response.data.data.key
+              console.log(this.gogoKey)
             } else {
               this.$Message.error(this.$t('common.loadDataError'))
             }
@@ -61,10 +63,13 @@
             apiGetGogoKeyByTriggerId({
               triggerId: this.$store.state.trigger_id
             }).then((response) => {
+              console.log(5)
+              console.log(response.data)
               if (response.data.code === 0) {
                 this.gogoKey = response.data.data.gogoKey
+                console.log(this.gogoKey)
               } else {
-                this.$store.dispatch('clearTriggerId')
+                // this.$store.dispatch('clearTriggerId')
                 this.gogoMSG = this.$t('gogoKey.msgNoKey')
               }
             })
@@ -84,12 +89,15 @@
         const params = {
           title: this.gogoKey.title,
           description: this.gogoKey.description,
+          gogoPublicKeyId: this.gogoKey.publicKeyId,
           triggerId: this.$store.state.trigger_id,
           keyParams: this.gogoKey.keyParams,
           noteId: this.$store.state.note_id,
           triggerName: this.$store.state.trigger_name,
           triggerRemark: this.$store.state.trigger_remark
         }
+
+        console.log(params)
 
         apiSaveGogoKey(params).then((response) => {
           if (response.data.code === 0) {

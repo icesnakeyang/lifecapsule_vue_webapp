@@ -30,6 +30,7 @@
           console.log(response)
           if (response.data.code === 0) {
             this.gogoKeys = response.data.data.gogoPublicKeyList
+            console.log(this.gogoKeys)
           }
         })
       },
@@ -38,12 +39,12 @@
          * 选择一个触发条件
          * 跳转到触发条件的配置页面
          */
-        console.log(item)
-        if (item.gogoKeyId) {
+        console.log(item.publicKeyId)
+        if (item.publicKeyId) {
           this.$router.push({
             name: 'editGogoKey',
             params: {
-              gogoPublicKeyId: item.gogoKeyId
+              gogoPublicKeyId: item.publicKeyId
             }
           })
         }

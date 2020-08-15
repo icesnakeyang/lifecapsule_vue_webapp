@@ -77,10 +77,14 @@
       loadAllData() {
         /**
          * 根据noteId，读取trigger
+         * 如果用户从note进入，则triggerId的缓存已经清除
+         * 如果用户从trigger选择进入，则从缓存里恢复triggerId
+         * 即：缓存有triggerId就是选择触发器返回，没有就是从note进来的
          */
         apiGetTriggerByNoteId({
           noteId: this.$store.state.note_id
         }).then((response) => {
+          console.log(response)
           if (response.data.code === 0) {
             if (response.data.data.trigger) {
               this.trigger = response.data.data.trigger
@@ -129,6 +133,7 @@
         if (this.$store.state.trigger_id) {
           trigger.triggerId = this.$store.state.trigger_id
         }
+        console.log(trigger)
         this.$store.dispatch('saveTrigger', trigger)
         this.$router.push({
           name: 'editGogoKey'
