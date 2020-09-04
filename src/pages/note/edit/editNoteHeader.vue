@@ -37,11 +37,10 @@
         </Col>
         <Col span="18">
           <div>
-            <Card title="选择笔记分类" :padding="0" shadow style="width: 300px;">
-              <CellGroup @on-click="onCategory">
-                <category-cell v-for="(item,index) in categoryList" :item="item">
-                </category-cell>
-              </CellGroup>
+            <Card>
+              <Select v-model="model1" style="width:200px" @on-change="onCategory">
+                <Option v-for="item in categoryList" :value="item.categoryId" :key="item.categoryId">{{ item.categoryName }}</Option>
+              </Select>
             </Card>
           </div>
         </Col>
@@ -51,7 +50,7 @@
 </template>
 
 <script>
-  import {apiDeleteNote, apiGetNoteTiny, apiListCategory, apiPublishNote} from "../../../api/api";
+  import {apiDeleteNote, apiGetNoteTiny, apiListCategory, apiMoveNoteCategory, apiPublishNote} from "../../../api/api";
   import CategoryCell from "./categoryCell";
 
   export default {
@@ -62,7 +61,8 @@
         modalMoveFolder: false,
         currentCategoryId: '',
         currentCategoryName: '',
-        categoryList: []
+        categoryList: [],
+        model1: ''
       }
     },
     computed: {
@@ -144,10 +144,27 @@
       moveFolderOk() {
         console.log(this.currentCategoryName)
         console.log(this.currentCategoryId)
-
+        console.log(this.model1)
+        console.log(this.$store.state.note_id)
+        const params={
+          noteId:this.$store.state.note_id,
+          categoryId:this.model1
+        }
+        console.log(params)
+        apiMoveNoteCategory(params).then((res)=>{
+          console.log(res)
+          if(res.data.code===0){
+            this.$Message.success(this.$t('note.moveCategorySuccess'))
+          }else{
+            this.$Message.error(this.$t('note.moveCategoryFail'))
+          }
+        }).catch((error)=>{
+          this.$Message.error(this.$t('note.moveCategoryFail'))
+        })
       },
       onCategory(e){
         console.log(e)
+        console.log(this.model1)
       }
     }
   }

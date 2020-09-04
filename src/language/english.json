@@ -52,7 +52,9 @@
     "titleHolder": "Please input title",
     "detail": "Detail",
     "detailHolder": "Input note detail here",
-    "btSave": "Save"
+    "btSave": "Save",
+    "moveCategorySuccess": "Move note category successful",
+    "moveCategoryFail": "Move note category failed"
   },
   "trigger": {
     "alert1": "Set a condition to trigger action of this note.",
