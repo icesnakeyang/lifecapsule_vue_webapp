@@ -6,6 +6,9 @@
           <Input v-model="note.title" :placeholder="$t('note.btSave')"></Input>
         </FormItem>
         <FormItem>
+          <div>{{$t('note.createTime')}}：{{createTime}}</div>
+        </FormItem>
+        <FormItem>
           <quill-editor v-model="note.detail"
                         :options="editorOption"
                         @change="onEditorChange"
@@ -39,6 +42,7 @@
   import {apiRequestRSAPublicKey} from "../../../api/api";
 
   import CryptoJS from 'crypto-js'
+  import moment from "moment";
 
   export default {
     name: "editNote",
@@ -61,6 +65,14 @@
         saving: false,
         editing: false,
         keys: -1
+      }
+    },
+    computed:{
+      createTime(){
+        if(this.note.createdTime){
+          return moment(this.note.createdTime).format('YYYY-MM-DD HH:mm')
+        }
+        return ''
       }
     },
     methods: {
@@ -89,12 +101,13 @@
                 this.note = response.data.data.note
                 let strKey = this.note.userEncodeKey
                 strKey = Decrypt2(strKey, keyAES_1)
-                console.log('note detail:'+this.note.detail);
-                console.log('key:'+strKey);
+                console.log('note detail:' + this.note.detail);
+                console.log('key:' + strKey);
                 this.note.detail = Decrypt(this.note.detail, strKey, strKey)
                 this.$store.dispatch('saveNoteTitle', this.note.title)
                 this.$store.dispatch('saveNoteDetail', this.note.detail)
                 console.log(this.$store.state.note_title)
+                console.log(this.note)
               }
             })
           }

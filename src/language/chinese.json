@@ -55,7 +55,8 @@
     "detailHolder": "请输入详细内容",
     "btSave": "保存",
     "moveCategorySuccess": "修改笔记分类成功",
-    "moveCategoryFail": "修改笔记分类失败"
+    "moveCategoryFail": "修改笔记分类失败",
+    "createTime": "创建时间"
   },
   "trigger": {
     "alert1": "设置一个触发条件，当条件满足时，系统会自动把该笔记发送给指定的用户。",

@@ -54,7 +54,8 @@
     "detailHolder": "Input note detail here",
     "btSave": "Save",
     "moveCategorySuccess": "Move note category successful",
-    "moveCategoryFail": "Move note category failed"
+    "moveCategoryFail": "Move note category failed",
+    "createTime": "Create time"
   },
   "trigger": {
     "alert1": "Set a condition to trigger action of this note.",

@@ -13,6 +13,10 @@
       </p>
       <Table :columns="cols1" :data="apiDocs"></Table>
     </Card>
+    <div class="bt_view">
+      <Button type="primary" @click="makeNoteApi">创建API</Button>
+    </div>
+
   </div>
 </template>
 
@@ -29,12 +33,12 @@
         apiDocs: [],
         cols1: [
           {
-            title:this.$t('userData.params'),
-            key:'param'
+            title: this.$t('userData.params'),
+            key: 'param'
           },
           {
-            title:this.$t('userData.values'),
-            key:'value'
+            title: this.$t('userData.values'),
+            key: 'value'
           }
         ]
       }
@@ -50,9 +54,9 @@
           this.title = response.data.data.title
           this.createTime = moment(response.data.data.createTime).format('YYYY-MM-DD')
 
-          apiGetNoteApi(params).then((response)=>{
+          apiGetNoteApi(params).then((response) => {
             console.log(response)
-            this.apiDocs=response.data.data.userDataParams
+            this.apiDocs = response.data.data.userDataParams
           })
         }).catch((error) => {
           this.$Message.error(this.$t('syserr.' + error))
@@ -70,6 +74,7 @@
         })
       }
     },
+
     mounted() {
       this.loadAllData()
     }
@@ -77,5 +82,9 @@
 </script>
 
 <style scoped>
-
+  .bt_view {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
 </style>
