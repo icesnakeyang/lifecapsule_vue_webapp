@@ -79,7 +79,7 @@ import publicNoteListView from "../pages/note/publish/publicNoteListView";
 import publicNoteDetail from "../pages/note/publish/publicNoteDetail";
 import editPublicNote from "../pages/note/publish/editPublicNote";
 import apiNote from "../pages/note/apiNote/apiNote";
-import creativeNoteList from "../pages/creativeNote/createNoteList";
+import creativeNoteList from "../pages/creativeNote/creativeNoteList";
 import creativeHeader from "../pages/creativeNote/creativeHeader";
 import creativeNoteEdit from "../pages/creativeNote/creativeNoteEdit";
 

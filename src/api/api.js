@@ -317,3 +317,19 @@ export const apiMoveNoteCategory = params => {
     }
   })
 }
+
+export const apiSaveCreativeNote = params => {
+  return axios.post(`${host}/note/creative/saveCreativeNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetCreativeNote = params => {
+  return axios.post(`${host}/note/creative/getCreativeNote`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
