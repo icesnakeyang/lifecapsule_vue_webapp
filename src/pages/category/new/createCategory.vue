@@ -6,6 +6,11 @@
       </FormItem>
       <FormItem>
 
+        <RadioGroup v-model="noteType">
+          <Radio label="普通笔记"></Radio>
+          <Radio label="防拖延笔记"></Radio>
+        </RadioGroup>
+
       </FormItem>
       <span v-if="saving">
           <Spin>
@@ -30,15 +35,24 @@
     data() {
       return {
         categoryName: '',
-        saving: false
+        saving: false,
+        noteType:null
       }
     },
     methods: {
       onCreate() {
         this.saving = true
-        apiCreateNoteCategory({
-          categoryName: this.categoryName
-        }).then((response) => {
+        let params={
+          categoryName: this.categoryName,
+          noteType:this.noteType
+        }
+        if(this.noteType==='防拖延笔记'){
+          params.noteType='CREATIVE_NOTE'
+        }else {
+          params.noteType='NORMAL'
+        }
+        console.log(params)
+        apiCreateNoteCategory(params).then((response) => {
           this.saving = false
           if (response.data.code === 0) {
             this.$Message.success('创建成功')

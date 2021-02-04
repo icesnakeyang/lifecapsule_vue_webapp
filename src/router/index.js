@@ -79,6 +79,9 @@ import publicNoteListView from "../pages/note/publish/publicNoteListView";
 import publicNoteDetail from "../pages/note/publish/publicNoteDetail";
 import editPublicNote from "../pages/note/publish/editPublicNote";
 import apiNote from "../pages/note/apiNote/apiNote";
+import creativeNoteList from "../pages/creativeNote/createNoteList";
+import creativeHeader from "../pages/creativeNote/creativeHeader";
+import creativeNoteEdit from "../pages/creativeNote/creativeNoteEdit";
 
 Vue.use(Router)
 
@@ -321,6 +324,24 @@ const router = new Router({
           components: {
             header: publishNoteHeader,
             content: apiNote,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'creativeNoteList',
+          name: 'creativeNoteList',
+          components: {
+            header: creativeHeader,
+            content: creativeNoteList,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'creativeNoteEdit',
+          name: 'creativeNoteEdit',
+          components: {
+            header: creativeHeader,
+            content: creativeNoteEdit,
             footer: baseFooter
           }
         }

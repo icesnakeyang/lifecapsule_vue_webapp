@@ -18,36 +18,43 @@
 </template>
 
 <script>
-  export default {
-    name: "categoryListRow",
-    props: {
-      category: {}
-    },
-    methods: {
-      onCell() {
-        this.$store.dispatch('saveCategory', this.category)
+export default {
+  name: "categoryListRow",
+  props: {
+    category: {}
+  },
+  methods: {
+    onCell() {
+      this.$store.dispatch('saveCategory', this.category)
+      console.log(this.category)
+      if (this.category.noteType === 'CREATIVE_NOTE') {
+        this.$router.push({
+          name: 'creativeNoteList'
+        })
+      } else {
         this.$router.push({
           name: 'noteList'
         })
-      },
+      }
+    },
 
-      onEdit() {
-        this.$router.push({
-          name: 'categoryEdit',
-          params: {
-            categoryName: this.category.categoryName,
-            categoryId: this.category.categoryId
-          }
-        })
-      },
-    }
+    onEdit() {
+      this.$router.push({
+        name: 'categoryEdit',
+        params: {
+          categoryName: this.category.categoryName,
+          categoryId: this.category.categoryId
+        }
+      })
+    },
   }
+}
 </script>
 
 <style scoped>
-  .gogo_cell {
-    osition: relative;
-    top: 50%;
-    transform: translateY(50%);
-  }
+.gogo_cell {
+  osition: relative;
+  top: 50%;
+  transform: translateY(50%);
+}
 </style>
