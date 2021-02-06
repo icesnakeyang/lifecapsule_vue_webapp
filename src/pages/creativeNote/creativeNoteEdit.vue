@@ -54,15 +54,24 @@
             <Form>
               <FormItem>
                 <Input v-model="taskTitle" search enter-button="新增任务" @on-search="onNewTask"/>
-                <CellGroup>
                   <div v-for="(item, index) in tasks" :key="index">
-                    <Cell :title="item.taskTitle">
-                      <div slot="extra">
-                        <Button type="error" @click="onDeleteTask(item)">删除</Button>
+                    <div class="task_view">
+                      <div class="task_check_view">
+                        <Checkbox v-model="item.complete">Checkbox</Checkbox>
                       </div>
-                    </Cell>
+                      <div class="task_title_view">
+                        <div class="un_complete">
+                          未完成的任务
+                        </div>
+                        <div class="complete">
+                          已完成的任务
+                        </div>
+                      </div>
+                      <div class="task_bt_view">
+                        <Button type="error">删除</Button>
+                      </div>
+                    </div>
                   </div>
-                </CellGroup>
               </FormItem>
             </Form>
           </Card>
@@ -200,9 +209,10 @@
                 }
                 this.tasks.push(task)
             },
-            onDeleteTask(item) {
+            onDeleteTask(item,index) {
                 console.log(item)
-                this.tasks.splice()
+              console.log(index)
+              this.tasks.splice(index, 1)
             },
             onSave() {
                 console.log(this.detail1)
