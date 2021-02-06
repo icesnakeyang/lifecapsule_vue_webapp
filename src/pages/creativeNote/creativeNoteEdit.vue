@@ -53,10 +53,16 @@
             <p slot="title">10秒行动任务</p>
             <Form>
               <FormItem>
-                <quill-editor v-model="detail4"
-                              :options="editorOption"
-                              @change="onEditorChange"
-                ></quill-editor>
+                <Input v-model="taskTitle" search enter-button="新增任务" @on-search="onNewTask"/>
+                <CellGroup>
+                  <div v-for="(item, index) in tasks" :key="index">
+                    <Cell :title="item.taskTitle">
+                      <div slot="extra">
+                        <Button type="error" @click="onDeleteTask(item)">删除</Button>
+                      </div>
+                    </Cell>
+                  </div>
+                </CellGroup>
               </FormItem>
             </Form>
           </Card>
@@ -90,7 +96,6 @@
                 detail1: null,
                 detail2: null,
                 detail3: null,
-                detail4: null,
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -127,7 +132,9 @@
                 keys: -1,
                 editing: false,
                 saving: false,
-                loading: true
+                loading: true,
+                tasks: [],
+                taskTitle: ''
             }
         },
         methods: {
@@ -186,11 +193,21 @@
                     this.editing = true
                 }
             },
+            onNewTask() {
+                console.log(this.taskTitle)
+                let task = {
+                    taskTitle: this.taskTitle
+                }
+                this.tasks.push(task)
+            },
+            onDeleteTask(item) {
+                console.log(item)
+                this.tasks.splice()
+            },
             onSave() {
                 console.log(this.detail1)
                 console.log(this.detail2)
                 console.log(this.detail3)
-                console.log(this.detail4)
 
                 /**
                  * 请求一个RSA公钥
