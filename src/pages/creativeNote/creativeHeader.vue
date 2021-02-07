@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header style="padding: 0px">
-      <Menu mode="horizontal" theme="dark" active-name="2" @on-select="onMenuItem">
+      <Menu mode="horizontal" theme="light" active-name="2" @on-select="onMenuItem">
         <!--<div class="layout-logo">asdf</div>-->
         <!--<div class="layout-logo">asdfa</div>-->
         <MenuItem name="menuBack" class="gogo_menuItem">
@@ -38,6 +38,7 @@ export default {
         this.$router.back()
       }
       if (name === 'menuAdd') {
+        this.$store.dispatch('clearNoteId')
         this.$router.push({
           name: 'creativeNoteEdit'
         })
@@ -48,5 +49,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import "../../assets/gogoStyle.css";
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header style="padding: 0px">
-      <Menu mode="horizontal" theme="dark" active-name="2" @on-select="onMenuItem">
+      <Menu mode="horizontal" theme="light" active-name="2" @on-select="onMenuItem">
         <MenuItem name="menuBack" class="gogo_menuItem">
           <Icon type="ios-arrow-back"></Icon>
         </MenuItem>
@@ -125,34 +125,25 @@
         }
         if (name === 'menuMoveFolder') {
           this.modalMoveFolder = true
-          console.log(this.$store.state)
           let params = {
             noteId: this.$store.state.note_id
           }
           apiGetNoteTiny(params).then((res) => {
-            console.log(res)
             this.currentCategoryId = res.data.data.categoryId
             this.currentCategoryName = res.data.data.categoryName
           })
 
           apiListCategory().then((res) => {
-            console.log(res)
             this.categoryList = res.data.data.categoryList
           })
         }
       },
       moveFolderOk() {
-        console.log(this.currentCategoryName)
-        console.log(this.currentCategoryId)
-        console.log(this.model1)
-        console.log(this.$store.state.note_id)
         const params={
           noteId:this.$store.state.note_id,
           categoryId:this.model1
         }
-        console.log(params)
         apiMoveNoteCategory(params).then((res)=>{
-          console.log(res)
           if(res.data.code===0){
             this.$Message.success(this.$t('note.moveCategorySuccess'))
           }else{
@@ -164,7 +155,6 @@
       },
       onCategory(e){
         console.log(e)
-        console.log(this.model1)
       }
     }
   }

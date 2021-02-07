@@ -17,7 +17,6 @@
     },
     methods:{
       onCategoryCell(){
-        console.log('11')
         console.log(this.item.categoryName)
       }
     }

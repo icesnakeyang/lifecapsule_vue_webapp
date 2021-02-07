@@ -26,7 +26,6 @@ export default {
   methods: {
     onCell() {
       this.$store.dispatch('saveCategory', this.category)
-      console.log(this.category)
       if (this.category.noteType === 'CREATIVE_NOTE') {
         this.$router.push({
           name: 'creativeNoteList'

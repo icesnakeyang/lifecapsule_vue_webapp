@@ -88,12 +88,10 @@
                         pageIndex: this.pageIndex,
                         categoryId: this.$store.state.category_id
                     }).then((response) => {
-                        console.log(response)
                         if (response.data.code === 0) {
                             this.noteList = response.data.data.noteList
                             this.totalNotes = response.data.data.totalNote
                             this.loading = false
-                            console.log(this.noteList)
                         } else {
                             this.$Message.error(this.$t("common.loadDataError"))
                             this.loading = false
@@ -121,7 +119,6 @@
             },
 
             pageChange(e) {
-                console.log(e)
                 this.pageIndex = e
                 this.loadAllData()
             },
@@ -129,10 +126,7 @@
             goDetail(params) {
                 this.$store.dispatch('saveNoteId', params.row.noteId)
                 this.$router.push({
-                    name: 'creativeNoteEdit',
-                    params: {
-                        noteId: params.row.noteId
-                    }
+                    name: 'creativeNoteEdit'
                 })
             },
         },
@@ -143,5 +137,5 @@
 </script>
 
 <style scoped>
-
+@import "../../assets/gogoStyle.css";
 </style>

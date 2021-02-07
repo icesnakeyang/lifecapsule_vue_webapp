@@ -58,9 +58,7 @@
         },
         methods: {
             loadAllData() {
-                console.log(this.$route.params.noteId)
                 apiGetPublicNoteByNoteId(this.$route.params.noteId).then((response) => {
-                    console.log(response)
                     if (response.data.code === 0) {
                         this.note = response.data.data.note
                     }
@@ -72,7 +70,6 @@
                     title: this.note.title,
                     content: this.note.content
                 }).then((response) => {
-                    console.log(response)
                     if (response.data.code === 0) {
                         this.$Message.success(this.$t('publicNote.tipUpdateSuccess'))
                         this.saving = false

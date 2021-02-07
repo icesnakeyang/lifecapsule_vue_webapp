@@ -45,17 +45,14 @@
     },
     methods: {
       loadAllData() {
-        console.log(this.$store.state)
         const params = {
           noteId: this.$store.state.note_id
         }
         apiGetNoteTiny(params).then((response) => {
-          console.log(response)
           this.title = response.data.data.title
           this.createTime = moment(response.data.data.createTime).format('YYYY-MM-DD')
 
           apiGetNoteApi(params).then((response) => {
-            console.log(response)
             this.apiDocs = response.data.data.userDataParams
           })
         }).catch((error) => {
@@ -68,7 +65,6 @@
           noteId: this.$store.state.note_id
         }
         apiConvertToApi(params).then((response) => {
-          console.log(response)
         }).catch((error) => {
           this.$Message.error(this.$t('syserr.' + error))
         })

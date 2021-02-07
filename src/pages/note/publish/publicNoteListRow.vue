@@ -27,7 +27,6 @@
         },
         methods: {
             onClickTitle() {
-                console.log(this.note)
                 this.$router.push({
                     path: 'publicNoteDetail?noteId=' + this.note.noteId
                 })

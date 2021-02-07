@@ -101,13 +101,9 @@
                                 this.note = response.data.data.note
                                 let strKey = this.note.userEncodeKey
                                 strKey = Decrypt2(strKey, keyAES_1)
-                                console.log('note detail:' + this.note.detail);
-                                console.log('key:' + strKey);
                                 this.note.detail = Decrypt(this.note.detail, strKey, strKey)
                                 this.$store.dispatch('saveNoteTitle', this.note.title)
                                 this.$store.dispatch('saveNoteDetail', this.note.detail)
-                                console.log(this.$store.state.note_title)
-                                console.log(this.note)
                             }
                         })
                     }
@@ -150,9 +146,6 @@
             },
 
             onEditorChange() {
-                console.log(1)
-                console.log(this.keys)
-                console.log(this.editing)
                 this.keys++
                 if (this.keys > 0) {
                     this.editing = true

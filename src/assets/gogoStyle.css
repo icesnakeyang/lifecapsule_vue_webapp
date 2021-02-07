@@ -1,6 +1,6 @@
 .gogo_content {
   margin: 10px 10px 0;
-  /*minHeight: 500px;*/
+  min-height: 500px;
 }
 
 .gogo_title {
@@ -45,6 +45,10 @@
   /*color: ;*/
   font-size: 24px;
   color: #ff0000;
+}
+
+.gogo_footer{
+  bottom: 0;
 }
 
 

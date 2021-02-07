@@ -26,6 +26,9 @@ export default new Vuex.Store({
     saveNoteId(ctx, noteId) {
       ctx.commit('saveNoteId', noteId)
     },
+    clearNoteId(ctx){
+      ctx.commit('clearNoteId')
+    },
     saveCategory(ctx, category) {
       ctx.commit('saveCategory', category)
     },
@@ -60,6 +63,10 @@ export default new Vuex.Store({
     saveNoteId(state, noteId) {
       state.note_id = noteId
       localStorage.note_id = noteId
+    },
+    clearNoteId(state){
+      state.note_id=null
+      localStorage.note_id=null
     },
     saveCategory(state, category) {
       state.category_id = category.categoryId

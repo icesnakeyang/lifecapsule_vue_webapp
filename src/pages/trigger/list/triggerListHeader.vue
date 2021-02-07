@@ -1,6 +1,6 @@
 <template>
   <Header style="padding: 0px">
-    <Menu mode="horizontal" theme="dark" active-name="2" @on-select="onMenuItem">
+    <Menu mode="horizontal" theme="light" active-name="2" @on-select="onMenuItem">
       <MenuItem name="menuBack" class="gogo_menuItem">
         <Icon type="ios-arrow-back"></Icon>
       </MenuItem>
@@ -32,9 +32,6 @@
           })
         }
         if (name === 'menuAddTrigger') {
-          console.log('delete trigger')
-          console.log(this.$store.state.trigger_id)
-
           this.$Modal.confirm({
             title: this.$t('common.modal.delete.title'),
             content: this.$t('common.modal.delete.content'),

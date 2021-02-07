@@ -1,5 +1,5 @@
 <template>
-  <Footer class="gogo_footer">2019-2020 &copy; 时空笔记</Footer>
+  <Footer class="gogo_footer">2019-2021 &copy; 时空笔记</Footer>
 </template>
 
 <script>

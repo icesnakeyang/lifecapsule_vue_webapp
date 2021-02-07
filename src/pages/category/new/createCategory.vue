@@ -51,7 +51,6 @@
         }else {
           params.noteType='NORMAL'
         }
-        console.log(params)
         apiCreateNoteCategory(params).then((response) => {
           this.saving = false
           if (response.data.code === 0) {

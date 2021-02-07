@@ -19,7 +19,6 @@
         },
         methods: {
             btSavePassword() {
-                console.log(this.newPassword)
                 let params = {
                     password: this.newPassword
                 }

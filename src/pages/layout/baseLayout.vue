@@ -7,7 +7,9 @@
         <Content class="gogo_content">
           <router-view name="content"></router-view>
         </Content>
-        <router-view name="footer"></router-view>
+        <div class="gogo_footer">
+          <router-view name="footer"></router-view>
+        </div>
       </Layout>
     </div>
   </div>

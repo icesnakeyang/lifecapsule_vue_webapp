@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header style="padding: 0px">
-      <Menu mode="horizontal" theme="dark" active-name="2" @on-select="onMenuItem">
+      <Menu mode="horizontal" theme="light" active-name="2" @on-select="onMenuItem">
         <MenuItem name="menuBack" class="gogo_menuItem">
           <Icon type="ios-arrow-back"></Icon>
         </MenuItem>
@@ -41,7 +41,6 @@
     },
     methods: {
       onMenuItem(name) {
-        console.log(name)
         if (name === 'menuBack') {
           this.$router.back()
         }

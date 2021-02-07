@@ -24,7 +24,6 @@
         methods: {
             loadAllData() {
                 apiListPublicNote({}).then((response) => {
-                    console.log(response)
                     if (response.data.code === 0) {
                         this.noteList = response.data.data.publicNotes
                     } else {

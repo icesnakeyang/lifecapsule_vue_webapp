@@ -50,7 +50,6 @@
                 if (this.$route.query.noteId) {
                     this.noteId = this.$route.query.noteId
                     apiGetPublicNoteByNoteId(this.noteId).then((response) => {
-                        console.log(response)
                         if (response.data.code === 0) {
                             this.note = response.data.data.note
                         }
@@ -58,7 +57,6 @@
                 }
             },
             btUpdateNote() {
-                console.log(this.note.noteId)
                 this.$router.push({
                     name: 'editPublicNote',
                     params: {

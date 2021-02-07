@@ -61,7 +61,7 @@
   <div class="layout">
     <Layout>
       <Sider ref="side1" hide-trigger collapsible :collapsed-width="100" v-model="isCollapsed">
-        <Menu theme="dark" width="auto" :class="menuitemClasses" @on-select="onMenuItem">
+        <Menu theme="light" width="auto" :class="menuitemClasses" @on-select="onMenuItem">
           <MenuItem name="menuDashboard">
             <Icon type="ios-navigate"></Icon>
             <span>Dashboard</span>

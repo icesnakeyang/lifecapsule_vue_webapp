@@ -51,9 +51,7 @@
             gogoKeyId: this.$route.params.gogoPublicKeyId
           }).then((response) => {
             if (response.data.code === 0) {
-              console.log(3)
               this.gogoKey = response.data.data.key
-              console.log(this.gogoKey)
             } else {
               this.$Message.error(this.$t('common.loadDataError'))
             }
@@ -63,11 +61,8 @@
             apiGetGogoKeyByTriggerId({
               triggerId: this.$store.state.trigger_id
             }).then((response) => {
-              console.log(5)
-              console.log(response.data)
               if (response.data.code === 0) {
                 this.gogoKey = response.data.data.gogoKey
-                console.log(this.gogoKey)
               } else {
                 // this.$store.dispatch('clearTriggerId')
                 this.gogoMSG = this.$t('gogoKey.msgNoKey')
@@ -96,8 +91,6 @@
           triggerName: this.$store.state.trigger_name,
           triggerRemark: this.$store.state.trigger_remark
         }
-
-        console.log(params)
 
         apiSaveGogoKey(params).then((response) => {
           if (response.data.code === 0) {

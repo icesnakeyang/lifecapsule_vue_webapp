@@ -36,18 +36,15 @@
                     if (response.data.code === 0) {
                         this.user = response.data.data.userInfo
                     }
-                    console.log(this.user)
                 })
             },
             onCellClick(name) {
-                console.log(name)
                 if (name === 'changeLoginPassword') {
                     this.$router.push({
                         name: 'changeLoginPassword'
                     })
                 }
                 if (name === 'changeUser') {
-                    console.log('login')
                     this.$store.dispatch('clearToken')
                     this.$router.push({
                         name: 'login'
