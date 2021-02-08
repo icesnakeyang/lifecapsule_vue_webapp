@@ -128,12 +128,22 @@
 
             goDetail(params) {
                 this.$store.dispatch('saveNoteId', params.row.noteId)
+              console.log(params)
+              if(params.row.noteType==='CREATIVE_NOTE'){
                 this.$router.push({
-                    name: 'editNote',
-                    params: {
-                        noteId: params.row.noteId
-                    }
+                  name:'creativeNoteEdit',
+                  params:{
+                    noteId:params.row.noteId
+                  }
                 })
+              }else {
+                this.$router.push({
+                  name: 'editNote',
+                  params: {
+                    noteId: params.row.noteId
+                  }
+                })
+              }
             },
 
             pageChange(e) {

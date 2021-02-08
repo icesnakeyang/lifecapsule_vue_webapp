@@ -11,11 +11,11 @@
           {{ categoryName }}
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
-          <MenuItem name="menuCategory" class="gogo_menuItem">
-            <Icon type="ios-folder"></Icon>
-          </MenuItem>
           <MenuItem name="menuAdd" class="gogo_menuItem">
             <Icon type="md-add"></Icon>
+          </MenuItem>
+          <MenuItem name="menuDelete" class="gogo_menuItem">
+            <Icon type="ios-trash-outline"/>
           </MenuItem>
         </div>
       </Menu>
@@ -27,7 +27,7 @@
 import {apiDeleteNote} from "../../api/api";
 
 export default {
-  name: "creativeHeader",
+  name: "creativeHeaderEdit",
   computed: {
     categoryName() {
       if (this.$store.state.category_name) {
@@ -42,16 +42,35 @@ export default {
       if (name === 'menuBack') {
         this.$router.back()
       }
-      if (name === 'menuCategory') {
-        this.$router.push({
-          name: 'categoryList'
-        })
-      }
       if (name === 'menuAdd') {
         this.$store.dispatch('clearNoteId')
         this.$router.push({
           name: 'creativeNoteEdit'
         })
+      }
+      if (name === 'menuDelete') {
+        let noteId=this.$store.state.note_id
+        if(!noteId){
+          return
+        }
+        this.$Modal.confirm({
+          title: this.$t('common.modal.delete.title'),
+          content: this.$t('common.modal.delete.content'),
+          onOk: () => {
+            apiDeleteNote({
+              noteId: this.$store.state.note_id
+            }).then((response) => {
+              if (response.data.code === 0) {
+                this.$Message.info(this.$t('common.btDeleteSuccess'))
+                this.$router.push({
+                  name: 'creativeNoteList'
+                })
+              } else {
+                this.$Message.error(this.$t('common.btDeleteFailed'))
+              }
+            })
+          }
+        });
       }
     }
   }

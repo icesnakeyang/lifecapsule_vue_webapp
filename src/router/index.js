@@ -82,6 +82,7 @@ import apiNote from "../pages/note/apiNote/apiNote";
 import creativeNoteList from "../pages/creativeNote/creativeNoteList";
 import creativeHeader from "../pages/creativeNote/creativeHeader";
 import creativeNoteEdit from "../pages/creativeNote/creativeNoteEdit";
+import creativeHeaderEdit from "../pages/creativeNote/creativeHeaderEdit";
 
 Vue.use(Router)
 
@@ -340,7 +341,7 @@ const router = new Router({
           path: 'creativeNoteEdit',
           name: 'creativeNoteEdit',
           components: {
-            header: creativeHeader,
+            header: creativeHeaderEdit,
             content: creativeNoteEdit,
             footer: baseFooter
           }

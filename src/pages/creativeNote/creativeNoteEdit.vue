@@ -208,7 +208,6 @@ export default {
                 }
               }
               this.tasks = response.data.data.taskList
-              console.log(this.tasks)
               this.noteTitle = response.data.data.note.title
             }
             this.loading = false
@@ -304,6 +303,7 @@ export default {
           this.saving = true
           apiSaveCreativeNote(params).then((response) => {
             if (response.data.code === 0) {
+              this.noteId=response.data.data.note.noteId
               this.$Message.info(this.$t('common.btSaveSuccess'))
               this.saving = false
               this.editing = false
