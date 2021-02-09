@@ -332,3 +332,35 @@ export const apiGetCreativeNote = params => {
     }
   })
 }
+
+export const apiCreateTask = params => {
+  return axios.post(`${host}/task/createTask`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiListTask = params => {
+  return axios.post(`${host}/task/listTask`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiGetTask = params => {
+  return axios.post(`${host}/task/getTask`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiDeleteTask = params => {
+  return axios.post(`${host}/task/deleteTask`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}

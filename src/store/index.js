@@ -14,7 +14,8 @@ export default new Vuex.Store({
     trigger_name: '' || localStorage.trigger_name,
     trigger_remark: '' || localStorage.trigger_remark,
     note_title: '',
-    note_detail: ''
+    note_detail: '',
+    task_id:''|localStorage.task_id
   },
   actions: {
     saveToken(ctx, token) {
@@ -49,6 +50,12 @@ export default new Vuex.Store({
     },
     saveNoteDetail(ctx, detail) {
       ctx.commit('saveNoteDetail', detail)
+    },
+    saveTaskId(ctx, taskId) {
+      ctx.commit('saveTaskId', taskId)
+    },
+    clearTaskId(ctx){
+      ctx.commit('clearTaskId')
     }
   },
   mutations: {
@@ -103,6 +110,14 @@ export default new Vuex.Store({
     },
     saveNoteDetail(state, detail) {
       state.note_detail = detail
+    },
+    saveTaskId(state, taskId) {
+      state.task_id=taskId
+      localStorage.task_id=taskId
+    },
+    clearTaskId(state){
+      state.task_id=''
+      localStorage.task_id=''
     }
   }
 })

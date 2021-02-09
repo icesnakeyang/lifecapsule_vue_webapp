@@ -9,6 +9,9 @@
           {{categoryName}}
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
+          <MenuItem name="menuTask" class="gogo_menuItem">
+            <Icon type="md-done-all" />
+          </MenuItem>
           <MenuItem name="menuPublicNote" class="gogo_menuItem">
             <Icon type="md-bookmarks"/>
           </MenuItem>
@@ -67,6 +70,10 @@
         if (name === 'menuPublicNote') {
           this.$router.push({
             name: 'publicNoteListView'
+          })
+        }if (name === 'menuTask') {
+          this.$router.push({
+            name: 'taskList'
           })
         }
       }

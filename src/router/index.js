@@ -83,6 +83,10 @@ import creativeNoteList from "../pages/creativeNote/creativeNoteList";
 import creativeHeader from "../pages/creativeNote/creativeHeader";
 import creativeNoteEdit from "../pages/creativeNote/creativeNoteEdit";
 import creativeHeaderEdit from "../pages/creativeNote/creativeHeaderEdit";
+import taskList from "../pages/task/taskList";
+import taskHeader from "../pages/task/taskHeader";
+import newTask from "../pages/task/newTask";
+import taskDetail from "../pages/task/taskDetail";
 
 Vue.use(Router)
 
@@ -343,6 +347,33 @@ const router = new Router({
           components: {
             header: creativeHeaderEdit,
             content: creativeNoteEdit,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskList',
+          name: 'taskList',
+          components: {
+            header: taskHeader,
+            content: taskList,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'newTask',
+          name: 'newTask',
+          components: {
+            header: taskHeader,
+            content: newTask,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskDetail',
+          name: 'taskDetail',
+          components: {
+            header: taskHeader,
+            content: taskDetail,
             footer: baseFooter
           }
         }

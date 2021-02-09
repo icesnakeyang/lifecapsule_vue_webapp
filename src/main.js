@@ -1,16 +1,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+
 import VueI18n from 'vue-i18n'
 import store from './store/index'
 import JsEncrypt from 'jsencrypt'
 
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+
+
 Vue.prototype.$jsEncrypt = JsEncrypt
 
 Vue.config.productionTip = false
-Vue.use(iView)
+Vue.use(ViewUI)
 Vue.use(VueI18n)
 
 //启动多语言设置
