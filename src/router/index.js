@@ -87,6 +87,10 @@ import taskList from "../pages/task/taskList";
 import taskHeader from "../pages/task/taskHeader";
 import newTask from "../pages/task/newTask";
 import taskDetail from "../pages/task/taskDetail";
+import taskMindList from "../pages/task/taskMind/taskMindList";
+import taskMindDetail from "../pages/task/taskMind/taskMindDetail";
+import taskMindNew from "../pages/task/taskMind/taskMindNew";
+import taskMindHeader from "../pages/task/taskMind/taskMindHeader";
 
 Vue.use(Router)
 
@@ -374,6 +378,33 @@ const router = new Router({
           components: {
             header: taskHeader,
             content: taskDetail,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskMindList',
+          name: 'taskMindList',
+          components: {
+            header: taskMindHeader,
+            content: taskMindList,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskMindDetail',
+          name: 'taskMindDetail',
+          components: {
+            header: taskMindHeader,
+            content: taskMindDetail,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskMindNew',
+          name: 'taskMindNew',
+          components: {
+            header: taskMindHeader,
+            content: taskMindNew,
             footer: baseFooter
           }
         }

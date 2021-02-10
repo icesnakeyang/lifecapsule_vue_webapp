@@ -12,9 +12,6 @@
           <MenuItem name="menuCategory" class="gogo_menuItem">
             <Icon type="ios-folder"></Icon>
           </MenuItem>
-          <MenuItem name="menuTaskMind" class="gogo_menuItem">
-            <Icon type="md-compass" />
-          </MenuItem>
           <MenuItem name="menuAdd" class="gogo_menuItem">
             <Icon type="md-add"></Icon>
           </MenuItem>
@@ -27,7 +24,7 @@
 
 <script>
 export default {
-  name: "taskHeader",
+  name: "taskMindHeader",
   computed: {
     categoryName() {
       if (this.$store.state.category_name) {
@@ -50,13 +47,7 @@ export default {
       if (name === 'menuAdd') {
         this.$store.dispatch('clearTaskId')
         this.$router.push({
-          name: 'newTask'
-        })
-      }
-      if (name === 'menuTaskMind') {
-        this.$store.dispatch('clearTaskId')
-        this.$router.push({
-          name: 'taskMindList'
+          name: 'taskMindNew'
         })
       }
     }
@@ -65,5 +56,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/gogoStyle.css";
+@import "../../../assets/gogoStyle.css";
 </style>
