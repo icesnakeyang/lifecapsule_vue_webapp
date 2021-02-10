@@ -91,6 +91,7 @@ import taskMindList from "../pages/task/taskMind/taskMindList";
 import taskMindDetail from "../pages/task/taskMind/taskMindDetail";
 import taskMindNew from "../pages/task/taskMind/taskMindNew";
 import taskMindHeader from "../pages/task/taskMind/taskMindHeader";
+import taskMindEdit from "../pages/task/taskMind/taskMindEdit";
 
 Vue.use(Router)
 
@@ -405,6 +406,15 @@ const router = new Router({
           components: {
             header: taskMindHeader,
             content: taskMindNew,
+            footer: baseFooter
+          }
+        },
+        {
+          path: 'taskMindEdit',
+          name: 'taskMindEdit',
+          components: {
+            header: taskMindHeader,
+            content: taskMindEdit,
             footer: baseFooter
           }
         }

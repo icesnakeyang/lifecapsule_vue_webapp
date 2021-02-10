@@ -10,6 +10,7 @@
     <div v-else>
       <Tag color="blue">进行中</Tag>
     </div>
+    <Button type="primary" @click="onEdit">编辑</Button>
   </Card>
 </template>
 
@@ -64,10 +65,19 @@ export default {
           this.task=res.data.data.task
         }
       })
+    },
+    onEdit(){
+      console.log(this.taskId)
+      this.$router.push({
+        name:'taskMindEdit'
+      })
     }
   },
   mounted() {
-    this.taskId = this.$route.params.taskId
+    console.log(this.$store.state)
+    if(this.$store.state.task_id){
+      this.taskId = this.$store.state.task_id
+    }
     this.loadAllData()
   }
 }

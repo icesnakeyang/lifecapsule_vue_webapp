@@ -15,7 +15,7 @@ export default new Vuex.Store({
     trigger_remark: '' || localStorage.trigger_remark,
     note_title: '',
     note_detail: '',
-    task_id:''|localStorage.task_id
+    task_id:''||localStorage.task_id
   },
   actions: {
     saveToken(ctx, token) {

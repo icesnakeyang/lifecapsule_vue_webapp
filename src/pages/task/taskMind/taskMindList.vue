@@ -55,11 +55,9 @@ export default {
                 },
                 on: {
                   click: () => {
+                    this.$store.dispatch('saveTaskId', params.row.taskId)
                     this.$router.push({
-                      name: 'taskMindDetail',
-                      params: {
-                        taskId: params.row.taskId
-                      }
+                      name: 'taskMindDetail'
                     })
                   }
                 }
