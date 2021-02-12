@@ -10,24 +10,43 @@
     <div v-else>
       <Tag color="blue">进行中</Tag>
     </div>
+    <div>
+      <div>任务内容</div>
+      <quill-editor v-model="noteContent"
+                    :options="editorOption"
+      ></quill-editor>
+    </div>
     <Button type="primary" @click="onEdit">编辑</Button>
   </Card>
 </template>
 
 <script>
-import {apiGetTask} from "../../../api/api";
+import {apiGetTask, apiRequestRSAPublicKey} from "../../../api/api";
 import moment from "moment";
 import {taskImportant, taskType} from "../../../common/common";
+import {Decrypt, Decrypt2, GenerateRandomString16, RSAencrypt} from "../../../plugins/crypto";
+import {quillEditor} from 'vue-quill-editor'
 
 export default {
   name: "taskMindDetail",
+  components: {
+    quillEditor
+  },
   data() {
     return {
       taskId: null,
-      task:{}
+      task: {},
+      noteContent: null,
+      editorOption: {
+        modules: {
+          toolbar: null,
+          imageResize: true
+        },
+        placeholder: this.$t('note.detailHolder')
+      },
     }
   },
-  computed:{
+  computed: {
     createTime() {
       console.log(this.task.createTime)
       if (this.task.createTime) {
@@ -59,23 +78,40 @@ export default {
       let params = {
         taskId: this.taskId
       }
-      apiGetTask(params).then((res) => {
-        console.log(res)
-        if(res.data.code===0){
-          this.task=res.data.data.task
+
+      apiRequestRSAPublicKey().then((response) => {
+        if (response.data.code === 0) {
+          const keyAES_1 = GenerateRandomString16();
+          params.encryptKey = RSAencrypt(keyAES_1, response.data.data.publicKey)
+          params.keyToken = response.data.data.keyToken
+          // apiGetTask(params).then((response) => {
+          apiGetTask(params).then((response) => {
+            console.log(response)
+            if (response.data.code === 0) {
+              this.task = response.data.data.task
+              let strKey = this.task.userEncodeKey
+              strKey = Decrypt2(strKey, keyAES_1)
+              this.noteContent = Decrypt(response.data.data.noteContent, strKey, strKey)
+            } else {
+              this.$Message.error(this.$t('syserr.' + response.data.code))
+            }
+          }).catch((error) => {
+            this.$Message.error(this.$t('syserr.10001'))
+          })
         }
       })
     },
-    onEdit(){
+
+    onEdit() {
       console.log(this.taskId)
       this.$router.push({
-        name:'taskMindEdit'
+        name: 'taskMindEdit'
       })
     }
   },
   mounted() {
     console.log(this.$store.state)
-    if(this.$store.state.task_id){
+    if (this.$store.state.task_id) {
       this.taskId = this.$store.state.task_id
     }
     this.loadAllData()
