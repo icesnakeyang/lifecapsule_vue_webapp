@@ -29,7 +29,7 @@ export const apiGetNote = params => {
 }
 
 export const apiListNote = params => {
-  return axios.post(`${host}/note/listNoteByUserToken`, params, {
+  return axios.post(`${host}/note/listNote`, params, {
     headers: {
       token: store.state.gogo_token
     }
@@ -70,14 +70,6 @@ export const apiUpdateNoteCategory = params => {
 
 export const apiDeleteCategory = params => {
   return axios.post(`${host}/category/deleteCategory`, params, {
-    headers: {
-      token: store.state.gogo_token
-    }
-  })
-}
-
-export const apiListNoteByCategory = params => {
-  return axios.post(`${host}/note/listNoteByCategory`, params, {
     headers: {
       token: store.state.gogo_token
     }

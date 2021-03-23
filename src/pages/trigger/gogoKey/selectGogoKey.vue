@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CellGroup v-for="(item, index) in gogoKeys">
+    <CellGroup v-for="(item, index) in gogoKeys" :key="index">
       <div @click="onClick(item)">
         <Cell class="gogoCell"
               :title="item.title" :label="item.type"/>
