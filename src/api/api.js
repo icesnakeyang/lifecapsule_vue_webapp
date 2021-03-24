@@ -364,3 +364,19 @@ export const apiUpdateTask = params => {
     }
   })
 }
+
+export const apiCompleteTask = params => {
+  return axios.post(`${host}/task/completeTask`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}
+
+export const apiSetTaskProgress = params => {
+  return axios.post(`${host}/task/setTaskProgress`, params, {
+    headers: {
+      token: store.state.gogo_token
+    }
+  })
+}

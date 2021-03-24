@@ -60,6 +60,7 @@ export default {
                 },
                 on: {
                   click: () => {
+                    console.log(params.row.taskId)
                     this.$router.push({
                       name: 'taskDetail',
                       params: {
@@ -91,7 +92,8 @@ export default {
     loadAllData() {
       let params = {
         pageIndex: this.pageIndex,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        odc: true
       }
       apiListTask(params).then((res) => {
         console.log(res)
@@ -107,33 +109,33 @@ export default {
       this.loadAllData()
     },
 
-    taskType(e){
+    taskType(e) {
       console.log(e)
-      if(e==='DEFAULT'){
+      if (e === 'DEFAULT') {
         return '默认'
       }
-      if(e==='ACTION_10_SEC'){
+      if (e === 'ACTION_10_SEC') {
         return '行动笔记'
       }
     },
 
-    removeTask(e){
+    removeTask(e) {
       console.log(e)
       this.$Modal.confirm({
         content: '确认要删除该任务吗？',
         onOk: () => {
-          let params={
-            taskId:e.taskId
+          let params = {
+            taskId: e.taskId
           }
-          apiDeleteTask(params).then((res)=>{
+          apiDeleteTask(params).then((res) => {
             console.log(res)
-            if(res.data.code===0){
+            if (res.data.code === 0) {
               this.$Message.success("删除成功")
               this.loadAllData()
-            }else{
-              this.$Message.error(this.$t('syserr.'+res.data.code))
+            } else {
+              this.$Message.error(this.$t('syserr.' + res.data.code))
             }
-          }).catch(()=>{
+          }).catch(() => {
             this.$Message.error(this.$t('syserr.10001'))
           })
         },

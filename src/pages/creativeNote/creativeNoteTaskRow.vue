@@ -41,6 +41,7 @@ export default {
   props: ['theData'],
   computed: {
     complete() {
+      console.log(this.theData)
       return ''
     }
   },
