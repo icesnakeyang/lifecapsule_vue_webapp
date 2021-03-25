@@ -1,10 +1,14 @@
 <template>
   <div>
     <Card class="card">
-      <p slot="title">
-        我的任务
-      </p>
-
+      <RadioGroup v-model="radioStatus"
+                  type="button"
+                  button-style="solid"
+                  @on-change="onStatus">
+        <Radio label="全部"></Radio>
+        <Radio label="进行中"></Radio>
+        <Radio label="已完成"></Radio>
+      </RadioGroup>
     </Card>
     <Card class="card">
       <Table :data="tasks" :columns="taskTable"></Table>
@@ -41,6 +45,12 @@ export default {
           title: '任务类型',
           render: (h, params) => {
             return h('div', this.taskType(params.row.taskType))
+          }
+        },
+        {
+          title: '任务状态',
+          render: (h, params) => {
+            return h('div', this.taskStatus(params.row.status))
           }
         },
         {
@@ -85,7 +95,9 @@ export default {
           }
         }
       ],
-      totalTasks: 0
+      totalTasks: 0,
+      status: 'PROGRESS',
+      radioStatus: ''
     }
   },
   methods: {
@@ -93,7 +105,8 @@ export default {
       let params = {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize,
-        odc: true
+        odc: true,
+        status: this.status
       }
       apiListTask(params).then((res) => {
         console.log(res)
@@ -102,6 +115,21 @@ export default {
           this.totalTasks = res.data.data.totalTasks
         }
       })
+    },
+
+    onStatus(e) {
+      console.log(e)
+      console.log(this.radioStatus)
+      if (e === '全部') {
+        this.status = null
+      }
+      if (e === '进行中') {
+        this.status = 'PROGRESS'
+      }
+      if (e === '已完成') {
+        this.status = 'COMPLETE'
+      }
+      this.loadAllData()
     },
 
     onTaskPage(e) {
@@ -116,6 +144,15 @@ export default {
       }
       if (e === 'ACTION_10_SEC') {
         return '行动笔记'
+      }
+    },
+
+    taskStatus(e) {
+      if (e === 'PROGRESS') {
+        return '进行中'
+      }
+      if (e === 'COMPLETE') {
+        return '已完成'
       }
     },
 
