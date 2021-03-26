@@ -11,6 +11,9 @@
           {{ categoryName }}
         </MenuItem>
         <div class="layout-nav" :style="{float:'right'}">
+          <MenuItem name="menuTask" class="gogo_menuItem">
+            <Icon type="md-done-all" />
+          </MenuItem>
           <MenuItem name="menuCategory" class="gogo_menuItem">
             <Icon type="ios-folder"></Icon>
           </MenuItem>
@@ -51,6 +54,11 @@ export default {
         this.$store.dispatch('clearNoteId')
         this.$router.push({
           name: 'creativeNoteEdit'
+        })
+      }
+      if (name === 'menuTask') {
+        this.$router.push({
+          name: 'taskList'
         })
       }
     }
