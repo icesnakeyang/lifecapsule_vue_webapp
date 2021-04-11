@@ -9,8 +9,13 @@
       <quill-editor v-model="noteContent"
                     :options="editorOption"></quill-editor>
     </div>
-    <div style="margin-top: 20px">
-      <Button type="primary" @click="onSave">{{$t('note.btSave')}}</Button>
+    <div class="bt_view">
+      <div v-if="saving">
+        <Button type="primary" loading>{{$t('note.btSave')}}</Button>
+      </div>
+      <div v-else>
+        <Button type="primary" @click="onSave">{{$t('note.btSave')}}</Button>
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +49,8 @@
             imageResize: true
           },
           placeholder: this.$t('note.detailHolder'),
-        }
+        },
+        saving:false
       }
     },
     methods: {
@@ -55,6 +61,7 @@
          * 首先生成一个UUID，然后把该UUID进行SHA256加密，获得一个key，然后再进行base64编码，得到一个准备好的私钥
          * 用这个AES的私钥来加密笔记内容，得到加密了的笔记detail
          */
+        this.saving=true
         const uuid = GenerateKey()
         const keyAES = CryptoJS.SHA256(uuid)
         const keyAESBase64 = CryptoJS.enc.Base64.stringify(keyAES)
@@ -89,7 +96,9 @@
               } else {
                 this.$Message.error(this.$t('common.btSaveFailed'))
               }
+              this.saving=false
             }).catch((error) => {
+              this.saving=false
             })
           }
         })
@@ -99,5 +108,10 @@
 </script>
 
 <style scoped>
-
+.bt_view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
 </style>
