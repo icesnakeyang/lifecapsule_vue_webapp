@@ -36,8 +36,6 @@
     },
     methods: {
       onUpdate() {
-        console.log(1)
-        console.log(this.categoryId)
         if (this.categoryId) {
           this.saving = true
           apiUpdateNoteCategory({
@@ -80,7 +78,6 @@
     },
 
     mounted() {
-      console.log(this.$route.params)
       if (this.$route.params.categoryName || this.$route.params.categoryId) {
         this.categoryName = this.$route.params.categoryName
         this.categoryId = this.$route.params.categoryId
